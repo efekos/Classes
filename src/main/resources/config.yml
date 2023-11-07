@@ -1,0 +1,14 @@
+# If enabled, everyone will have to choose a class. No one can be classless.
+class-required: false
+
+# If enabled, leaving a class will reset the level of the player at that class.
+level-resets: false
+
+# Options about the progress-bar that appears as a boss-bar, indicating player's level progress.
+progress-bar:
+
+  # Color of the bar. See https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html for avaliable colors
+  color: GREEN
+
+  # Style of the bar. See https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarStyle.html for avaliable styles
+  style: SOLID

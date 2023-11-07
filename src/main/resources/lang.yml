@@ -1,0 +1,387 @@
+
+
+level-progress: "Level &2&l%lvl% &r- Progress: &a%progress%"
+
+# Argument messages.
+args:
+
+  # Class name argument. Represents name of a created class.
+  class_name:
+
+    # When there is no class called with the name given.
+    # %name% - Thing player gave as an argument, that should be the name of a class but isn't.
+    invalid: 'There is no class with the name: %name%'
+
+  # Enchantment argument. Represents ID of an enchantment, seen in /enchant.
+  enchantment:
+
+    # When the sender gave an invalid argument.
+    invalid: 'Invalid enchantment'
+
+  # Level criteria argument. Represents ID of a level criteria. Seen in /class setcriteria.
+  level_criteria:
+
+    # When given ID is invalid.
+    invalid: 'Invalid level criteria id'
+
+  # Material name argument. Simply a merged version of ID's in /setblock and /give.
+  item:
+
+    # When given ID is invalid.
+    invalid: 'Invalid material name'
+
+  # Modifier ID argument. Represents ID of a modifier. Seen in /class addmodifier and /class removemodifier.
+  modifier:
+
+    # When given ID is invalid.
+    invalid: 'Invalid modifier id'
+
+  # Perk ID argument. Represents ID of a perk. Seen in /class addperk and /class removeperk.
+  perk:
+
+    # When given ID is invalid.
+    invalid: 'Invalid perk id'
+
+  # Potion effect ID argument. Simply a list of the ID's seen in /effect give.
+  potion:
+
+    # When given ID is invalid.
+    invalid: 'Invalid potion name'
+
+# Messages that appear when something of a player gets blocked.
+blocking:
+
+  # When someone tries to pick up a banned item.
+  pickup-material: '&cYour class prevents you from picking that item up.'
+
+  # When someone tries to right/left click to a block with a banned item in his hand.
+  interact-material: '&cYour class prevents you from interacting with that item in your hand.'
+
+  # When someone tries to right/left click to a banned block.
+  interact-material-block: '&cYour class prevents you from interacting with that block.'
+
+  # When someone tries to consume a banned item.
+  consume-material: '&cYour class prevents you from eating/drinking that item.'
+
+  # When someone tries to break a banned crop block.
+  harvest-material: '&cYour class prevents you from harvesting that block.'
+
+  # When someone tries to break a banned block.
+  break-material-block: '&cYour class prevents you from breaking that block.'
+
+  # When someone tries to enchant an item with a banned enchantment.
+  use-enchantment: '&cYour class prevents you from enchanting any item with that enchantment.'
+
+  # When someone tries to enchant a banned item.
+  enchant-material: '&cYour class prevents you from enchanting that item.'
+
+# Commands messages.
+commands:
+
+  # Generic messages.
+  generic:
+
+    # When the class player gave was not found.
+    not-class: '&cThere is no class with that name.'
+
+    # When player tried to remove a block that does not exist already.
+    not-added: '&cThat thing is not blocked for that class.'
+
+    # Since /class info's class name is an optional argument, it has a different message than 'commands.generic.not-class', also telling the player that he is not in a class, so he has to enter a class name if he didn't.
+    not-class-i: '&cThere is no class with that name or you don''t have a class.'
+
+  # /class addenchantmentblock
+  add-enchantment-block:
+
+    # When the enchantment is already banned for the class given.
+    already: '&cThat enchantment is already blocked for that class.'
+
+    # When the enchantment successfully gets blocked for the class given.
+    # %enchant% - ID of the enchantment that has been blocked.
+    # %class% - Name of the class that just got banned for using %enchant%.
+    done: '&aSuccessfully blocked &b%enchant% &afor &e%class%&a!'
+
+  # /class addmaterialblock
+  add-material-block:
+
+    # When given material is already blocked.
+    already: '&cThat material is already blocked for that class.'
+
+    # When given material successfully gets blocked.
+    done: '&aSuccessfully blocked &b%material% &afor &e%class%&a!'
+  # /class addmodifier
+  add-modifier:
+
+    # When given modifier is already added.
+    already: '&cThat modifier is already added for that class. Consider re-adding it using both &b/class removemodifier &cand &b/class addmodifier&c.'
+
+    # When given modifier successfully gets added to the class.
+    # %modifier% - ID of the modifier given.
+    # %class% - Name of the class given.
+    done: '&aSuccessfully added &b%modifier% &afor &e%class%&a!'
+
+  # /class addpotionblock
+  add-potion-block:
+
+    # When given potion is already blocked for the given class.
+    already: '&cThat potion is already blocked for that class.'
+
+    # When given potion successfully gets blocked.
+    # %potion% - ID of the potion effect given.
+    # %class% - Name of the class name.
+    done: '&aSuccessfully blocked &b%potion% &afor &e%class%&a!'
+
+  # /class create
+  create:
+
+    # When a class with given name already exists.
+    # %name% - Name of a class.
+    exists: '&b%name% &cis taken by another class.'
+
+    # When a class called %name% successfully gets created.
+    done: '&aSuccessfully created a class called &b%name%&a!'
+
+  # /class delete
+  delete:
+
+    # When a class with given name does not exist.
+    # %name% - Name of the class that just got deleted.
+    unexists: '&cA class called &b%name% &cdoes not exist.'
+
+    # Everyone in the deleted class sees this after getting kicked from the class.
+    # %class% - Name of the class.
+    notification: '&eThe &b%class% class you''re in just got deleted by a server admin.'
+
+    # When the given class is successfully deleted.
+    # %name% - Name of the class.
+    done: '&aSuccessfully deleted the class &b%name%&a! Keep in mind that some users of this class might still have some of its modifiers activated until respawn.'
+
+  # /class join
+  join:
+    # When someone successfully joins the class.
+    # %class% - Name of the class given.
+    done: '&aSuccessfully joined &b%class% &aclass! Check out your pros and cons by typing &b/class info&a.'
+
+  # /class leave
+  leave:
+
+    # When player is not in a class.
+    not-class: '&cYou are not in a class.'
+
+    # When player successfully leaves his class.
+    done: '&aSuccessfully left your class!'
+
+  # /class removeenchantmentblock
+  remove-enchantment-block:
+
+    # When given enchantment is successfully unblocked for the class given.
+    # %enchantment% - ID of the enchantment given.
+    # %class% - Name of the class given.
+    done: '&aSuccessfully unblocked &b%enchantment% &afor &e%class%&a!'
+
+    # When given enchantment is not blocked.
+    not-added: '&cThat enchantment is not blocked.'
+
+  # /class removematerialblock
+  remove-material-block:
+
+    # When given material is successfully unblocked for the class given.
+    # %enchantment% - ID of the material given.
+    # %class% - Name of the class given.
+    done: '&aSuccessfully unblocked &b%material% &afor &e%class%&a!'
+
+    # When given material is not blocked.
+    not-added: '&cThat material is not blocked.'
+
+  # /class removemodifier
+  remove-modifier:
+
+    # When the given modifier successfully gets removed from the class given.
+    # %modifier% - ID of the modifier given.
+    # %class% - Name of the class given.
+    done: '&aSuccessfully removed &b%modifier% &afor &e%class%&a!'
+
+  # /class removeperk
+  remove-perk:
+
+    # When the given perk successfully gets removed from the class given.
+    # %perk% - ID of the perk given.
+    # %class% - Name of the class given.
+    done: '&aSuccessfully removed &b%perk% &afor &e%class%&a!'
+
+    # When given perk is not added.
+    not-added: '&cThat perk is not added.'
+
+  # /class removepotionblock
+  remove-potion-block:
+
+    # When the given potion successfully gets removed from the class given.
+    # %potion% - ID of the potion given.
+    # %class% - Name of the class given.
+    done: '&aSuccessfully unblocked &b%potion% &afor &e%class%&a!'
+
+    # When given potion effect is not blocked.
+    not-added: '&cThat potion is not blocked.'
+
+  # /class setcriteria
+  set-criteria:
+
+    # When the given class successfully gets changed to another criteria
+    # %cri% - ID of the new criteria.
+    done: '&aSuccessfully changed level criteria to &b%cri%&a!'
+
+  # /class setdescription
+  set-description:
+
+    # When the given description successfully becomes description of the class given.
+    # %desc% - New description of the class given.
+    done: '&aSuccessfully changed description to &b%desc%&a!'
+
+  # /class kit
+  kit:
+
+    # /class kit <c> clear
+    clear:
+
+      # When the player doesn't have the permission to use /class kit clear.
+      no-perm: '&cYou can''t clear a kit.'
+
+      # When sender successfully clears all the kit items.
+      done: '&aSuccessfully cleared kit items!'
+
+    # /class kit <c> update
+    update:
+
+      # When the player doesn't have the permission to use /class kit update
+      no-perm: '&cYou can''t update a kit.'
+
+      # When some of the items in players inventory is incompatible for that class. It probably means that player has
+      # - A blocked item.
+      # - An item with a blocked enchantment.
+      # - Or any potion (custom or not) with a blocked effect.
+      not-compatible: '&cAt least one of the items in your inventory is incompatible for that class.'
+
+      # When player successfully updates the kit using his inventory
+      # %class% - Name of the class given.
+      done: '&aSuccessfully put all your inventory to the kit of class &b%class%&a!'
+
+    # /class kit <c> get
+    get:
+
+      # When the player doesn't have the permission to use /class kit <c> get.
+      no-perm: '&cYou can''t get a kit.'
+
+      # When player isn't an admin but tries to get the kit of another class.
+      not-current: '&cYou can only get kit of your current class.'
+
+      # When player doesn't have enough space in his inventory.
+      nes: '&cThere is no enough space in your inventory to get the kit.'
+
+      # When player successfully gets the kit.
+      done: '&aSuccessfully got the kit!'
+
+# Menu texts.
+menus:
+
+  # 'Class Information' menu.
+  class_info:
+
+    # Name of the red concrete that shows negative modifiers (Modifiers that has a value less than 0 gets considered as negative modifier).
+    negative-modifiers: '&cNegative Modifiers'
+
+    # Name of the blue concrete that shows perks of the class.
+    perks: '&bPerks'
+
+    # Name of the lime concrete that shows positive modifiers (Modifiers that has a value more than 0 gets considered as a positive modifier).
+    positive-modifiers: '&aPositive Modifiers'
+
+    # Name of the button that makes you execute /class leave.
+    leave: '&cLeave'
+
+    # Name of the button that makes you execute /class join <class>.
+    join: '&aJoin'
+
+    # 'Class Info' item.
+    class-info:
+
+      # Lore of the item. Each element has the following placeholders:
+      # %name% - Name of the class.
+      # %desc% - Description of the class.
+      desc:
+        - '&6Name: &b%name%'
+        - '&6Description: &b%desc%'
+
+    # 'Player Stats' item.
+    player-info:
+
+      # Lore of the item. Each element has the following placeholders:
+      # %lvl% - Player's level at that class.
+      # %xp% - Player's xp amount of that class.
+      # %xp_prog% - Player's level progress in a percentage form.
+      desc:
+        - '&6Level: &2&l%lvl%'
+        - '&6Level Progress: &a%xp_prog%'
+
+  # 'Class Members' menu.
+  class_members:
+
+    # Title of the menu.
+    # %class% - Name of the class.
+    title: 'Members of class: %class%'
+
+    # Name of a member.
+    member-name: '&e%name%'
+
+    # Lore of a member. Each element has the following placeholders:
+    # %lvl% - Player's class level.
+    # %xp_prog% - Player's level progress in a percentage form.
+    member-lore:
+      - '&6Level: &l&2%lvl%'
+      - '&6Level Progress: &a%xp_prog%'
+
+  # 'Coose A Class' menu.
+  choose_class:
+
+    # Title of the menu.
+    title: 'Choose a Class!'
+
+    # Name of a class item.
+    class-name: '&e%class%'
+
+    # Lore of a class item. Each element has the following placeholders:
+    # %desc% - Description of the class.
+    # %perks% - Amount of the perks in a class.
+    # %modifier% - Amount of the modifiers in a class.
+    class-lore:
+      - '&b%desc%'
+      - '&r'
+      - '&6Perks: &b%perks%'
+      - '&6Modifiers: &b%modifiers%'
+      - '&r'
+      - '&eClick to choose this class!'
+
+# Modifier descriptions. %p% is a percentage shows the change, and %a% is an amount showing the change.
+# DO NOT USE ANY COLOR CODES EXCEPT &e FOR THE NORMAL TEXT. %a% AND %p% HAS THEIR OWN COLORS SO DO NOT TRY TO APPLY A COLOR TO THEM.
+modifiers:
+  movement_speed: 'Run %p% faster.'
+  luck: 'Have %a% luck points.'
+  attack_speed: 'Increase attack speed by %p%'
+  attack_damage: 'Increase attack damage by %p%.'
+  armor_points: 'Have %a% armor points by default, even when you don''t have any armor.'
+  armor_toughness: 'Have %a% armor toughness points by default, even when you don''t have any armor.'
+  knockback_resistance: 'Resist %a% more to knockbacks.'
+
+# Perk descriptions.
+perks:
+  fast_arrow: 'Shoot arrows &a+%100&e faster'
+  fast_pearl: 'Shoot ender pearls &a+%100&e faster'
+  fast_snowball: 'Shoot snowballs &a+%100&e faster'
+  life_stealer: 'Get &b1 &ehealth &5(&dhalf of an heart&5) &eeach %a% kill'
+  burner: 'Hitting an enemy burns it.'
+  froster: 'Hitting an enemy freezes it.'
+  poisoner: 'Hitting an entity poisons it.'
+  last_run: 'Run faster when under &9%25&e health.'
+  last_attack: 'Deal more damage when under &9%25&e health.'
+  last_shield: 'Get Resistance effect when under &9%25&e health.'
+  love: 'Killing an entity gives Strength %a% effect.'
+  aura: 'Blocks around you gets on fire out of nowhere.'

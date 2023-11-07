@@ -1,0 +1,128 @@
+name: Classes
+version: '${project.version}'
+main: dev.efekos.classes.Main
+api-version: '1.20'
+description: Make custom classes in your server!
+author: efekos
+depend:
+  - PlaceholderAPI
+permissions:
+  classes.*:
+    description: Every permission under classes
+    default: op
+    children:
+      - classes.addblock.enchantment
+      - classes.addblock.material
+      - classes.addmodifier
+      - classes.addperk
+      - classes.addblock.potion
+      - classes.create
+      - classes.delete
+      - classes.info
+      - classes.join
+      - classes.kit
+      - classes.leave
+      - classes.members
+      - classes.modifiers
+      - classes.perks
+      - classes.removeblock.enchantment
+      - classes.removeblock.material
+      - classes.removeblock.potion
+      - classes.removemodifier
+      - classes.removeperk
+      - classes.setcriteria
+      - classes.setdescription
+      - classes.seticon
+  classes.addblock.*:
+    description: Allows everything under classes.addblock
+    children:
+      - classes.addblock.material
+      - classes.addblock.enchantment
+      - classes.addblock.potion
+    default: op
+  classes.removeblock.*:
+    description: Allows everything under classes.removeblock
+    default: op
+    children:
+      - classes.removeblock.material
+      - classes.removeblock.enchantment
+      - classes.removeblock.potion
+  classes.addblock.material:
+    description: Allows to use /class addmaterialblock
+    default: false
+  classes.addblock.enchantment:
+    default: false
+    description: Allows to use /class addenchantmentblock
+  classes.addblock.potion:
+    default: false
+    description: Allows to use /class addpotionblock
+  classes.removeblock.material:
+    description: Allows to use /class removematerialblock
+    default: false
+  classes.removeblock.enchantment:
+    default: false
+    description: Allows to use /class removeenchantmentblock
+  classes.removeblock.potion:
+    default: false
+    description: Allows to use /class removepotionblock
+  classes.create:
+    description: Allows to use /class create
+    default: false
+  classes.delete:
+    description: Allows to use /class delete
+    default: false
+  classes.info:
+    description: Allows to use /class info
+    default: true
+  classes.join:
+    description: Allows to use /class join
+    default: true
+  classes.kit.*:
+    description: Allows to use /class kit
+    default: false
+    children:
+      - class.kit.update
+      - class.kit.get
+      - class.kit.clear
+  classes.kit.update:
+    description: Allows to use /class kit update
+    default: false
+  classes.kit.get:
+    description: Allows to use /class kit get
+    default: true
+  classes.kit.clear:
+    description: Allows to use /class kit clear
+    default: false
+  classes.leave:
+    description: Allows to use /class leave
+    default: true
+  classes.members:
+    description: Allows to use /class members
+    default: true
+  classes.modifiers:
+    description: Allows to use /class modifiers
+    default: true
+  classes.perks:
+    description: Allows to use /class perks
+    default: true
+  classes.removemodifier:
+    description: Allows to use /class removemodifier
+    default: false
+  classes.addmodifier:
+    description: Allows to use /class addmodifier
+    default: false
+  classes.removeperk:
+    description: Allows to use /class removeperk
+    default: false
+  classes.addperk:
+    description: Allows to use /class addperk
+    default: false
+  classes.setcriteria:
+    description: Allows to use /class setcriteria
+    default: false
+  classes.setdescription:
+    description: Allows to use /class setdescription
+    default: false
+  classes.seticon:
+    description: Allows to use /class seticon
+    default: false
