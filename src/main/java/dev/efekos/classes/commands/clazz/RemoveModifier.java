@@ -51,7 +51,7 @@ public final class RemoveModifier extends SubCommand {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-modifier.not-added","&cThat modifier is not in that class.")));
             return;
         }
-        clas.setModifiers(clas.getModifiers().stream().filter(modifierApplier -> modifierApplier.getModifierId()!=NamespacedKey.fromString(args[1])).collect(Collectors.toList()));
+        clas.setModifiers(clas.getModifiers().stream().filter(modifierApplier -> !modifierApplier.getModifierId().equals(NamespacedKey.fromString(args[1]))).collect(Collectors.toList()));
         Main.CLASSES.update(clas.getUniqueId(),clas);
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-modifier.done","&aSuccessfully removed &b%modifier% &from &b%class%&a!")

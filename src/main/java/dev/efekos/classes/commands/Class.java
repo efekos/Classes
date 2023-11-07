@@ -19,7 +19,7 @@ public final class Class extends CoreCommand {
                 AddMaterialBlock.class, AddEnchantmentBlock.class, AddPotionBlock.class,
                 RemoveMaterialBlock.class, RemoveEnchantmentBlock.class, RemovePotionBlock.class,
                 AddModifier.class, RemoveModifier.class, AddPerk.class, RemovePerk.class,
-                Perks.class, Modifiers.class, SetCriteria.class, SetDescription.class, Info.class,Kit.class,SetIcon.class
+                Perks.class, Modifiers.class, SetCriteria.class, SetDescription.class, Info.class,Kit.class,SetIcon.class, Members.class
         );
     }
 

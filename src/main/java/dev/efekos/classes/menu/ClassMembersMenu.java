@@ -12,10 +12,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 public class ClassMembersMenu extends PaginatedMenu{
     public ClassMembersMenu(MenuData data) {
@@ -39,7 +36,7 @@ public class ClassMembersMenu extends PaginatedMenu{
         UUID classId = (UUID) data.get("class");
         List<ItemStack> items = new ArrayList<>();
         ClassManager.getDatas().forEach((uuid, playerData) -> {
-            if(playerData.getCurrentClass().equals(classId)){
+            if(Objects.nonNull(playerData.getCurrentClass())&&playerData.getCurrentClass().equals(classId)){
                 Player p = Bukkit.getPlayer(uuid);
 
                 LevelData levelData = ClassManager.getLevelData(p.getUniqueId(), classId);

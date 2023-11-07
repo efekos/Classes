@@ -86,13 +86,13 @@ permissions:
       - class.kit.clear
   classes.kit.update:
     description: Allows to use /class kit update
-    default: false
+    default: op
   classes.kit.get:
     description: Allows to use /class kit get
     default: true
   classes.kit.clear:
     description: Allows to use /class kit clear
-    default: false
+    default: op
   classes.leave:
     description: Allows to use /class leave
     default: true

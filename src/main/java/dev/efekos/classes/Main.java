@@ -68,7 +68,6 @@ public final class Main extends JavaPlugin {
         getLogger().info("Started!");
 
         // TODO: 2.11.2023 Prepare Gallery Images
-        // TODO: 7.11.2023 Prepare Github Repo
         // TODO: 2.11.2023 Prepare Pages
         // TODO: 2.11.2023 Release this shit
     }

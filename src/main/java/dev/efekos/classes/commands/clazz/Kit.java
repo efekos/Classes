@@ -95,7 +95,14 @@ public final class Kit extends SubCommand {
                     player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.get.not-current", "&cYou can only get kit of your current class.")));
                     return;
                 }
-                if (Arrays.stream(player.getInventory().getContents()).map(Objects::isNull).count()<clas.getKitItems().size()) {
+                int space = 27;
+
+                for (int i = 0; i < 27; i++) {
+                    ItemStack item = player.getInventory().getItem(i);
+                    if(Objects.nonNull(item)) space--;
+                }
+
+                if (space<clas.getKitItems().size()) {
                     player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.get.nes","&cThere is no enough space in your inventory to get the kit.")));
                     return;
                 }
