@@ -4,7 +4,6 @@ This plugin adds a class system to your Minecraft server. You can make your own 
 
 ## Features
 - Custom class system
-- PlaceholderAPI placeholders
 - Custom modifiers and perks
 
 ## Configuration
