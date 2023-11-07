@@ -7,10 +7,12 @@ import dev.efekos.classes.api.registry.PerkRegistry;
 import dev.efekos.classes.commands.Class;
 import dev.efekos.classes.data.ClassManager;
 import dev.efekos.classes.data.PerkApplier;
+import dev.efekos.classes.menu.ChooseClassMenu;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import me.efekos.simpler.commands.syntax.Syntax;
+import me.efekos.simpler.menu.MenuManager;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -57,6 +59,8 @@ public final class Leave extends SubCommand {
         ClassManager.removeClass(player.getUniqueId());
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.leave.done","&aSuccessfully left your class!")));
+
+        if(Main.CONFIG.getBoolean("class-required",true)) MenuManager.Open(player, ChooseClassMenu.class);
     }
 
     @Override

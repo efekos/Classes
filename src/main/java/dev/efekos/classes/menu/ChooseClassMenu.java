@@ -2,6 +2,7 @@ package dev.efekos.classes.menu;
 
 import dev.efekos.classes.Main;
 import me.efekos.simpler.menu.MenuData;
+import me.efekos.simpler.menu.MenuManager;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -13,8 +14,10 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
+import java.util.UUID;
 
 public class ChooseClassMenu extends PaginatedMenu{
     public ChooseClassMenu(MenuData data) {
@@ -27,9 +30,14 @@ public class ChooseClassMenu extends PaginatedMenu{
             ItemStack item = clas.getIcon();
 
             ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(TranslateManager.translateColors(Main.LANG.getString("menus.choose_class.class-name","&e%name%").replace("%name%",clas.getName())));
+            meta.setDisplayName(TranslateManager.translateColors(Main.LANG.getString("menus.choose_class.class-name","&e%class%").replace("%class%",clas.getName())));
             meta.setLore(Main.LANG.getStringList("menus.choose_class.class-lore").stream()
-                    .map(s -> s.replace("%desc%",clas.getDescription()).replace("%modifiers%",clas.getModifiers().size()+"").replace("%perks%",clas.getPerks().size()+""))
+                    .map(s -> s
+                            .replace("%desc%",clas.getDescription())
+                            .replace("%modifiers%",clas.getModifiers().size()+"")
+                            .replace("%perks%",clas.getPerks().size()+"")
+                            .replace("%class%", clas.getName())
+                    )
                     .map(s -> TranslateManager.translateColors(s))
                     .toList()
             );
@@ -66,7 +74,15 @@ public class ChooseClassMenu extends PaginatedMenu{
 
     @Override
     public void onClose(InventoryCloseEvent e) {
-        if(!choosedOne&&Main.CONFIG.getBoolean("class-required",true)) owner.openInventory(inventory);
+        if(!choosedOne&&Main.CONFIG.getBoolean("class-required",true)) {
+            UUID id = owner.getUniqueId();
+            new BukkitRunnable(){
+                @Override
+                public void run() {
+                    MenuManager.Open(Main.getInstance().getServer().getPlayer(id), ChooseClassMenu.class);
+                }
+            }.runTaskLater(Main.getInstance(),2);
+        };
     }
 
     @Override
