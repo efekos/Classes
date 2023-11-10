@@ -83,7 +83,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.efe124</groupId>
+            <groupId>com.github.efekos</groupId>
             <artifactId>Simpler</artifactId>
             <version>1.5.7</version>
         </dependency>
