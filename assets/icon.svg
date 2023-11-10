@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="388" height="388">
+    
+    <rect width="388" height="388" fill="#ff0000"/>
+    <rect width="373" height="373" fill="#e60303" x="8" y="8"/>
+    <rect width="364" height="364" fill="#b40a0a" x="12" y="12"/>
+    <rect width="356" height="356" fill="#681313" x="16" y="16"/>
+    <rect width="348 " height="348" fill="#1c1c1c" x="20" y="20"/>
+
+    <!-- sword -->
+    <path d="M185 368 L196 379 L229 345 L205 324 L195 335 L206 345Z" fill="#082520"/>
+    <path d="M185 368 L195 357.04 L185 345 L195 335 L186 324 L162 345" fill="#0e3f36"/>
+    <path d="M195 357 L206 345 L195 335 L185 345Z" fill="#156355"/>
+</svg>
