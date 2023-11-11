@@ -15,6 +15,7 @@ import me.efekos.simpler.config.Config;
 import me.efekos.simpler.config.ListDataManager;
 import me.efekos.simpler.menu.MenuManager;
 import org.bukkit.plugin.ServicePriority;
+import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nullable;
@@ -29,6 +30,10 @@ public final class Main extends JavaPlugin {
     public static Config LANG;
     public static Config CONFIG;
     public static ListDataManager<Class> CLASSES;
+
+    public static ModifierRegistry MODIFIER_REGISTRY;
+    public static PerkRegistry PERK_REGISTRY;
+    public static LevelCriteriaRegistry CRITERIA_REGISTRY;
 
     private static Metrics metrics;
 
@@ -51,9 +56,15 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HandlingEvents(),this);
         getServer().getPluginManager().registerEvents(new CriteriaCheckEventListeners(),this);
 
-        getServer().getServicesManager().register(ModifierRegistry.class,new ModifierRegistry(),this, ServicePriority.Normal);
-        getServer().getServicesManager().register(PerkRegistry.class,new PerkRegistry(),this,ServicePriority.Normal);
-        getServer().getServicesManager().register(LevelCriteriaRegistry.class,new LevelCriteriaRegistry(),this,ServicePriority.Normal);
+        ServicesManager manager = getServer().getServicesManager();
+
+        manager.register(ModifierRegistry.class,new ModifierRegistry(),this, ServicePriority.Normal);
+        manager.register(PerkRegistry.class,new PerkRegistry(),this,ServicePriority.Normal);
+        manager.register(LevelCriteriaRegistry.class,new LevelCriteriaRegistry(),this,ServicePriority.Normal);
+
+        MODIFIER_REGISTRY = manager.getRegistration(ModifierRegistry.class).getProvider();
+        PERK_REGISTRY = manager.getRegistration(PerkRegistry.class).getProvider();
+        CRITERIA_REGISTRY = manager.getRegistration(LevelCriteriaRegistry.class).getProvider();
 
         ClassesModifiers.KNOCKBACK_RESISTANCE.getClass(); // calling this will load the entire ClassesModifiers class so everything will be registered
         ClassesPerks.FAST_ARROW.getClass();
