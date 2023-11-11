@@ -9,20 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class ModifierRegistry implements IRegistry<IModifier> {
-    private static ModifierRegistry instance;
-
     private final Map<NamespacedKey, IModifier> modifier = new HashMap<>();
 
     public Map<NamespacedKey, IModifier> getAll() {
         return modifier;
-    }
-
-    public ModifierRegistry() {
-        instance = this;
-    }
-
-    public static ModifierRegistry getInstance() {
-        return instance;
     }
 
     @Override

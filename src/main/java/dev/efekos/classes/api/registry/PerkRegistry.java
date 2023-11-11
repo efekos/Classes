@@ -8,20 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class PerkRegistry implements IRegistry<IPerk> {
-    private static PerkRegistry instance;
-
     private final Map<NamespacedKey, IPerk> perks = new HashMap<>();
 
     public Map<NamespacedKey, IPerk> getAll() {
         return perks;
-    }
-
-    public PerkRegistry() {
-        instance = this;
-    }
-
-    public static PerkRegistry getInstance() {
-        return instance;
     }
 
     @Override

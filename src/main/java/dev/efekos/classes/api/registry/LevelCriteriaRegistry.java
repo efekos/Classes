@@ -8,20 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class LevelCriteriaRegistry implements IRegistry<ILevelCriteria> {
-    private static LevelCriteriaRegistry instance;
 
     private final Map<NamespacedKey, ILevelCriteria> perks = new HashMap<>();
 
     public Map<NamespacedKey, ILevelCriteria> getAll() {
         return perks;
-    }
-
-    public LevelCriteriaRegistry() {
-        instance = this;
-    }
-
-    public static LevelCriteriaRegistry getInstance() {
-        return instance;
     }
 
     @Override
