@@ -17,7 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class ClassesPerks {
     private static <T extends IPerk> T register(String name, T modifier){
-        return PerkRegistry.getInstance().register(new NamespacedKey(Main.getInstance(),name),modifier);
+        return Main.PERK_REGISTRY.register(new NamespacedKey(Main.getInstance(),name),modifier);
     }
     public static final IPerk FAST_ARROW = register("fast_arrow", new IPerk() {
         @Override

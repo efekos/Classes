@@ -65,12 +65,12 @@ public class ClassManager {
         ));
 
         for (ModifierApplier applier : clas.getModifiers()) {
-            IModifier modifier = ModifierRegistry.getInstance().get(applier.getModifierId());
+            IModifier modifier = Main.MODIFIER_REGISTRY.get(applier.getModifierId());
             modifier.deapply(player);
             modifier.apply(player,clasLevel.getLevel(),applier.getValue());
         }
         for (PerkApplier perk : clas.getPerks()) {
-            IPerk iPerk = PerkRegistry.getInstance().get(perk.getPerkId());
+            IPerk iPerk = Main.PERK_REGISTRY.get(perk.getPerkId());
             iPerk.degrade(player);
             iPerk.grant(player,clasLevel.getLevel());
         }
@@ -170,7 +170,7 @@ public class ClassManager {
         Class clas = getClass(id);
 
         for (PerkApplier applier : clas.getPerks()) {
-            if(applier.getPerkId()==PerkRegistry.getInstance().idOf(perk))return true;
+            if(applier.getPerkId()==Main.PERK_REGISTRY.idOf(perk))return true;
         }
         return false;
     }

@@ -20,7 +20,7 @@ public final class PerkIDArgument extends Argument {
 
     @Override
     public List<String> getList(Player player, String s) {
-        return PerkRegistry.getInstance().getAll().keySet().stream().map(namespacedKey -> namespacedKey.getNamespace()+":"+namespacedKey.getKey()).collect(Collectors.toList());
+        return Main.PERK_REGISTRY.getAll().keySet().stream().map(namespacedKey -> namespacedKey.getNamespace()+":"+namespacedKey.getKey()).collect(Collectors.toList());
     }
 
     @Override

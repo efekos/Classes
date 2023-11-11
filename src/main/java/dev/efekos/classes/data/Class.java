@@ -1,5 +1,6 @@
 package dev.efekos.classes.data;
 
+import dev.efekos.classes.Main;
 import dev.efekos.classes.api.i.ILevelCriteria;
 import dev.efekos.classes.api.registry.LevelCriteriaRegistry;
 import me.efekos.simpler.config.Storable;
@@ -21,7 +22,7 @@ public class Class implements Storable {
     public Class(String name, String description, ILevelCriteria criteria) {
         this.name = name;
         this.description = description;
-        this.levelCriteria = LevelCriteriaRegistry.getInstance().idOf(criteria).toString();
+        this.levelCriteria = Main.CRITERIA_REGISTRY.idOf(criteria).toString();
         this.icon = ItemContent.from(new ItemStack(Material.IRON_SWORD));
         this.uniqueId = UUID.randomUUID();
     }
@@ -68,11 +69,11 @@ public class Class implements Storable {
     }
 
     public ILevelCriteria getLevelCriteria() {
-        return LevelCriteriaRegistry.getInstance().get(NamespacedKey.fromString(levelCriteria));
+        return Main.CRITERIA_REGISTRY.get(NamespacedKey.fromString(levelCriteria));
     }
 
     public void setLevelCriteria(ILevelCriteria levelCriteria) {
-        this.levelCriteria = LevelCriteriaRegistry.getInstance().idOf(levelCriteria).toString();
+        this.levelCriteria = Main.CRITERIA_REGISTRY.idOf(levelCriteria).toString();
     }
 
     public List<PerkApplier> getPerks() {

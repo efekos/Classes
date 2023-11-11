@@ -49,11 +49,11 @@ public final class Leave extends SubCommand {
         dev.efekos.classes.data.Class clas = ClassManager.getClass(player.getUniqueId());
 
         clas.getModifiers().forEach(modifierApplier -> {
-            IModifier IModifier = ModifierRegistry.getInstance().get(modifierApplier.getModifierId());
+            IModifier IModifier = Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId());
             if(IModifier !=null) IModifier.deapply(player);
         });
         for (PerkApplier perk : clas.getPerks()) {
-            PerkRegistry.getInstance().get(perk.getPerkId()).degrade(player);
+            Main.PERK_REGISTRY.get(perk.getPerkId()).degrade(player);
         }
 
         ClassManager.removeClass(player.getUniqueId());

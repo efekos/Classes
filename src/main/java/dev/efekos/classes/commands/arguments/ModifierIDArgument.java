@@ -20,7 +20,7 @@ public final class ModifierIDArgument extends Argument {
 
     @Override
     public List<String> getList(Player player, String s) {
-        return ModifierRegistry.getInstance().getAll().keySet().stream().map(namespacedKey -> namespacedKey.getNamespace()+":"+namespacedKey.getKey()).collect(Collectors.toList());
+        return Main.MODIFIER_REGISTRY.getAll().keySet().stream().map(namespacedKey -> namespacedKey.getNamespace()+":"+namespacedKey.getKey()).collect(Collectors.toList());
     }
 
     @Override

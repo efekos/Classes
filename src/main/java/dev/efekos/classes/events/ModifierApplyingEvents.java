@@ -1,5 +1,6 @@
 package dev.efekos.classes.events;
 
+import dev.efekos.classes.Main;
 import dev.efekos.classes.api.registry.ModifierRegistry;
 import dev.efekos.classes.data.Class;
 import dev.efekos.classes.data.ClassManager;
@@ -18,7 +19,7 @@ public class ModifierApplyingEvents implements Listener {
         Class aClass = ClassManager.getClass(p.getUniqueId());
 
         for (ModifierApplier modifier : aClass.getModifiers()) {
-            ModifierRegistry.getInstance().get(modifier.getModifierId()).apply(p,ClassManager.getLevel(p.getUniqueId()), modifier.getValue());
+            Main.MODIFIER_REGISTRY.get(modifier.getModifierId()).apply(p,ClassManager.getLevel(p.getUniqueId()), modifier.getValue());
         }
     }
 }

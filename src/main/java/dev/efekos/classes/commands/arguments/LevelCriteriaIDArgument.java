@@ -20,7 +20,7 @@ public final class LevelCriteriaIDArgument extends Argument {
 
     @Override
     public List<String> getList(Player player, String s) {
-        return LevelCriteriaRegistry.getInstance().getAll().keySet().stream().map(namespacedKey -> namespacedKey.getNamespace()+":"+namespacedKey.getKey()).collect(Collectors.toList());
+        return Main.CRITERIA_REGISTRY.getAll().keySet().stream().map(namespacedKey -> namespacedKey.getNamespace()+":"+namespacedKey.getKey()).collect(Collectors.toList());
     }
 
     @Override

@@ -49,7 +49,7 @@ public final class SetCriteria extends SubCommand {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        clas.setLevelCriteria(LevelCriteriaRegistry.getInstance().get(NamespacedKey.fromString(args[1])));
+        clas.setLevelCriteria(Main.CRITERIA_REGISTRY.get(NamespacedKey.fromString(args[1])));
         Main.CLASSES.update(clas.getUniqueId(),clas);
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.set-criteria.done","&aSuccessfully changed level criteria to &b%cri%&a!")
                 .replace("%cri%",args[1])
@@ -63,7 +63,7 @@ public final class SetCriteria extends SubCommand {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        clas.setLevelCriteria(LevelCriteriaRegistry.getInstance().get(NamespacedKey.fromString(args[1])));
+        clas.setLevelCriteria(Main.CRITERIA_REGISTRY.get(NamespacedKey.fromString(args[1])));
         Main.CLASSES.update(clas.getUniqueId(),clas);
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.set-criteria.done","&aSuccessfully changed level criteria to &b%cri%&a!")
                 .replace("%cri%",args[1])

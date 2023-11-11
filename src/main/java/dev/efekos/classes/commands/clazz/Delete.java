@@ -53,8 +53,8 @@ public final class Delete extends SubCommand {
             if(playerData.getCurrentClass().equals(clas.getUniqueId())){
                 Player p = Bukkit.getPlayer(uuid);
                 if(p==null)return;
-                clas.getPerks().forEach(perkApplier -> PerkRegistry.getInstance().get(perkApplier.getPerkId()).degrade(p));
-                clas.getModifiers().forEach(modifierApplier -> ModifierRegistry.getInstance().get(modifierApplier.getModifierId()).deapply(p));
+                clas.getPerks().forEach(perkApplier -> Main.PERK_REGISTRY.get(perkApplier.getPerkId()).degrade(p));
+                clas.getModifiers().forEach(modifierApplier -> Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId()).deapply(p));
                 playerData.setCurrentClass(null);
                 playerData.getClassLevels().remove(clas.getUniqueId());
                 p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.delete.notification","&eThe &b%class% &eclass you're in just got deleted by a server admin.")));
@@ -79,8 +79,8 @@ public final class Delete extends SubCommand {
             if(playerData.getCurrentClass().equals(clas.getUniqueId())){
                 Player p = Bukkit.getPlayer(uuid);
                 if(p==null)return;
-                clas.getPerks().forEach(perkApplier -> PerkRegistry.getInstance().get(perkApplier.getPerkId()).degrade(p));
-                clas.getModifiers().forEach(modifierApplier -> ModifierRegistry.getInstance().get(modifierApplier.getModifierId()).deapply(p));
+                clas.getPerks().forEach(perkApplier -> Main.PERK_REGISTRY.get(perkApplier.getPerkId()).degrade(p));
+                clas.getModifiers().forEach(modifierApplier -> Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId()).deapply(p));
                 playerData.setCurrentClass(null);
                 playerData.getClassLevels().remove(clas.getUniqueId());
                 p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.delete.notification","&eThe &b%class% &eclass you're in just got deleted by a server admin.")));

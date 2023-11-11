@@ -57,11 +57,11 @@ public final class Join extends SubCommand {
         ClassManager.setClass(player.getUniqueId(),clas);
 
         clas.getModifiers().forEach(modifierApplier -> {
-            IModifier IModifier = ModifierRegistry.getInstance().get(modifierApplier.getModifierId());
+            IModifier IModifier = Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId());
             if(IModifier !=null) IModifier.apply(player,ClassManager.getLevel(player.getUniqueId()),modifierApplier.getValue());
         });
         for (PerkApplier perk : clas.getPerks()) {
-            PerkRegistry.getInstance().get(perk.getPerkId()).grant(player, ClassManager.getLevel(player.getUniqueId()));
+            Main.PERK_REGISTRY.get(perk.getPerkId()).grant(player, ClassManager.getLevel(player.getUniqueId()));
         }
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.join.done","&aSuccessfully joined &b%class% &aclass! Check out your pros and cons by typing &b/class info&a.").replace("%class%",clas.getName())));

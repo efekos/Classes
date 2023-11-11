@@ -50,7 +50,7 @@ public final class Modifiers extends SubCommand {
         }
         List<String> modifierStrings = new ArrayList<>();
         clas.getModifiers().forEach(modifierApplier -> {
-            IModifier IModifier = ModifierRegistry.getInstance().get(modifierApplier.getModifierId());
+            IModifier IModifier = Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId());
             if(IModifier ==null)return;
 
             modifierStrings.add(ChatColor.AQUA+modifierApplier.getModifierId().toString() + " &6 - &e"+ IModifier.getDescription(ClassManager.getLevel(player.getUniqueId()),modifierApplier.getValue()));
@@ -70,7 +70,7 @@ public final class Modifiers extends SubCommand {
         }
         List<String> modifierStrings = new ArrayList<>();
         clas.getModifiers().forEach(modifierApplier -> {
-            IModifier IModifier = ModifierRegistry.getInstance().get(modifierApplier.getModifierId());
+            IModifier IModifier = Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId());
             if(IModifier ==null)return;
 
             modifierStrings.add(ChatColor.AQUA+modifierApplier.getModifierId().toString() + " &6 - &e"+ IModifier.getDescription(1,modifierApplier.getValue()));

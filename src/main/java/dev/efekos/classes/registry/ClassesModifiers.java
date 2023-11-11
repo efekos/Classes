@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 public class ClassesModifiers {
     private static <T extends IModifier> T register(String name, T modifier){
-        return ModifierRegistry.getInstance().register(new NamespacedKey(Main.getInstance(),name),modifier);
+        return Main.MODIFIER_REGISTRY.register(new NamespacedKey(Main.getInstance(),name),modifier);
     }
     public static final AttributeModifier MOVEMENT_SPEED = register("movement_speed", new AttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED,0.1,Main.LANG.getString("modifiers.movement_speed","Run %p% faster."),0.005));
     public static final MaxHealthModifier MAX_HEALTH = register("max_health",new MaxHealthModifier());

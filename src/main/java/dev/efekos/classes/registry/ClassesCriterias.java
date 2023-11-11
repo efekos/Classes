@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ClassesCriterias {
     private static <T extends ILevelCriteria> T register(String name, T modifier){
-        return LevelCriteriaRegistry.getInstance().register(new NamespacedKey(Main.getInstance(),name),modifier);
+        return Main.CRITERIA_REGISTRY.register(new NamespacedKey(Main.getInstance(),name),modifier);
     }
 
     private static ILevelCriteria createTakeDamage(EntityDamageEvent.DamageCause cause){

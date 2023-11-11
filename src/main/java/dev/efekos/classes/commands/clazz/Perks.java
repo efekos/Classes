@@ -51,7 +51,7 @@ public final class Perks extends SubCommand {
         }
         List<String> perkStrings = new ArrayList<>();
         for (PerkApplier applier : clas.getPerks()) {
-            IPerk perk = PerkRegistry.getInstance().get(applier.getPerkId());
+            IPerk perk = Main.PERK_REGISTRY.get(applier.getPerkId());
             if(perk==null)continue;
             perkStrings.add(ChatColor.AQUA+applier.getPerkId().toString() +"&6 - &e"+ perk.getDescription(ClassManager.getLevel(player.getUniqueId())));
         }
@@ -70,7 +70,7 @@ public final class Perks extends SubCommand {
         }
         List<String> perkStrings = new ArrayList<>();
         for (PerkApplier applier : clas.getPerks()) {
-            IPerk perk = PerkRegistry.getInstance().get(applier.getPerkId());
+            IPerk perk = Main.PERK_REGISTRY.get(applier.getPerkId());
             if(perk==null)continue;
             perkStrings.add(ChatColor.AQUA+applier.getPerkId().toString() +"&6 - &e"+ perk.getDescription(1));
         }

@@ -124,12 +124,12 @@ public class ClassInfoMenu extends Menu {
         List<String> perks = new ArrayList<>();
 
         for (PerkApplier p : clas.getPerks()) {
-            IPerk perk = PerkRegistry.getInstance().get(p.getPerkId());
+            IPerk perk = Main.PERK_REGISTRY.get(p.getPerkId());
             perks.add(ChatColor.YELLOW+translateColors(perk.getDescription(levelData.getLevel())));
         }
 
         for (ModifierApplier applier : clas.getModifiers()) {
-            IModifier modifier = ModifierRegistry.getInstance().get(applier.getModifierId());
+            IModifier modifier = Main.MODIFIER_REGISTRY.get(applier.getModifierId());
 
             if(modifier.isPositive(levelData.getLevel(),applier.getValue())) positives.add(ChatColor.YELLOW+TranslateManager.translateColors(modifier.getDescription( levelData.getLevel(),applier.getValue())));
             else negatives.add(ChatColor.YELLOW+translateColors(modifier.getDescription(levelData.getLevel(),applier.getValue())));
