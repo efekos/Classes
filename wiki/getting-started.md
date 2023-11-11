@@ -10,13 +10,12 @@
 </repository>
 ````
 
-2 - Put this dependency to your `dependencies` tag. You can use the latest release as version.
+2 - Put this dependency to your `dependencies` tag. You can use the latest release of [ClassesAPI](https://github.com/efekos/ClassesAPI) as version.
 ````xml
 <dependency>
     <groupId>com.github.efekos</groupId>
-    <artifactId>Classes</artifactId>
+    <artifactId>ClassesAPI</artifactId>
     <version>1.0.0</version>
-    <scope>provided</scope>
 </dependency>
 ````
 
@@ -27,9 +26,9 @@
 maven { url 'https://jitpack.io' }
 ````
 
-2 - Put this dependency to your `dependencies` tag. You can use the latest release as version.
+2 - Put this dependency to your `dependencies` tag. You can use the latest release of [ClassesAPI](https://github.com/efekos/ClassesAPI) as version.
 ````gradle
-implementation 'com.github.efekos:Classes:1.0.0'
+implementation 'com.github.efekos:ClassesAPI:1.0.0'
 ````
 
 # Accessing to the services
