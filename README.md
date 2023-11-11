@@ -9,7 +9,7 @@ This plugin adds a class system to your Minecraft server. You can make your own 
 ## Configuration
 
 There is two files for configuration. `lang.yml` to customize the messages and `config.yml` to configure the plugin. You can see the full commented versions at the
-[Github repository](https://github.com/efekos/Classes).
+[GitHub repository](https://github.com/efekos/Classes).
 
 ## Commands
 
