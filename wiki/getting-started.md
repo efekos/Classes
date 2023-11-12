@@ -112,7 +112,7 @@ class Main extends JavaPlugin {
 }
 ````
 
-> **NOTE** - If you see any error, there is a high change that it's because the server loads your plugin before Classes, so there is no services when you try to get the services. You need to
+> **NOTE** - If you see any error, there is a high chance that it's because the server loads your plugin before Classes, so there is no services when you try to get the services. You need to
 > make your plugin depend on Classes in the `plugin.yml` file. Like this:
 ````yaml
 name: Classes
