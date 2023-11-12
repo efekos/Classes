@@ -124,8 +124,9 @@ depend:
 
 # Adding a criteria
 
-Let's start with the easiest thing, level criteria! Level criterias are simply ways of getting levels. Almost every event about player calls a `CriteriaCheckEvent`, and handles
-giving exp and level to player. To make your criteria work just like any other, you need to use an `ILevelCriteria`. For example:
+Let's start with the easiest thing, level criteria! Level criterias are simply ways of getting levels. Almost every event
+about player calls a [CriteriaCheckEvent](https://efekos.github.io/ClassesAPI/dev/efekos/classes/api/event/CriteriaCheckEvent.html),
+and handles giving exp and level to player. To make your criteria work just like any other, you need to use an [ILevelCriteria](https://efekos.github.io/ClassesAPI/dev/efekos/classes/api/i/ILevelCriteria.html). For example:
 
 ````java
 package me.efekos.newplugin.criteria;
@@ -142,7 +143,8 @@ public class MovementCriteria implements ILevelCriteria {
 }
 ````
 
-Then, you need to register the criteria to `LevelCriteriaRegistry` in your main class.
+Then, you need to register the criteria to [LevelCriteriaRegistry](https://efekos.github.io/ClassesAPI/dev/efekos/classes/api/registry/LevelCriteriaRegistry.html)
+in your main class.
 
 ````java
 import dev.efekos.classes.api.registry.LevelCriteriaRegistry;
@@ -178,7 +180,7 @@ class Main extends JavaPlugin {
 
 # Adding a Modifier
 
-Registering a modifier works kinda the same way, so I'll just explain how `IModifier`s work.
+Registering a modifier works kinda the same way, so I'll just explain how [IModifier](https://efekos.github.io/ClassesAPI/dev/efekos/classes/api/i/IModifier.html)s work.
 
 ````java
 package me.efekos.newplugin.modifier;
@@ -216,5 +218,5 @@ public class JumpBoostModifier implements IModifier {
 
 # Adding a Perk
 
-Registering a perk is the same way too, all you have to do is take a look at `IPerk`.
+Registering a perk is the same way too, all you have to do is take a look at [IPerk](https://efekos.github.io/ClassesAPI/dev/efekos/classes/api/i/IPerk.html)s.
 
