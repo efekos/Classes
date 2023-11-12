@@ -3,24 +3,21 @@ package dev.efekos.classes.registry.perk;
 import dev.efekos.classes.Utilities;
 import dev.efekos.classes.api.i.IPerk;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import java.util.function.Consumer;
 
-public class AuraPerk implements IPerk {
+public abstract class AuraPerk implements IPerk {
 
     private final String description;
-    private final Consumer<Block> consumer;
 
-    public AuraPerk(String description, Consumer<Block> consumer) {
+    public AuraPerk(String description) {
         this.description = description;
-        this.consumer = consumer;
     }
 
-    public void affectBlock(Block block){
-        consumer.accept(block);
-    }
+    public abstract void affectBlock(World world,Block block);
 
     public int getBlockDistance(int level){
         return Math.round((float) level/2);
