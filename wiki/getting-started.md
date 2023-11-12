@@ -33,7 +33,7 @@ implementation 'com.github.efekos:ClassesAPI:1.0.0-3'
 
 # Accessing to the services
 
-Classes make its API work using server services. So you need to use `Server#getServerServicesManager` in your main plugin class to access a service. For example:
+Classes make its API work using server services. So you need to use `Server#getServicesManager` in your main plugin class to access a service. For example:
 
 ````java
 package me.efekos.newplugin;
