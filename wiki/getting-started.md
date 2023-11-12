@@ -175,3 +175,46 @@ class Main extends JavaPlugin {
     }
 }
 ````
+
+# Adding a Modifier
+
+Registering a modifier works kinda the same way, so I'll just explain how `IModifier`s work.
+
+````java
+package me.efekos.newplugin.modifier;
+
+import dev.efekos.classes.api.i.IModifier;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+public class JumpBoostModifier implements IModifier {
+    @Override
+    public void apply(Player player, int level, double value) { // executed everytime player respawns and when joins to the class.
+        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP,(int) (level*value*60*20),2,true,true,true));
+    }
+
+    @Override
+    public void deapply(Player player) { // executed when player leaves the class.
+        player.removePotionEffect(PotionEffectType.JUMP);
+    }
+
+    @Override
+    public String getDescription(int level, double value) { // executed with level of the player that will see this and the value that's given for this modifier in class. 
+        return "Gives you jump boost for %a% minutes" // default chat color is yellow.
+                .replace("%a%",ChatColor.AQUA+""+Math.floor(level*value)+ChatColor.YELLOW);
+    }
+
+    @Override
+    public boolean isPositive(int level, double value) { // this is important to know about where to put this modifier in /class info menu.
+        return Math.floor(level*value)>0;
+    }
+}
+
+````
+
+# Adding a Perk
+
+Registering a perk is the same way too, all you have to do is take a look at `IPerk`.
+
