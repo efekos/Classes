@@ -170,7 +170,7 @@ public class ClassManager {
         Class clas = getClass(id);
 
         for (PerkApplier applier : clas.getPerks()) {
-            if(applier.getPerkId()==Main.PERK_REGISTRY.idOf(perk))return true;
+            if(applier.getPerkId().equals(Main.PERK_REGISTRY.idOf(perk)))return true;
         }
         return false;
     }
