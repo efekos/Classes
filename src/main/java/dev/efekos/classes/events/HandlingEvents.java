@@ -3,6 +3,7 @@ package dev.efekos.classes.events;
 import dev.efekos.classes.Main;
 import dev.efekos.classes.data.ClassManager;
 import dev.efekos.classes.registry.ClassesPerks;
+import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
@@ -83,12 +84,17 @@ public class HandlingEvents implements Listener {
     }
 
     @EventHandler
-    public void onPlayerMode(PlayerMoveEvent e){
+    public void onPlayerMove(PlayerMoveEvent e){
         Player p = e.getPlayer();
+        World world = e.getPlayer().getWorld();
 
-        if(new Random().nextFloat()<0.3f && ClassManager.hasPerk(p.getUniqueId(),ClassesPerks.AURA)){
-            Block block = p.getLocation().add(Math.round(Math.random() * 20) - 10, Math.round(Math.random() * 8) - 4, Math.round(Math.random() * 20) - 10).getBlock();
-            ClassesPerks.AURA.affectBlock(block);
+        if(Math.random()<0.6 && ClassManager.hasPerk(p.getUniqueId(),ClassesPerks.AURA)){
+            Block block = world.getBlockAt(p.getLocation().add(
+                    Math.round(Math.random() * 10) - 5,
+                    Math.round(Math.random() * 4) - 2,
+                    Math.round(Math.random() * 10) - 5
+            ));
+            ClassesPerks.AURA.affectBlock(world,block);
         }
     }
 
