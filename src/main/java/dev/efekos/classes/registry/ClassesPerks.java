@@ -9,6 +9,7 @@ import dev.efekos.classes.registry.perk.AuraPerk;
 import dev.efekos.classes.registry.perk.LifeStealerPerk;
 import dev.efekos.classes.registry.perk.TimedEffectPerk;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -250,19 +251,23 @@ public class ClassesPerks {
                     .replace("%a%",Utilities.generateAmountText(getAmount(level),ChatColor.YELLOW+""));
         }
     });
-    public static final AuraPerk AURA = register("aura", new AuraPerk(Main.LANG.getString("perks.aura","Blocks within a distance of %a% blocks get on fire out of nowhere"),block -> {
-        World world = block.getWorld();
-        Location location = block.getLocation();
-        int x = location.getBlockX();
-        int y = location.getBlockY();
-        int z = location.getBlockZ();
+    public static final AuraPerk AURA = register("aura", new AuraPerk(Main.LANG.getString("perks.aura","Blocks within a distance of %a% blocks get on fire out of nowhere")){
+        @Override
+        public void affectBlock(World world, Block block) {
+            Location location = block.getLocation();
+            int x = location.getBlockX();
+            int y = location.getBlockY();
+            int z = location.getBlockZ();
 
-        if(world.getBlockAt(x+1,y,z).getType().isAir())world.getBlockAt(x+1,y,z).setType(Material.FIRE);
-        if(world.getBlockAt(x-1,y,z).getType().isAir())world.getBlockAt(x-1,y,z).setType(Material.FIRE);
-        if(world.getBlockAt(x,y+1,z).getType().isAir())world.getBlockAt(x,y+1,z).setType(Material.FIRE);
-        if(world.getBlockAt(x,y-1,z).getType().isAir())world.getBlockAt(x,y-1,z).setType(Material.FIRE);
-        if(world.getBlockAt(x,y,z+1).getType().isAir())world.getBlockAt(x,y,z+1).setType(Material.FIRE);
-        if(world.getBlockAt(x+1,y,z-1).getType().isAir())world.getBlockAt(x,y,z-1).setType(Material.FIRE);
-    }));
+            if(!world.getBlockAt(x,y,z).getType().isAir()){
+                if(world.getBlockAt(x+1,y,z).getType().isAir())world.getBlockAt(x+1,y,z).setType(Material.FIRE,true);
+                if(world.getBlockAt(x-1,y,z).getType().isAir())world.getBlockAt(x-1,y,z).setType(Material.FIRE,true);
+                if(world.getBlockAt(x,y+1,z).getType().isAir())world.getBlockAt(x,y+1,z).setType(Material.FIRE,true);
+                if(world.getBlockAt(x,y-1,z).getType().isAir())world.getBlockAt(x,y-1,z).setType(Material.FIRE,true);
+                if(world.getBlockAt(x,y,z+1).getType().isAir())world.getBlockAt(x,y,z+1).setType(Material.FIRE,true);
+                if(world.getBlockAt(x,y,z-1).getType().isAir())world.getBlockAt(x,y,z-1).setType(Material.FIRE,true);
+            }
 
+        }
+    });
 }
