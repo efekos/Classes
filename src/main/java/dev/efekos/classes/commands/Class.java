@@ -4,6 +4,7 @@ import dev.efekos.classes.commands.clazz.*;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,7 +35,7 @@ public final class Class extends CoreCommand {
     @Override
     public void renderHelpList(CommandSender commandSender, List<SubCommand> list) {
         for (SubCommand command : list) {
-            commandSender.sendMessage(command.getUsage() + " - " + command.getDescription());
+            commandSender.sendMessage(ChatColor.AQUA + command.getUsage() + ChatColor.GOLD + " - " + ChatColor.YELLOW + command.getDescription());
         }
     }
 }
