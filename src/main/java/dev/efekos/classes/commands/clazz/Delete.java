@@ -50,7 +50,7 @@ public final class Delete extends SubCommand {
         dev.efekos.classes.data.Class clas = Main.getClassByName(args[0]);
 
         ClassManager.getDatas().forEach((uuid, playerData) -> {
-            if(playerData.getCurrentClass().equals(clas.getUniqueId())){
+            if(playerData.getCurrentClass()!=null&&playerData.getCurrentClass().equals(clas.getUniqueId())){
                 Player p = Bukkit.getPlayer(uuid);
                 if(p==null)return;
                 clas.getPerks().forEach(perkApplier -> Main.PERK_REGISTRY.get(perkApplier.getPerkId()).degrade(p));
