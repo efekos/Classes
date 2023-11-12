@@ -88,7 +88,9 @@ public class HandlingEvents implements Listener {
         Player p = e.getPlayer();
         World world = e.getPlayer().getWorld();
 
-        if(Math.random()<0.6 && ClassManager.hasPerk(p.getUniqueId(),ClassesPerks.AURA)){
+        if(!e.getFrom().getBlock().equals(e.getTo().getBlock())) return;
+
+        if(Math.random()<0.3 && ClassManager.hasPerk(p.getUniqueId(),ClassesPerks.AURA)){
             Block block = world.getBlockAt(p.getLocation().add(
                     Math.round(Math.random() * 10) - 5,
                     Math.round(Math.random() * 4) - 2,
