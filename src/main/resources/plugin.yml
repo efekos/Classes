@@ -4,8 +4,6 @@ main: dev.efekos.classes.Main
 api-version: '1.20'
 description: Make custom classes in your server!
 author: efekos
-depend:
-  - PlaceholderAPI
 permissions:
   classes.*:
     description: Every permission under classes
