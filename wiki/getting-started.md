@@ -15,7 +15,7 @@
 <dependency>
     <groupId>com.github.efekos</groupId>
     <artifactId>ClassesAPI</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-3</version>
 </dependency>
 ````
 
@@ -28,7 +28,7 @@ maven { url 'https://jitpack.io' }
 
 2 - Put this dependency to your `dependencies` tag. You can use the latest release of [ClassesAPI](https://github.com/efekos/ClassesAPI) as version.
 ````gradle
-implementation 'com.github.efekos:ClassesAPI:1.0.0'
+implementation 'com.github.efekos:ClassesAPI:1.0.0-3'
 ````
 
 # Accessing to the services
@@ -36,7 +36,7 @@ implementation 'com.github.efekos:ClassesAPI:1.0.0'
 Classes make its API work using server services. So you need to use `Server#getServerServicesManager` in your main plugin class to access a service. For example:
 
 ````java
-package me.efekos.newplugin.Main;
+package me.efekos.newplugin;
 
 import dev.efekos.classes.api.registry.ModifierRegistry;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -57,7 +57,7 @@ You might be familiar with this from Vault, which is another plugin that uses se
 classes. If you're not, I recommend something like this for getting all the services.
 
 ````java
-package me.efekos.newplugin.Main;
+package me.efekos.newplugin;
 
 import dev.efekos.classes.api.registry.LevelCriteriaRegistry;
 import dev.efekos.classes.api.registry.ModifierRegistry;
@@ -99,6 +99,70 @@ class Main extends JavaPlugin {
             return false;
         }
     }
+
+    public boolean setupCriteriaRegistry() {
+        RegisteredServiceProvider<LevelCriteriaRegistry> serviceProvider = getServer().getServicesManager().getRegistration(LevelCriteriaRegistry.class);
+        if (serviceProvider != null && serviceProvider.getPlugin().getName().equals("Classes")) {
+            CRITERIA_REGISTRY = serviceProvider.getProvider();
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+````
+
+> **NOTE** - If you see any error, there is a high change that it's because the server loads your plugin before Classes, so there is no services when you try to get the services. You need to
+> make your plugin depend on Classes in the `plugin.yml` file. Like this:
+````yaml
+name: Classes
+main: dev.efekos.classes.Main
+bla: bla
+depend:
+  - Classes # do this to make sure that your plugin loads after Classes as expected.
+````
+
+# Adding a criteria
+
+Let's start with the easiest thing, level criteria! Level criterias are simply ways of getting levels. Almost every event about player calls a `CriteriaCheckEvent`, and handles
+giving exp and level to player. To make your criteria work just like any other, you need to use an `ILevelCriteria`. For example:
+
+````java
+package me.efekos.newplugin.criteria;
+
+import dev.efekos.classes.api.i.ILevelCriteria;
+import org.bukkit.event.Event;
+import org.bukkit.event.player.PlayerMoveEvent;
+
+public class MovementCriteria implements ILevelCriteria {
+    @Override
+    public boolean shouldGiveExp(Event event) {
+        return event instanceof PlayerMoveEvent; // if event is a PlayerMoveEvent, then player has filled our conditions by moving.
+    }
+}
+````
+
+Then, you need to register the criteria to `LevelCriteriaRegistry` in your main class.
+
+````java
+import dev.efekos.classes.api.registry.LevelCriteriaRegistry;
+import org.bukkit.NamespacedKey;
+import me.efekos.newplugin.criteria.MovementCriteria;
+
+class Main extends JavaPlugin {
+    //...
+    public static LevelCriteriaRegistry CRITERIA_REGISTRY;
+
+    @Override
+    public void onEnable() {
+        Logger logger = getServer().getLogger();
+        //...
+        if (!setupCriteriaRegistry()) logger.warning("Criteria service doesn't exist. Some features of NewPlugin won't work.");
+
+        CRITERIA_REGISTRY.register(new NamespacedKey(this,"move"),new MovementCriteria());
+    }
+
+    //...
 
     public boolean setupCriteriaRegistry() {
         RegisteredServiceProvider<LevelCriteriaRegistry> serviceProvider = getServer().getServicesManager().getRegistration(LevelCriteriaRegistry.class);
