@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerHarvestBlockEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 
@@ -29,6 +30,7 @@ public class BlockingEvents implements Listener {
         Class clas = ClassManager.getClass(p.getUniqueId());
 
         Set<Enchantment> enchantments = i.getEnchantments().keySet();
+        if(i.getItemMeta() instanceof EnchantmentStorageMeta es) enchantments = es.getStoredEnchants().keySet();
         if(i.getItemMeta() instanceof PotionMeta potionMeta){
             if(potionMeta.getCustomEffects().stream().map(PotionEffect::getType).anyMatch(clas.getBlockedPotions()::contains))return true;
         }
