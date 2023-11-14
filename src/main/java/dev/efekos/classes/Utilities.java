@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.boss.BossBar;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.BlastingRecipe;
 
@@ -17,6 +18,13 @@ public final class Utilities {
     public static Material getMaterialByKey(String key){
         for (Material material : Material.values()) {
             if(Objects.equals(key, material.getKey().getNamespace() + ":" + material.getKey().getKey())) return  material;
+        }
+        return null;
+    }
+
+    public static Enchantment getEnchantmentByKey(String key){
+        for (Enchantment enchantment : Enchantment.values()) {
+            if(Objects.equals(key, enchantment.getKey().getNamespace() + ":" + enchantment.getKey().getKey())) return enchantment;
         }
         return null;
     }
