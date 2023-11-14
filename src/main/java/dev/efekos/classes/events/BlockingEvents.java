@@ -8,6 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.enchantment.EnchantItemEvent;
@@ -43,7 +44,7 @@ public class BlockingEvents implements Listener {
         return clas.getBlockedMaterials().contains(b.getType());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerPickup(EntityPickupItemEvent e){
         if(!(e.getEntity() instanceof Player player)) return;
 
@@ -53,7 +54,7 @@ public class BlockingEvents implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerInteract(PlayerInteractEvent e){
         Player p = e.getPlayer();
         if(isBlocked(p,e.getItem())){
@@ -65,7 +66,7 @@ public class BlockingEvents implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerConsume(PlayerItemConsumeEvent e){
         Player p = e.getPlayer();
         if(isBlocked(p,e.getItem())){
@@ -74,7 +75,7 @@ public class BlockingEvents implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerHarvest(PlayerHarvestBlockEvent e){
         Player p = e.getPlayer();
         if(isBlocked(p,e.getHarvestedBlock())){
@@ -83,7 +84,7 @@ public class BlockingEvents implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerBreak(BlockBreakEvent e){
         Player p = e.getPlayer();
         if(isBlocked(p,e.getBlock())){
@@ -92,7 +93,7 @@ public class BlockingEvents implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerEnchant(EnchantItemEvent e){
         Player p = e.getEnchanter();
 
