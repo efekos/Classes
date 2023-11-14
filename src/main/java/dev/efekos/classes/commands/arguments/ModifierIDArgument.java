@@ -31,9 +31,9 @@ public final class ModifierIDArgument extends Argument {
     @Override
     public ArgumentHandleResult handleCorrection(String s) {
         try {
-            RegisteredServiceProvider<ModifierRegistry> provider = Main.getInstance().getServer().getServicesManager().getRegistration(ModifierRegistry.class);
+            ModifierRegistry provider = Main.MODIFIER_REGISTRY;
             assert provider != null;
-            if(provider.getProvider().get(NamespacedKey.fromString(s))!=null)return ArgumentHandleResult.success();
+            if(provider.get(NamespacedKey.fromString(s))!=null)return ArgumentHandleResult.success();
             else return ArgumentHandleResult.fail(Main.LANG.getString("args.modifier.invalid","Invalid modifier id"));
         } catch (Exception ignored){
             return ArgumentHandleResult.fail(Main.LANG.getString("args.modifier.invalid","Invalid modifier id"));
