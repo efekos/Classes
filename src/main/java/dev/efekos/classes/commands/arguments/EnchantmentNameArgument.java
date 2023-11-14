@@ -1,6 +1,7 @@
 package dev.efekos.classes.commands.arguments;
 
 import dev.efekos.classes.Main;
+import dev.efekos.classes.Utilities;
 import me.efekos.simpler.commands.syntax.Argument;
 import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class EnchantmentNameArgument extends Argument {
@@ -48,11 +50,7 @@ public final class EnchantmentNameArgument extends Argument {
 
     @Override
     public ArgumentHandleResult handleCorrection(String s) {
-        try {
-            Material.valueOf(s);
-            return ArgumentHandleResult.success();
-        } catch (Exception e){
-            return ArgumentHandleResult.fail(Main.LANG.getString("args.enchantment.invalid","Invalid enchantment"));
-        }
+        if(Utilities.getEnchantmentByKey(s)==null) return ArgumentHandleResult.fail(Main.LANG.getString("args.enchantment.invalid","Invalid enchantment name"));
+        return ArgumentHandleResult.success();
     }
 }

@@ -48,11 +48,8 @@ public final class PotionNameArgument extends Argument {
 
     @Override
     public ArgumentHandleResult handleCorrection(String s) {
-        try {
-            Material.valueOf(s);
-            return ArgumentHandleResult.success();
-        } catch (Exception e){
-            return ArgumentHandleResult.fail(Main.LANG.getString("args.potion.invalid","Invalid potion name"));
-        }
+        return getList(null,"").contains(s) ?
+                ArgumentHandleResult.success() :
+                ArgumentHandleResult.fail(Main.LANG.getString("args.potion.invalid","Invalid potion"));
     }
 }
