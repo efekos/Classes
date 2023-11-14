@@ -31,12 +31,12 @@ public final class PerkIDArgument extends Argument {
     @Override
     public ArgumentHandleResult handleCorrection(String s) {
         try {
-            RegisteredServiceProvider<PerkRegistry> provider = Main.getInstance().getServer().getServicesManager().getRegistration(PerkRegistry.class);
+            PerkRegistry provider = Main.PERK_REGISTRY;
             assert provider != null;
-            if(provider.getProvider().get(NamespacedKey.fromString(s))!=null)return ArgumentHandleResult.success();
-            else return ArgumentHandleResult.fail(Main.LANG.getString("args.modifier.invalid","Invalid perk id"));
+            if(provider.get(NamespacedKey.fromString(s))!=null)return ArgumentHandleResult.success();
+            else return ArgumentHandleResult.fail(Main.LANG.getString("args.perk.invalid","Invalid perk id"));
         } catch (Exception ignored){
-            return ArgumentHandleResult.fail(Main.LANG.getString("args.modifier.invalid","Invalid perk id"));
+            return ArgumentHandleResult.fail(Main.LANG.getString("args.perk.invalid","Invalid perk id"));
         }
     }
 }
