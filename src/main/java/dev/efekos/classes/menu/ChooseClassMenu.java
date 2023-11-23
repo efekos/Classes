@@ -3,6 +3,7 @@ package dev.efekos.classes.menu;
 import dev.efekos.classes.Main;
 import me.efekos.simpler.menu.MenuData;
 import me.efekos.simpler.menu.MenuManager;
+import me.efekos.simpler.menu.PaginatedMenu;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -19,7 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.List;
 import java.util.UUID;
 
-public class ChooseClassMenu extends PaginatedMenu{
+public class ChooseClassMenu extends PaginatedMenu {
     public ChooseClassMenu(MenuData data) {
         super(data);
     }

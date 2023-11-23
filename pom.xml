@@ -85,7 +85,7 @@
         <dependency>
             <groupId>com.github.efekos</groupId>
             <artifactId>Simpler</artifactId>
-            <version>1.5.7</version>
+            <version>1.6.1</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

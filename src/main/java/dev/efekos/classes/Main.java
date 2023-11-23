@@ -11,8 +11,8 @@ import dev.efekos.classes.registry.ClassesModifiers;
 import dev.efekos.classes.registry.ClassesPerks;
 import me.efekos.simpler.Metrics;
 import me.efekos.simpler.commands.CommandManager;
-import me.efekos.simpler.config.Config;
 import me.efekos.simpler.config.ListDataManager;
+import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.menu.MenuManager;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.ServicesManager;
@@ -27,8 +27,8 @@ public final class Main extends JavaPlugin {
         return instance;
     }
 
-    public static Config LANG;
-    public static Config CONFIG;
+    public static YamlConfig LANG;
+    public static YamlConfig CONFIG;
     public static ListDataManager<Class> CLASSES;
 
     public static ModifierRegistry MODIFIER_REGISTRY;
@@ -42,8 +42,8 @@ public final class Main extends JavaPlugin {
         // Plugin startup logic
         instance = this;
         CLASSES = new ListDataManager<>("\\ClassData.json",this);
-        LANG = new Config("lang.yml",this);
-        CONFIG = new Config("config.yml",this);
+        LANG = new YamlConfig("lang.yml",this);
+        CONFIG = new YamlConfig("config.yml",this);
         LANG.setup();
         CONFIG.setup();
         metrics = new Metrics(this,20226);

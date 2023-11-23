@@ -4,6 +4,7 @@ import dev.efekos.classes.Main;
 import dev.efekos.classes.data.ClassManager;
 import dev.efekos.classes.data.LevelData;
 import me.efekos.simpler.menu.MenuData;
+import me.efekos.simpler.menu.PaginatedMenu;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import java.text.NumberFormat;
 import java.util.*;
 
-public class ClassMembersMenu extends PaginatedMenu{
+public class ClassMembersMenu extends PaginatedMenu {
     public ClassMembersMenu(MenuData data) {
         super(data);
     }
