@@ -3,17 +3,24 @@ package dev.efekos.classes;
 import dev.efekos.classes.api.registry.LevelCriteriaRegistry;
 import dev.efekos.classes.api.registry.ModifierRegistry;
 import dev.efekos.classes.api.registry.PerkRegistry;
+import dev.efekos.classes.commands.arguments.ClassNameArgument;
+import dev.efekos.classes.commands.arguments.ClassNameArgumentNode;
+import dev.efekos.classes.commands.clazz.Info;
 import dev.efekos.classes.data.Class;
 import dev.efekos.classes.data.ClassManager;
 import dev.efekos.classes.events.*;
+import dev.efekos.classes.menu.ChooseClassMenu;
 import dev.efekos.classes.registry.ClassesCriterias;
 import dev.efekos.classes.registry.ClassesModifiers;
 import dev.efekos.classes.registry.ClassesPerks;
 import me.efekos.simpler.Metrics;
 import me.efekos.simpler.commands.CommandManager;
+import me.efekos.simpler.commands.CommandTree;
+import me.efekos.simpler.commands.node.impl.LabelNode;
 import me.efekos.simpler.config.ListDataManager;
 import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.menu.MenuManager;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -71,7 +78,66 @@ public final class Main extends JavaPlugin {
         ClassesCriterias.TAKE_DAMAGE.getClass();
 
         try {
-            CommandManager.registerCoreCommand(this, dev.efekos.classes.commands.Class.class);
+
+            CommandManager.registerCommandTree(this,new CommandTree("clas","Class command","classes.use",
+                    new ClassNameArgumentNode()
+                            .addChild(
+                                    new LabelNode("block")
+                                            .addChild(
+                                                    new LabelNode("material")
+                                                            .addChild(new LabelNode("add"))
+                                                            .addChild(new LabelNode("remove"))
+                                                            .addChild(new LabelNode("list"))
+                                            )
+                                            .addChild(
+                                                    new LabelNode("enchantment")
+                                                            .addChild(new LabelNode("add"))
+                                                            .addChild(new LabelNode("remove"))
+                                                            .addChild(new LabelNode("list"))
+                                            )
+                                            .addChild(
+                                                    new LabelNode("potion")
+                                                            .addChild(new LabelNode("add"))
+                                                            .addChild(new LabelNode("remove"))
+                                                            .addChild(new LabelNode("list"))
+                                            )
+                            )
+                            .addChild(
+                                    new LabelNode("modifier")
+                                            .addChild(new LabelNode("add"))
+                                            .addChild(new LabelNode("remove"))
+                                            .addChild(new LabelNode("list"))
+                            )
+                            .addChild(
+                                    new LabelNode("perk")
+                                            .addChild(new LabelNode("add"))
+                                            .addChild(new LabelNode("remove"))
+                                            .addChild(new LabelNode("list"))
+                            )
+                            .addChild(new LabelNode("delete"))
+                            .addChild(new LabelNode("join"))
+                            .addChild(new LabelNode("kit")
+                                    .addChild(new LabelNode("update"))
+                                    .addChild(new LabelNode("clear"))
+                                    .addChild(new LabelNode("get"))
+                            )
+                            .addChild(new LabelNode("members"))
+                            .addChild(new LabelNode("set")
+                                            .addChild(new LabelNode("criteria"))
+                                            .addChild(new LabelNode("description"))
+                                            .addChild(new LabelNode("icon"))
+                                    )
+                            .addChild(new LabelNode("info"))
+                    ,
+                    new LabelNode("create"),
+                    new LabelNode("leave"),
+                    new LabelNode("choose").setExecutive(context -> {
+                        if(context.isSenderPlayer()){
+                            MenuManager.Open(((Player) context.sender()), ChooseClassMenu.class);
+                        }
+                    })
+            ));
+
         } catch (Exception e){
             e.printStackTrace();
         }
