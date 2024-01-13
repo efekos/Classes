@@ -1,5 +1,3 @@
-
-
 level-progress: "Level &2&l%lvl% &r- Progress: &a%progress%"
 
 # Argument messages.
@@ -90,7 +88,7 @@ commands:
     # Since /class info's class name is an optional argument, it has a different message than 'commands.generic.not-class', also telling the player that he is not in a class, so he has to enter a class name if he didn't.
     not-class-i: '&cThere is no class with that name or you don''t have a class.'
 
-  # /class addenchantmentblock
+  # /class block enchantment add
   add-enchantment-block:
 
     # When the enchantment is already banned for the class given.
@@ -101,7 +99,26 @@ commands:
     # %class% - Name of the class that just got banned for using %enchant%.
     done: '&aSuccessfully blocked &b%enchant% &afor &e%class%&a!'
 
-  # /class addmaterialblock
+  # /class block <any> list
+  block-list:
+
+    # Title for material block list.
+    # %class% - The class whose this list belongs to.
+    title-material: '&eBlocked materials for class &b%class%&e:'
+
+    # Title for enchantment block list.
+    # %class% - The class whose this list belongs to
+    title-enchantment: '&eBlocked enchantments for class &b%class%&e:'
+
+    # Title for potion block list.
+    # %class% - The class whose this list belongs to
+    title-potion: '&eBlocked potion effects for class &b%class%&e:'
+
+    # Regex for the list elements.
+    # %item% - an item of the list.
+    regex: '&5- &d%item%'
+
+  # /class block material add
   add-material-block:
 
     # When given material is already blocked.
@@ -109,7 +126,8 @@ commands:
 
     # When given material successfully gets blocked.
     done: '&aSuccessfully blocked &b%material% &afor &e%class%&a!'
-  # /class addmodifier
+
+  # /class modifier add
   add-modifier:
 
     # When given modifier is already added.
@@ -120,7 +138,7 @@ commands:
     # %class% - Name of the class given.
     done: '&aSuccessfully added &b%modifier% &afor &e%class%&a!'
 
-  # /class addpotionblock
+  # /class block potion add
   add-potion-block:
 
     # When given potion is already blocked for the given class.
@@ -171,7 +189,7 @@ commands:
     # When player successfully leaves his class.
     done: '&aSuccessfully left your class!'
 
-  # /class removeenchantmentblock
+  # /class block enchantment remove
   remove-enchantment-block:
 
     # When given enchantment is successfully unblocked for the class given.
@@ -182,7 +200,7 @@ commands:
     # When given enchantment is not blocked.
     not-added: '&cThat enchantment is not blocked.'
 
-  # /class removematerialblock
+  # /class block material remove
   remove-material-block:
 
     # When given material is successfully unblocked for the class given.
@@ -193,7 +211,7 @@ commands:
     # When given material is not blocked.
     not-added: '&cThat material is not blocked.'
 
-  # /class removemodifier
+  # /class modifier remove
   remove-modifier:
 
     # When the given modifier successfully gets removed from the class given.
@@ -201,7 +219,7 @@ commands:
     # %class% - Name of the class given.
     done: '&aSuccessfully removed &b%modifier% &afor &e%class%&a!'
 
-  # /class removeperk
+  # /class perk remove
   remove-perk:
 
     # When the given perk successfully gets removed from the class given.
@@ -212,7 +230,7 @@ commands:
     # When given perk is not added.
     not-added: '&cThat perk is not added.'
 
-  # /class removepotionblock
+  # /class block potion remove
   remove-potion-block:
 
     # When the given potion successfully gets removed from the class given.
@@ -223,14 +241,14 @@ commands:
     # When given potion effect is not blocked.
     not-added: '&cThat potion is not blocked.'
 
-  # /class setcriteria
+  # /class set criteria
   set-criteria:
 
     # When the given class successfully gets changed to another criteria
     # %cri% - ID of the new criteria.
     done: '&aSuccessfully changed level criteria to &b%cri%&a!'
 
-  # /class setdescription
+  # /class set description
   set-description:
 
     # When the given description successfully becomes description of the class given.
@@ -240,7 +258,7 @@ commands:
   # /class kit
   kit:
 
-    # /class kit <c> clear
+    # /class kit clear
     clear:
 
       # When the player doesn't have the permission to use /class kit clear.
@@ -249,7 +267,7 @@ commands:
       # When sender successfully clears all the kit items.
       done: '&aSuccessfully cleared kit items!'
 
-    # /class kit <c> update
+    # /class kit update
     update:
 
       # When the player doesn't have the permission to use /class kit update
@@ -265,7 +283,7 @@ commands:
       # %class% - Name of the class given.
       done: '&aSuccessfully put all your inventory to the kit of class &b%class%&a!'
 
-    # /class kit <c> get
+    # /class kit get
     get:
 
       # When the player doesn't have the permission to use /class kit <c> get.
@@ -360,8 +378,8 @@ menus:
       - '&r'
       - '&eClick to choose this class!'
 
-# Modifier descriptions. %p% is a percentage shows the change, and %a% is an amount showing the change.
-# DO NOT USE ANY COLOR CODES EXCEPT &e FOR THE NORMAL TEXT. %a% AND %p% HAS THEIR OWN COLORS SO DO NOT TRY TO APPLY A COLOR TO THEM.
+# Modifier descriptions. %p% is a percentage that shows the change, and %a% is an amount showing the change.
+# DO NOT USE ANY COLOR CODES EXCEPT &e FOR THE NORMAL TEXT. %a% AND %p% HAS THEIR OWN COLORS, DO NOT TRY TO APPLY A COLOR TO THEM.
 modifiers:
   movement_speed: 'Run %p% faster.'
   luck: 'Have %a% luck points.'
