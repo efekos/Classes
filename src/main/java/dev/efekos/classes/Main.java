@@ -3,9 +3,8 @@ package dev.efekos.classes;
 import dev.efekos.classes.api.registry.LevelCriteriaRegistry;
 import dev.efekos.classes.api.registry.ModifierRegistry;
 import dev.efekos.classes.api.registry.PerkRegistry;
-import dev.efekos.classes.commands.arguments.ClassNameArgument;
 import dev.efekos.classes.commands.arguments.ClassNameArgumentNode;
-import dev.efekos.classes.commands.clazz.Info;
+import dev.efekos.classes.commands.clazz.*;
 import dev.efekos.classes.data.Class;
 import dev.efekos.classes.data.ClassManager;
 import dev.efekos.classes.events.*;
@@ -85,7 +84,7 @@ public final class Main extends JavaPlugin {
                                     new LabelNode("block")
                                             .addChild(
                                                     new LabelNode("material")
-                                                            .addChild(new LabelNode("add"))
+                                                            .addChild(new LabelNode("add").addChild(new))
                                                             .addChild(new LabelNode("remove"))
                                                             .addChild(new LabelNode("list"))
                                             )
@@ -121,13 +120,13 @@ public final class Main extends JavaPlugin {
                                     .addChild(new LabelNode("clear"))
                                     .addChild(new LabelNode("get"))
                             )
-                            .addChild(new LabelNode("members"))
+                            .addChild(new LabelNode("members").setExecutive(new MembersNode()))
                             .addChild(new LabelNode("set")
-                                            .addChild(new LabelNode("criteria"))
-                                            .addChild(new LabelNode("description"))
-                                            .addChild(new LabelNode("icon"))
+                                            .addChild(new LabelNode("criteria").setExecutive(new SetCriteriaNode()))
+                                            .addChild(new LabelNode("description").setExecutive(new SetDescriptionNode()))
+                                            .addChild(new LabelNode("icon").setExecutive(new SetIconNode()))
                                     )
-                            .addChild(new LabelNode("info"))
+                            .addChild(new LabelNode("info").setExecutive(new InfoNode()))
                     ,
                     new LabelNode("create"),
                     new LabelNode("leave"),

@@ -1,8 +1,6 @@
 package dev.efekos.classes.commands.clazz;
 
 import dev.efekos.classes.Main;
-import dev.efekos.classes.commands.Class;
-import dev.efekos.classes.commands.arguments.ClassNameArgument;
 import dev.efekos.classes.data.ClassManager;
 import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.CoreCommand;

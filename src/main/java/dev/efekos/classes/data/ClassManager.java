@@ -6,8 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import dev.efekos.classes.Main;
 import dev.efekos.classes.api.i.IModifier;
 import dev.efekos.classes.api.i.IPerk;
-import dev.efekos.classes.api.registry.ModifierRegistry;
-import dev.efekos.classes.api.registry.PerkRegistry;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -20,10 +18,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class ClassManager {
     private static final Map<UUID, PlayerData> datas = new HashMap<>();
@@ -102,7 +97,7 @@ public class ClassManager {
 
     public static LevelData getLevelData(UUID id,UUID classId){
         checkExistent(id);
-        checkLevelExistent(id,Main.CLASSES.get(classId));
+        checkLevelExistent(id, Objects.requireNonNull(Main.CLASSES.get(classId)));
 
         return datas.get(id).getClassLevels().get(classId);
     }
