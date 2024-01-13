@@ -5,11 +5,12 @@ import me.efekos.simpler.commands.CommandExecuteContext;
 import me.efekos.simpler.commands.node.CommandExecutive;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetDescriptionNode implements CommandExecutive {
+public class ClearKitNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();
@@ -20,12 +21,13 @@ public class SetDescriptionNode implements CommandExecutive {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        String desc = args.get(1).replaceAll("&sp"," ");
 
-        clas.setDescription(desc);
+        if(!sender.hasPermission("classes.kit.clear")){
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.clear.no-perm","&cYou can't clear a kit.")));
+            return;
+        }
+        clas.setKitItems(new ArrayList<>());
         Main.CLASSES.update(clas.getUniqueId(),clas);
-        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.set-description.done","&aSuccessfully changed description to &b%desc%&a!")
-                .replace("%desc%",desc)
-        ));
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.clear.done","&aSuccessfully cleared the kit items!")));
     }
 }

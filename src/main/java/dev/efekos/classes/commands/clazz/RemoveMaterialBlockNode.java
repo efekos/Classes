@@ -6,11 +6,10 @@ import me.efekos.simpler.commands.CommandExecuteContext;
 import me.efekos.simpler.commands.node.CommandExecutive;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class RemoveMaterialBlockNote implements CommandExecutive {
+public class RemoveMaterialBlockNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();
