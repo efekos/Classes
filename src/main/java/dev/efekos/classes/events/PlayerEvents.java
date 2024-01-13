@@ -4,6 +4,8 @@ import dev.efekos.classes.Main;
 import dev.efekos.classes.data.ClassManager;
 import dev.efekos.classes.menu.ChooseClassMenu;
 import me.efekos.simpler.menu.MenuManager;
+import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -11,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -54,5 +57,10 @@ public class PlayerEvents implements Listener {
         if(Main.CONFIG.getBoolean("class-required",true)&&!ClassManager.hasClass(p.getUniqueId())){
             MenuManager.Open(p, ChooseClassMenu.class);
         }
+    }
+
+    @EventHandler
+    public void onPlayerLeave(PlayerQuitEvent e){
+        Bukkit.removeBossBar(new NamespacedKey(Main.getInstance(),"status_"+e.getPlayer().getUniqueId()));
     }
 }
