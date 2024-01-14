@@ -16,7 +16,7 @@ public class CreateNode implements CommandExecutive {
         List<String> args = context.args();
         CommandSender sender = context.sender();
 
-        dev.efekos.classes.data.Class newClass = new dev.efekos.classes.data.Class(args.get(0),"Another class", ClassesCriterias.TAKE_DAMAGE);
+        dev.efekos.classes.data.Class newClass = new dev.efekos.classes.data.Class(args.get(1),"Another class", ClassesCriterias.TAKE_DAMAGE);
 
         if (Main.CLASSES.getAll().stream().filter(aClass -> aClass.getName().equals(newClass.getName())).count()>0) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.create.exists", "&cA class called &b%name% &calready exists.").replace("%name%", args.get(0))));

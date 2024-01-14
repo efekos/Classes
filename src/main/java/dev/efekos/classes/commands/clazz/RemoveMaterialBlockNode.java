@@ -20,15 +20,15 @@ public class RemoveMaterialBlockNode implements CommandExecutive {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        if(!clas.getBlockedMaterials().contains(Utilities.getMaterialByKey(args.get(1)))){
+        if(!clas.getBlockedMaterials().contains(Utilities.getMaterialByKey(args.get(4)))){
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-material-block.not-added","&cThat material is not blocked for that class.")));
             return;
         }
-        clas.getBlockedMaterials().remove(Utilities.getMaterialByKey(args.get(1)));
+        clas.getBlockedMaterials().remove(Utilities.getMaterialByKey(args.get(4)));
         Main.CLASSES.update(clas.getUniqueId(),clas);
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-material-block.done","&aSuccessfully unblocked &b%material% &afor &b%class%&a!")
-                .replace("%material%",args.get(1))
+                .replace("%material%",args.get(4))
                 .replace("%class%",clas.getName())
         ));
     }

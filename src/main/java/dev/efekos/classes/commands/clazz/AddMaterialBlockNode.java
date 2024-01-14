@@ -21,15 +21,15 @@ public class AddMaterialBlockNode implements CommandExecutive {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        if(clas.getBlockedMaterials().contains(Utilities.getMaterialByKey(args.get(1)))){
+        if(clas.getBlockedMaterials().contains(Utilities.getMaterialByKey(args.get(4)))){
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-material-block.already","&cThat material is already blocked for that class.")));
             return;
         }
-        clas.getBlockedMaterials().add(Utilities.getMaterialByKey(args.get(1)));
+        clas.getBlockedMaterials().add(Utilities.getMaterialByKey(args.get(4)));
         Main.CLASSES.update(clas.getUniqueId(),clas);
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-material-block.done","&aSuccessfully blocked &b%material% &afor &b%class%&a!")
-                .replace("%material%",args.get(1))
+                .replace("%material%",args.get(4))
                 .replace("%class%",clas.getName())
         ));
     }

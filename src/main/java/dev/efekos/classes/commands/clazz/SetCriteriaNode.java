@@ -22,7 +22,7 @@ public class SetCriteriaNode implements CommandExecutive {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        clas.setLevelCriteria(Main.CRITERIA_REGISTRY.get(NamespacedKey.fromString(args.get(1))));
+        clas.setLevelCriteria(Main.CRITERIA_REGISTRY.get(NamespacedKey.fromString(args.get(3))));
         Main.CLASSES.update(clas.getUniqueId(),clas);
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.set-criteria.done","&aSuccessfully changed level criteria to &b%cri%&a!")
                 .replace("%cri%",args.get(1))

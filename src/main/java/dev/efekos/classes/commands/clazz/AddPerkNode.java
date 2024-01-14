@@ -22,11 +22,11 @@ public class AddPerkNode implements CommandExecutive {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        if(clas.getPerks().stream().anyMatch(modifierApplier -> modifierApplier.getPerkId().equals(NamespacedKey.fromString(args.get(1))))){
+        if(clas.getPerks().stream().anyMatch(modifierApplier -> modifierApplier.getPerkId().equals(NamespacedKey.fromString(args.get(3))))){
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-perk.already","&cThat perk is already added for that class. Consider re-adding it using both &b/class removeperk &cand &b/class addperk")));
             return;
         }
-        clas.getPerks().add(new PerkApplier(NamespacedKey.fromString(args.get(1))));
+        clas.getPerks().add(new PerkApplier(NamespacedKey.fromString(args.get(3))));
         Main.CLASSES.update(clas.getUniqueId(),clas);
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-perk.done","&aSuccessfully added &b%perk% &afor &b%class%&a! Keep in mind that it will be shown as a pro/con at &b/class info %class%&a.")

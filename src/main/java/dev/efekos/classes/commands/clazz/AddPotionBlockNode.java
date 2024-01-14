@@ -22,15 +22,15 @@ public class AddPotionBlockNode implements CommandExecutive {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        if(clas.getBlockedPotions().contains(PotionEffectType.getByKey(NamespacedKey.fromString(args.get(1))))){
+        if(clas.getBlockedPotions().contains(PotionEffectType.getByKey(NamespacedKey.fromString(args.get(4))))){
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-potion-block.already","&cThat potion is already blocked for that class.")));
             return;
         }
-        clas.getBlockedPotions().add(PotionEffectType.getByKey(NamespacedKey.fromString(args.get(1))));
+        clas.getBlockedPotions().add(PotionEffectType.getByKey(NamespacedKey.fromString(args.get(4))));
         Main.CLASSES.update(clas.getUniqueId(),clas);
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-potion-block.done","&aSuccessfully blocked &b%potion% &afor &b%class%&a!")
-                .replace("%potion%",args.get(1))
+                .replace("%potion%",args.get(4))
                 .replace("%class%",clas.getName())
         ));
     }

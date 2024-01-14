@@ -20,7 +20,7 @@ public class SetDescriptionNode implements CommandExecutive {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        String desc = args.get(1).replaceAll("&sp"," ");
+        String desc = args.get(3).replaceAll("&sp"," ");
 
         clas.setDescription(desc);
         Main.CLASSES.update(clas.getUniqueId(),clas);

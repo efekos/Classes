@@ -22,15 +22,15 @@ public class RemoveEnchantmentBlockNode implements CommandExecutive {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        if(!clas.getBlockedEnchantments().contains(Enchantment.getByKey(NamespacedKey.fromString(args.get(1))))){
+        if(!clas.getBlockedEnchantments().contains(Enchantment.getByKey(NamespacedKey.fromString(args.get(4))))){
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-enchantment-block.not-added","&cThat enchantment is not blocked for that class.")));
             return;
         }
-        clas.getBlockedEnchantments().remove(Enchantment.getByKey(NamespacedKey.fromString(args.get(1))));
+        clas.getBlockedEnchantments().remove(Enchantment.getByKey(NamespacedKey.fromString(args.get(4))));
         Main.CLASSES.update(clas.getUniqueId(),clas);
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-enchantment-block.done","&aSuccessfully unblocked &b%enchant% &afor &b%class%&a!")
-                .replace("%enchant%",args.get(1))
+                .replace("%enchant%",args.get(4))
                 .replace("%class%",clas.getName())
         ));
     }

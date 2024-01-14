@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RemoveModifierNode implements CommandExecutive {
+public class RemoveModifierNode implements CommandExecutive { // /clas <class> modifier remove <modifier>
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();
@@ -22,15 +22,15 @@ public class RemoveModifierNode implements CommandExecutive {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
-        if(clas.getModifiers().stream().noneMatch(modifierApplier -> modifierApplier.getModifierId().equals(NamespacedKey.fromString(args.get(1))))){
+        if(clas.getModifiers().stream().noneMatch(modifierApplier -> modifierApplier.getModifierId().equals(NamespacedKey.fromString(args.get(3))))){
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-modifier.not-added","&cThat modifier is not in that class.")));
             return;
         }
-        clas.setModifiers(clas.getModifiers().stream().filter(modifierApplier -> modifierApplier.getModifierId()!=NamespacedKey.fromString(args.get(1))).toList());
+        clas.setModifiers(clas.getModifiers().stream().filter(modifierApplier -> modifierApplier.getModifierId()!=NamespacedKey.fromString(args.get(3))).toList());
         Main.CLASSES.update(clas.getUniqueId(),clas);
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-modifier.done","&aSuccessfully removed &b%modifier% &from &b%class%&a!")
-                .replace("%modifier%",args.get(1))
+                .replace("%modifier%",args.get(3))
                 .replace("%class%",clas.getName())
         ));
     }
