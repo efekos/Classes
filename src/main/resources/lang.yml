@@ -73,7 +73,7 @@ blocking:
   # When someone tries to enchant a banned item.
   enchant-material: '&cYour class prevents you from enchanting that item.'
 
-# Commands messages.
+# Command messages.
 commands:
 
   # Generic messages.
@@ -195,7 +195,7 @@ commands:
     # When given enchantment is successfully unblocked for the class given.
     # %enchantment% - ID of the enchantment given.
     # %class% - Name of the class given.
-    done: '&aSuccessfully unblocked &b%enchantment% &afor &e%class%&a!'
+    done: '&aSuccessfully unblocked &b%enchant% &afor &e%class%&a!'
 
     # When given enchantment is not blocked.
     not-added: '&cThat enchantment is not blocked.'
@@ -241,19 +241,32 @@ commands:
     # When given potion effect is not blocked.
     not-added: '&cThat potion is not blocked.'
 
-  # /class set criteria
-  set-criteria:
+  # /class <c> set
+  set:
 
-    # When the given class successfully gets changed to another criteria
-    # %cri% - ID of the new criteria.
-    done: '&aSuccessfully changed level criteria to &b%cri%&a!'
+    # /class <c> set criteria
+    criteria:
+      # When the given class successfully gets changed to another criteria
+      # %cri% - ID of the new criteria.
+      done: '&aSuccessfully changed level criteria to &b%cri%&a!'
 
-  # /class set description
-  set-description:
+    # /class <c> set description
+    description:
 
-    # When the given description successfully becomes description of the class given.
-    # %desc% - New description of the class given.
-    done: '&aSuccessfully changed description to &b%desc%&a!'
+      # When the given description successfully becomes description of the class given.
+      # %desc% - New description of the class given.
+      done: '&aSuccessfully changed description to &b%desc%&a!'
+
+    # /class <c> set icon
+    icon:
+
+      # When the player isn't holding anything in his hand
+      empty: '&cYou are not holding any item in your hand'
+
+      # When the player successfully changes the item
+      # %class% - Name of the class modified
+      # %item% - Name of the item. DO NOT remove white colors or brackets around it.
+      done: '&aSuccessfully changed &b%class%&a''s icon to a(n) &f[&f%item%&f]&a!'
 
   # /class kit
   kit:
@@ -390,6 +403,7 @@ modifiers:
   knockback_resistance: 'Resist %a% more to knockbacks.'
 
 # Perk descriptions.
+# Same rules about modifier descriptions apply to here
 perks:
   fast_arrow: 'Shoot arrows &a+%100&e faster'
   fast_pearl: 'Shoot ender pearls &a+%100&e faster'

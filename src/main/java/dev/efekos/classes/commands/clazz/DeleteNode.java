@@ -25,6 +25,7 @@ public class DeleteNode implements CommandExecutive {
         dev.efekos.classes.data.Class clas = Main.getClassByName(args.get(0));
 
         ClassManager.getDatas().forEach((uuid, playerData) -> {
+            if(playerData.getCurrentClass()==null)return;
             if(playerData.getCurrentClass().equals(clas.getUniqueId())){
                 Player p = Bukkit.getPlayer(uuid);
                 if(p==null)return;

@@ -26,7 +26,7 @@ public class RemoveModifierNode implements CommandExecutive { // /clas <class> m
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-modifier.not-added","&cThat modifier is not in that class.")));
             return;
         }
-        clas.setModifiers(clas.getModifiers().stream().filter(modifierApplier -> modifierApplier.getModifierId()!=NamespacedKey.fromString(args.get(3))).toList());
+        clas.setModifiers(clas.getModifiers().stream().filter(modifierApplier -> !modifierApplier.getModifierId().equals(NamespacedKey.fromString(args.get(3)))).toList());
         Main.CLASSES.update(clas.getUniqueId(),clas);
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-modifier.done","&aSuccessfully removed &b%modifier% &from &b%class%&a!")

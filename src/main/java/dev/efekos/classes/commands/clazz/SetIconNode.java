@@ -10,6 +10,7 @@ import me.efekos.simpler.translation.TranslateManager;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -35,7 +36,14 @@ public class SetIconNode implements CommandExecutive {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
             return;
         }
+
         ItemStack item = player.getInventory().getItemInMainHand();
+
+        if (item.getType().equals(Material.AIR)) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.set.icon.empty","&cYou are not holding an item in your hand")));
+            return;
+        }
+
         clas.setIcon(item);
         Main.CLASSES.update(clas.getUniqueId(),clas);
 
@@ -50,7 +58,7 @@ public class SetIconNode implements CommandExecutive {
         component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, ItemContent.from(cloned) ));
 
         player.spigot().sendMessage(Utilities.makeComponentsForValue(TranslateManager.translateColors(
-                Main.LANG.getString("commands.set-icon.done","&aSuccessfully changed &b%class%&a's icon to a(n) &f[&f%item%&f]&a!")
+                Main.LANG.getString("commands.set.icon.done","&aSuccessfully changed &b%class%&a's icon to a(n) &f[&f%item%&f]&a!")
                         .replace("%class%",clas.getName())),"%item%",component));
     }
 }

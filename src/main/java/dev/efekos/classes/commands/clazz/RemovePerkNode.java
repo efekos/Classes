@@ -26,7 +26,7 @@ public class RemovePerkNode implements CommandExecutive {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-perk.not-added","&cThat perk is not in that class.")));
             return;
         }
-        clas.setPerks(clas.getPerks().stream().filter(modifierApplier -> modifierApplier.getPerkId()!=NamespacedKey.fromString(args.get(3))).collect(Collectors.toList()));
+        clas.setPerks(clas.getPerks().stream().filter(modifierApplier -> !modifierApplier.getPerkId().equals(NamespacedKey.fromString(args.get(3)))).toList());
         Main.CLASSES.update(clas.getUniqueId(),clas);
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-perk.done","&aSuccessfully removed &b%perk% &from &b%class%&a!")
