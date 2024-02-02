@@ -6,7 +6,7 @@ import dev.efekos.classes.api.i.IPerk;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class LifeStealerPerk implements IPerk {
+public final class LifeStealerPerk implements IPerk {
     @Override
     public void grant(Player player, int level) {
 

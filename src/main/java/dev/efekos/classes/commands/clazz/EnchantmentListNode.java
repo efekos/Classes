@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class EnchantmentListNode implements CommandExecutive {
+public final class EnchantmentListNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();

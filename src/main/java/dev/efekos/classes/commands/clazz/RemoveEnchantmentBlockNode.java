@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class RemoveEnchantmentBlockNode implements CommandExecutive {
+public final class RemoveEnchantmentBlockNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();

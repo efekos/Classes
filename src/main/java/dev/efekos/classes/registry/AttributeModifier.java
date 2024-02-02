@@ -6,7 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
-public class AttributeModifier implements IModifier {
+public final class AttributeModifier implements IModifier {
     private final Attribute attribute;
     private final double def;
     private final String description;

@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffect;
 
 import java.util.*;
 
-public class UpdateKitNode implements CommandExecutive {
+public final class UpdateKitNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();

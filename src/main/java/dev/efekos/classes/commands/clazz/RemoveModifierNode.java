@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RemoveModifierNode implements CommandExecutive { // /clas <class> modifier remove <modifier>
+public final class RemoveModifierNode implements CommandExecutive { // /clas <class> modifier remove <modifier>
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();

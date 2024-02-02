@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class RemoveMaterialBlockNode implements CommandExecutive {
+public final class RemoveMaterialBlockNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();

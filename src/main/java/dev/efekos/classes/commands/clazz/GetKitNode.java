@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class GetKitNode implements CommandExecutive {
     @Override
-    public void onExecute(CommandExecuteContext context) {
+    public final void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();
         CommandSender sender = context.sender();
 

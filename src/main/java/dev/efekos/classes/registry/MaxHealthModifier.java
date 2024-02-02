@@ -7,7 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
-public class MaxHealthModifier implements IModifier {
+public final class MaxHealthModifier implements IModifier {
     @Override
     public void apply(Player player, int level, double value) {
         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(value);

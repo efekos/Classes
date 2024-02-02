@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class MaterialListNode implements CommandExecutive {
+public final class MaterialListNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();

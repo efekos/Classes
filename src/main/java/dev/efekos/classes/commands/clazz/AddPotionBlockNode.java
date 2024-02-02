@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 
-public class AddPotionBlockNode implements CommandExecutive {
+public final class AddPotionBlockNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();

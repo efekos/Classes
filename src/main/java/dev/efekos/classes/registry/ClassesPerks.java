@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class ClassesPerks {
+public final class ClassesPerks {
     private static <T extends IPerk> T register(String name, T modifier){
         return Main.PERK_REGISTRY.register(new NamespacedKey(Main.getInstance(),name),modifier);
     }

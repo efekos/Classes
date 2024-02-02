@@ -20,7 +20,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.List;
 import java.util.Objects;
 
-public class SetIconNode implements CommandExecutive {
+public final class SetIconNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         if(!context.isSenderPlayer()){

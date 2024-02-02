@@ -10,7 +10,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
-public class ClassesModifiers {
+public final class ClassesModifiers {
     private static <T extends IModifier> T register(String name, T modifier){
         return Main.MODIFIER_REGISTRY.register(new NamespacedKey(Main.getInstance(),name),modifier);
     }

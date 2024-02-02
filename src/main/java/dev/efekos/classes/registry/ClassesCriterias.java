@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import java.util.Arrays;
 import java.util.List;
 
-public class ClassesCriterias {
+public final class ClassesCriterias {
     private static <T extends ILevelCriteria> T register(String name, T modifier){
         return Main.CRITERIA_REGISTRY.register(new NamespacedKey(Main.getInstance(),name),modifier);
     }

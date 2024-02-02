@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class MembersNode implements CommandExecutive {
+public final class MembersNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();

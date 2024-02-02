@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class LeaveNode implements CommandExecutive {
+public final class LeaveNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         CommandSender sender = context.sender();

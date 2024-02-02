@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class AddModifierNode implements CommandExecutive {
+public final class AddModifierNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) { // /clas <class> modifier add <modifier> <value>
         List<String> args = context.args();
