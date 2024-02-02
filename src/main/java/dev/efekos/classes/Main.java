@@ -140,6 +140,9 @@ public final class Main extends JavaPlugin {
 
         } catch (Exception e){
             e.printStackTrace();
+            getLogger().info("Couldn't register commands, disabling");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
         }
 
         getLogger().info("Started!");
