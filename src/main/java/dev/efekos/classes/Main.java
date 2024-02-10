@@ -79,7 +79,7 @@ public final class Main extends JavaPlugin {
 
         try {
 
-            CommandManager.registerCommandTree(this,new CommandTree("clas","Class command","classes.use",
+            CommandManager.registerCommandTree(this,new CommandTree("class","Class command","classes.use",
                     new ClassNameArgumentNode()
                             .addChild(
                                     new LabelNode("block")
