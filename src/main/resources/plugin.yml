@@ -26,3 +26,50 @@ permissions:
   classes.perks:
     description: Allows to use /class perks
     default: true
+  classes.block.*:
+    children:
+      - classes.block.material.add
+      - classes.block.material.remove
+      - classes.block.material.list
+      - classes.block.enchantment.add
+      - classes.block.enchantment.remove
+      - classes.block.enchantment.list
+      - classes.block.potion.add
+      - classes.block.potion.remove
+      - classes.block.potion.list
+  classes.perk.*:
+    children:
+      - classes.perk.add
+      - classes.perk.remove
+      - classes.perk.list
+  classes.modifier.*:
+    children:
+      - classes.modifier.add
+      - classes.modifier.remove
+      - classes.modifier.list
+  classes.kit.*:
+    children:
+      - classes.kit.update
+      - classes.kit.clear
+      - classes.kit.get
+  classes.set.*:
+    children:
+      - classes.set.criteria
+      - classes.set.icon
+      - classes.set.description
+  classes.*:
+    description: Everything
+    default: op
+    children:
+      - classes.block.*
+      - classes.perk.*
+      - classes.modifier.*
+      - classes.delete
+      - classes.join
+      - classes.kit.*
+      - classes.members
+      - classes.set.*
+      - classes.info
+      - classes.create
+      - classes.choose
+      - classes.leave
