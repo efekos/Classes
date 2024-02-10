@@ -121,21 +121,21 @@ public final class Main extends JavaPlugin {
                                     .addChild(new LabelNode("clear").setExecutive(new ClearKitNode()).setPermission("classes.kit.clear"))
                                     .addChild(new LabelNode("get").setExecutive(new GetKitNode()).setPermission("classes.kit.get"))
                             )
-                            .addChild(new LabelNode("members").setExecutive(new MembersNode()).setPermission("classes.kit.members"))
+                            .addChild(new LabelNode("members").setExecutive(new MembersNode()).setPermission("classes.members"))
                             .addChild(new LabelNode("set")
                                             .addChild(new LabelNode("criteria").addChild(new LevelCriteriaIDArgumentNode().setExecutive(new SetCriteriaNode()).setPermission("classes.set.criteria")))
                                             .addChild(new LabelNode("description").addChild(new StringArgumentNode().setExecutive(new SetDescriptionNode()).setPermission("classes.set.description")))
                                             .addChild(new LabelNode("icon").setExecutive(new SetIconNode()).setPermission("classes.set.icon"))
                                     )
-                            .addChild(new LabelNode("info").setExecutive(new InfoNode()).setPermission("classes.set.info"))
+                            .addChild(new LabelNode("info").setExecutive(new InfoNode()).setPermission("classes.info"))
                     ,
                     new LabelNode("create").addChild(new StringArgumentNode().setExecutive(new CreateNode()).setPermission("classes.create")),
-                    new LabelNode("leave").setExecutive(new LeaveNode()),
+                    new LabelNode("leave").setExecutive(new LeaveNode()).setPermission("classes.leave"),
                     new LabelNode("choose").setExecutive(context -> {
                         if(context.isSenderPlayer()){
                             MenuManager.Open(((Player) context.sender()), ChooseClassMenu.class);
                         }
-                    })
+                    }).setPermission("classes.choose")
             ));
 
         } catch (Exception e){
