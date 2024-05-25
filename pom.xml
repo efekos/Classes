@@ -70,8 +70,8 @@
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
         <repository>
-            <id>jitpack</id>
-            <url>https://jitpack.io/</url>
+            <id>efekosdev</id>
+            <url>https://efekos.dev/maven</url>
         </repository>
     </repositories>
 
@@ -83,7 +83,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.efekos</groupId>
+            <groupId>me.efekos</groupId>
             <artifactId>Simpler</artifactId>
             <version>1.6.1</version>
         </dependency>
@@ -93,9 +93,9 @@
             <version>2.10.1</version>
         </dependency>
         <dependency>
-            <groupId>com.github.efekos</groupId>
+            <groupId>dev.efekos.classes.api</groupId>
             <artifactId>ClassesAPI</artifactId>
-            <version>master-ed62827ac9-1</version>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>
