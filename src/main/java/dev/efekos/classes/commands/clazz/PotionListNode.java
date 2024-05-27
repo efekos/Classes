@@ -15,17 +15,17 @@ public final class PotionListNode implements CommandExecutive {
         CommandSender sender = context.sender();
 
         dev.efekos.classes.data.Class clas = Main.getClassByName(args.get(0));
-        if(clas==null){
-            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
+        if (clas == null) {
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class", "&cThere is no class with that name.")));
             return;
         }
 
         List<String> list = clas.getBlockedPotions().stream().map(enchantment -> enchantment.getKey().getNamespace() + ":" + enchantment.getKey().getKey()).toList();
 
-        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.block-list.title-potion","&eBlocked potions for class %class%:").replaceAll("%class%",clas.getName())));
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.block-list.title-potion", "&eBlocked potions for class %class%:").replaceAll("%class%", clas.getName())));
 
         for (String string : list) {
-            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.block-list.regex","&5- &d%item%").replaceAll("%item%",string)));
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.block-list.regex", "&5- &d%item%").replaceAll("%item%", string)));
         }
     }
 }

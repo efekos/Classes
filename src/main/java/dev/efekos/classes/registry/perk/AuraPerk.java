@@ -7,8 +7,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import java.util.function.Consumer;
-
 public abstract class AuraPerk implements IPerk {
 
     private final String description;
@@ -17,10 +15,10 @@ public abstract class AuraPerk implements IPerk {
         this.description = description;
     }
 
-    public abstract void affectBlock(World world,Block block);
+    public abstract void affectBlock(World world, Block block);
 
-    public int getBlockDistance(int level){
-        return Math.round((float) level/2);
+    public int getBlockDistance(int level) {
+        return Math.round((float) level / 2);
     }
 
     @Override
@@ -36,6 +34,6 @@ public abstract class AuraPerk implements IPerk {
     @Override
     public String getDescription(int level) {
         return description
-                .replace("%a%", Utilities.generateAmountText(getBlockDistance(level), ChatColor.YELLOW+""));
+                .replace("%a%", Utilities.generateAmountText(getBlockDistance(level), ChatColor.YELLOW + ""));
     }
 }

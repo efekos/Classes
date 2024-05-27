@@ -27,22 +27,23 @@ public class ClassManager {
         return datas;
     }
 
-    public static Class getClass(UUID uuid){
+    public static Class getClass(UUID uuid) {
         checkExistent(uuid);
         return Main.CLASSES.get(datas.get(uuid).getCurrentClass());
     }
-    private static void checkLevelExistent(UUID id,Class clas){
+
+    private static void checkLevelExistent(UUID id, Class clas) {
         checkExistent(id);
         PlayerData data = datas.get(id);
         if (!data.getClassLevels().containsKey(clas.getUniqueId())) {
-            data.getClassLevels().put(clas.getUniqueId(),new LevelData(0,0));
+            data.getClassLevels().put(clas.getUniqueId(), new LevelData(0, 0));
         }
-        datas.put(id,data);
+        datas.put(id, data);
     }
 
-    public static void levelUp(UUID id){
+    public static void levelUp(UUID id) {
         checkExistent(id);
-        if(!hasClass(id))return;
+        if (!hasClass(id)) return;
         PlayerData data = datas.get(id);
         Class clas = Main.CLASSES.get(data.getCurrentClass());
         assert clas != null;
@@ -50,30 +51,30 @@ public class ClassManager {
 
         LevelData clasLevel = data.getClassLevels().get(clas.getUniqueId());
         clasLevel.setXp(0);
-        clasLevel.setLevel(clasLevel.getLevel()+1);
-        data.getClassLevels().put(clas.getUniqueId(),clasLevel);
+        clasLevel.setLevel(clasLevel.getLevel() + 1);
+        data.getClassLevels().put(clas.getUniqueId(), clasLevel);
 
         Player player = Bukkit.getPlayer(id);
         assert player != null;
-        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("level-up","&eYou got leveled up to level &b%level%&e in your current class!")
-                .replace("%level%",clasLevel.getLevel()+"")
+        player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("level-up", "&eYou got leveled up to level &b%level%&e in your current class!")
+                .replace("%level%", clasLevel.getLevel() + "")
         ));
 
         for (ModifierApplier applier : clas.getModifiers()) {
             IModifier modifier = Main.MODIFIER_REGISTRY.get(applier.getModifierId());
             modifier.deapply(player);
-            modifier.apply(player,clasLevel.getLevel(),applier.getValue());
+            modifier.apply(player, clasLevel.getLevel(), applier.getValue());
         }
         for (PerkApplier perk : clas.getPerks()) {
             IPerk iPerk = Main.PERK_REGISTRY.get(perk.getPerkId());
             iPerk.degrade(player);
-            iPerk.grant(player,clasLevel.getLevel());
+            iPerk.grant(player, clasLevel.getLevel());
         }
     }
 
-    public static int getLevel(UUID id){
+    public static int getLevel(UUID id) {
         checkExistent(id);
-        if(!hasClass(id))return 0;
+        if (!hasClass(id)) return 0;
         PlayerData data = datas.get(id);
         Class clas = Main.CLASSES.get(data.getCurrentClass());
         assert clas != null;
@@ -83,9 +84,9 @@ public class ClassManager {
         return clasLevel.getLevel();
     }
 
-    public static int getXp(UUID id){
+    public static int getXp(UUID id) {
         checkExistent(id);
-        if(!hasClass(id))return 0;
+        if (!hasClass(id)) return 0;
         PlayerData data = datas.get(id);
         Class clas = Main.CLASSES.get(data.getCurrentClass());
         assert clas != null;
@@ -95,27 +96,27 @@ public class ClassManager {
         return clasLevel.getXp();
     }
 
-    public static LevelData getLevelData(UUID id,UUID classId){
+    public static LevelData getLevelData(UUID id, UUID classId) {
         checkExistent(id);
         checkLevelExistent(id, Objects.requireNonNull(Main.CLASSES.get(classId)));
 
         return datas.get(id).getClassLevels().get(classId);
     }
 
-    public static void addExp(UUID id,int amount){
+    public static void addExp(UUID id, int amount) {
         checkExistent(id);
-        if(!hasClass(id))return;
+        if (!hasClass(id)) return;
         PlayerData data = datas.get(id);
         Class clas = Main.CLASSES.get(data.getCurrentClass());
         assert clas != null;
         checkLevelExistent(id, clas);
 
         LevelData clasLevel = data.getClassLevels().get(clas.getUniqueId());
-        clasLevel.setXp(clasLevel.getXp()+amount);
+        clasLevel.setXp(clasLevel.getXp() + amount);
 
 
         int maxXP = clasLevel.getLevel() * 8 + 100;
-        if(clasLevel.getXp()> maxXP){
+        if (clasLevel.getXp() > maxXP) {
             levelUp(id);
         }
 
@@ -124,82 +125,87 @@ public class ClassManager {
         assert p != null;
 
 
-        NamespacedKey key = new NamespacedKey(Main.getInstance(),p.getName()+"_status");
+        NamespacedKey key = new NamespacedKey(Main.getInstance(), p.getName() + "_status");
         BossBar bar = Bukkit.getBossBar(key);
-        if(bar==null)bar = Bukkit.createBossBar(key,TranslateManager.translateColors("Level &2&l8 &r- Progress: &a%42"), BarColor.GREEN, BarStyle.SOLID);
-        double progress = (double) clasLevel.getXp() /maxXP;
+        if (bar == null)
+            bar = Bukkit.createBossBar(key, TranslateManager.translateColors("Level &2&l8 &r- Progress: &a%42"), BarColor.GREEN, BarStyle.SOLID);
+        double progress = (double) clasLevel.getXp() / maxXP;
 
-        bar.setTitle(TranslateManager.translateColors(Main.LANG.getString("level-progress","Level &2&l%lvl% &r- Progress: &a%progress%")
-                        .replace("%lvl%",clasLevel.getLevel()+"")
-                        .replace("%progress%", NumberFormat.getPercentInstance(new Locale(p.getLocale())).format(progress))
-                ));
+        bar.setTitle(TranslateManager.translateColors(Main.LANG.getString("level-progress", "Level &2&l%lvl% &r- Progress: &a%progress%")
+                .replace("%lvl%", clasLevel.getLevel() + "")
+                .replace("%progress%", NumberFormat.getPercentInstance(new Locale(p.getLocale())).format(progress))
+        ));
         bar.addPlayer(p);
-        bar.setProgress((double) clasLevel.getXp() /maxXP);
+        bar.setProgress((double) clasLevel.getXp() / maxXP);
         bar.setVisible(true);
-        bar.setColor(BarColor.valueOf(Main.CONFIG.getString("bar.color","GREEN")));
-        bar.setStyle(BarStyle.valueOf(Main.CONFIG.getString("bar.style","SOLID")));
-        new BukkitRunnable(){
+        bar.setColor(BarColor.valueOf(Main.CONFIG.getString("bar.color", "GREEN")));
+        bar.setStyle(BarStyle.valueOf(Main.CONFIG.getString("bar.style", "SOLID")));
+        new BukkitRunnable() {
             private int i = 100;
+
             @Override
             public void run() {
                 BossBar b = Bukkit.getBossBar(key);
                 assert b != null;
-                if(i!=0&&!b.isVisible()){cancel();return;}
-                if(i==0&&b.isVisible()) {
+                if (i != 0 && !b.isVisible()) {
+                    cancel();
+                    return;
+                }
+                if (i == 0 && b.isVisible()) {
                     b.setVisible(false);
                     cancel();
                     return;
                 }
                 i--;
             }
-        }.runTaskTimer(Main.getInstance(),0,1);
+        }.runTaskTimer(Main.getInstance(), 0, 1);
     }
 
-    public static boolean hasClass(UUID id){
+    public static boolean hasClass(UUID id) {
         checkExistent(id);
-        return datas.containsKey(id) && Main.CLASSES.get(datas.get(id).getCurrentClass())!=null;
+        return datas.containsKey(id) && Main.CLASSES.get(datas.get(id).getCurrentClass()) != null;
     }
 
-    public static boolean hasPerk(UUID id, IPerk perk){
-        if(!hasClass(id))return false;
+    public static boolean hasPerk(UUID id, IPerk perk) {
+        if (!hasClass(id)) return false;
         Class clas = getClass(id);
 
         for (PerkApplier applier : clas.getPerks()) {
-            if(applier.getPerkId().equals(Main.PERK_REGISTRY.idOf(perk)))return true;
+            if (applier.getPerkId().equals(Main.PERK_REGISTRY.idOf(perk))) return true;
         }
         return false;
     }
 
-    public static void removeClass(UUID id){
+    public static void removeClass(UUID id) {
         datas.get(id).setCurrentClass(null);
     }
 
-    private static void checkExistent(UUID id){
-        if(!datas.containsKey(id)) datas.put(id,new PlayerData(null));
+    private static void checkExistent(UUID id) {
+        if (!datas.containsKey(id)) datas.put(id, new PlayerData(null));
     }
 
-    public static void setClass(UUID id,Class clas){
+    public static void setClass(UUID id, Class clas) {
         checkExistent(id);
         PlayerData data = datas.get(id);
         data.setCurrentClass(clas.getUniqueId());
-        datas.put(id,data);
+        datas.put(id, data);
     }
 
-    public static void save(Main main){
-        String path = main.getDataFolder().getAbsolutePath()+"\\PlayerClasses.json";
+    public static void save(Main main) {
+        String path = main.getDataFolder().getAbsolutePath() + "\\PlayerClasses.json";
 
         File file = new File(path);
 
         try {
             file.createNewFile();
 
-            Writer writer = new FileWriter(file,false);
+            Writer writer = new FileWriter(file, false);
 
-            new Gson().toJson(datas,writer);
+            new Gson().toJson(datas, writer);
 
             writer.flush();
             writer.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -215,7 +221,8 @@ public class ClassManager {
 
             Gson gson = new GsonBuilder().create();
 
-            Type mapType = new TypeToken<Map<String, PlayerData>>() {}.getType();
+            Type mapType = new TypeToken<Map<String, PlayerData>>() {
+            }.getType();
 
             Map<String, PlayerData> map = gson.fromJson(reader, mapType);
 

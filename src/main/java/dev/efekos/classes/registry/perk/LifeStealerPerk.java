@@ -17,19 +17,19 @@ public final class LifeStealerPerk implements IPerk {
 
     }
 
-    public int getMaxKill(int level){
+    public int getMaxKill(int level) {
         int amount = 4;
-        if(level>=25)amount--;
-        if(level>=50)amount--;
-        if(level>=75)amount--;
-        if(level>=100)amount--;
+        if (level >= 25) amount--;
+        if (level >= 50) amount--;
+        if (level >= 75) amount--;
+        if (level >= 100) amount--;
         return amount;
     }
 
     @Override
     public String getDescription(int level) {
 
-        return Main.LANG.getString("perks.life_stealer","&eGet &b1 &ehealth &5(&dhalf of an heart&5) &eeach %a% kill")
-                .replace("%a%", Utilities.generateAmountText(getMaxKill(level), ChatColor.YELLOW+""));
+        return Main.LANG.getString("perks.life_stealer", "&eGet &b1 &ehealth &5(&dhalf of an heart&5) &eeach %a% kill")
+                .replace("%a%", Utilities.generateAmountText(getMaxKill(level), ChatColor.YELLOW + ""));
     }
 }

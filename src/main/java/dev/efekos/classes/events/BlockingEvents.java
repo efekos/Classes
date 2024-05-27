@@ -24,94 +24,95 @@ import org.bukkit.potion.PotionEffect;
 import java.util.Set;
 
 public class BlockingEvents implements Listener {
-    private boolean isBlocked(Player p, ItemStack i){
-        if(i==null) return false;
-        if(!ClassManager.hasClass(p.getUniqueId())) return false;
+    private boolean isBlocked(Player p, ItemStack i) {
+        if (i == null) return false;
+        if (!ClassManager.hasClass(p.getUniqueId())) return false;
         Class clas = ClassManager.getClass(p.getUniqueId());
 
         Set<Enchantment> enchantments = i.getEnchantments().keySet();
-        if(i.getItemMeta() instanceof EnchantmentStorageMeta es) enchantments = es.getStoredEnchants().keySet();
-        if(i.getItemMeta() instanceof PotionMeta potionMeta){
-            if(potionMeta.getCustomEffects().stream().map(PotionEffect::getType).anyMatch(clas.getBlockedPotions()::contains))return true;
+        if (i.getItemMeta() instanceof EnchantmentStorageMeta es) enchantments = es.getStoredEnchants().keySet();
+        if (i.getItemMeta() instanceof PotionMeta potionMeta) {
+            if (potionMeta.getCustomEffects().stream().map(PotionEffect::getType).anyMatch(clas.getBlockedPotions()::contains))
+                return true;
         }
 
         return clas.getBlockedMaterials().contains(i.getType()) || clas.getBlockedEnchantments().stream().anyMatch(enchantments::contains);
     }
 
-    private boolean isBlocked(Player p, Block b){
-        if(b==null)return false;
-        if(!ClassManager.hasClass(p.getUniqueId())) return false;
+    private boolean isBlocked(Player p, Block b) {
+        if (b == null) return false;
+        if (!ClassManager.hasClass(p.getUniqueId())) return false;
         Class clas = ClassManager.getClass(p.getUniqueId());
 
         return clas.getBlockedMaterials().contains(b.getType());
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerPickup(EntityPickupItemEvent e){
-        if(!(e.getEntity() instanceof Player player)) return;
+    public void onPlayerPickup(EntityPickupItemEvent e) {
+        if (!(e.getEntity() instanceof Player player)) return;
 
-        if(isBlocked(player,e.getItem().getItemStack())){
+        if (isBlocked(player, e.getItem().getItemStack())) {
             e.setCancelled(true);
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.pickup-material","&cYour class prevents you from picking that item up.")));
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.pickup-material", "&cYour class prevents you from picking that item up.")));
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerInteract(PlayerInteractEvent e){
+    public void onPlayerInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        if(isBlocked(p,e.getItem())){
+        if (isBlocked(p, e.getItem())) {
             e.setCancelled(true);
-            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.interact-material","&cYour class prevents you from interacting with that item in your hand.")));
-        } else if(isBlocked(p,e.getClickedBlock())){
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.interact-material", "&cYour class prevents you from interacting with that item in your hand.")));
+        } else if (isBlocked(p, e.getClickedBlock())) {
             e.setCancelled(true);
-            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.interact-material-block","&cYour class prevents you from interacting with that block.")));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.interact-material-block", "&cYour class prevents you from interacting with that block.")));
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerConsume(PlayerItemConsumeEvent e){
+    public void onPlayerConsume(PlayerItemConsumeEvent e) {
         Player p = e.getPlayer();
-        if(isBlocked(p,e.getItem())){
+        if (isBlocked(p, e.getItem())) {
             e.setCancelled(true);
-            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.consume-material","&cYour class prevents you from eating/drinking that item.")));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.consume-material", "&cYour class prevents you from eating/drinking that item.")));
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerHarvest(PlayerHarvestBlockEvent e){
+    public void onPlayerHarvest(PlayerHarvestBlockEvent e) {
         Player p = e.getPlayer();
-        if(isBlocked(p,e.getHarvestedBlock())){
+        if (isBlocked(p, e.getHarvestedBlock())) {
             e.setCancelled(true);
-            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.harvest-material","&cYour class prevents you from harvesting that block.")));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.harvest-material", "&cYour class prevents you from harvesting that block.")));
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerBreak(BlockBreakEvent e){
+    public void onPlayerBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
-        if(isBlocked(p,e.getBlock())){
+        if (isBlocked(p, e.getBlock())) {
             e.setCancelled(true);
-            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.break-material-block","&cYour class prevents you from breaking that block.")));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.break-material-block", "&cYour class prevents you from breaking that block.")));
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerEnchant(EnchantItemEvent e){
+    public void onPlayerEnchant(EnchantItemEvent e) {
         Player p = e.getEnchanter();
 
-        if(!ClassManager.hasClass(p.getUniqueId())) return;
+        if (!ClassManager.hasClass(p.getUniqueId())) return;
         Class clas = ClassManager.getClass(p.getUniqueId());
 
-        if(e.getEnchantsToAdd().keySet().stream().anyMatch(clas.getBlockedEnchantments()::contains)) {
+        if (e.getEnchantsToAdd().keySet().stream().anyMatch(clas.getBlockedEnchantments()::contains)) {
             e.setCancelled(true);
-            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.use-enchantment","&cYour class prevents you from enchanting any item with that enchantment.")));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.use-enchantment", "&cYour class prevents you from enchanting any item with that enchantment.")));
             return;
         }
 
 
-        if(isBlocked(p,e.getEnchantBlock())||isBlocked(p,e.getItem())){
+        if (isBlocked(p, e.getEnchantBlock()) || isBlocked(p, e.getItem())) {
             e.setCancelled(true);
-            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.enchant-material","&cYour class prevents you from enchanting that item.")));
+            p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("blocking.enchant-material", "&cYour class prevents you from enchanting that item.")));
         }
     }
 }

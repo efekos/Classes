@@ -44,10 +44,10 @@ public final class AttributeModifier implements IModifier {
     }
 
     @Override
-    public String getDescription(int level,double value) {
+    public String getDescription(int level, double value) {
         return description
-                .replace("%p%", Utilities.generatePercentageText(calculatePercentage(level,value), ChatColor.YELLOW+""))
-                .replace("%a%", Utilities.generateAmountText(calculateAmount(level,value), ChatColor.YELLOW+""));
+                .replace("%p%", Utilities.generatePercentageText(calculatePercentage(level, value), ChatColor.YELLOW + ""))
+                .replace("%a%", Utilities.generateAmountText(calculateAmount(level, value), ChatColor.YELLOW + ""));
     }
 
     public double getDef() {
@@ -64,26 +64,26 @@ public final class AttributeModifier implements IModifier {
         }
 
 
-        player.getAttribute(attribute).setBaseValue(value+addition);
+        player.getAttribute(attribute).setBaseValue(value + addition);
     }
 
-    private double realValue(int level,double value){
+    private double realValue(int level, double value) {
         double addition = 0.0;
         for (int i = 10; i <= 100; i += 10) {
             if (level >= i) {
                 addition += additionPerTenLevels;
             }
         }
-        return value+addition;
+        return value + addition;
     }
 
     public int calculatePercentage(int level, double value) {
-        return (int) Math.round((realValue(level,value)/def)*100);
+        return (int) Math.round((realValue(level, value) / def) * 100);
     }
 
     @Override
     public boolean isPositive(int level, double value) {
-        return realValue(level,value)>=def;
+        return realValue(level, value) >= def;
     }
 
     public int calculateAmount(int level, double value) {
@@ -93,7 +93,7 @@ public final class AttributeModifier implements IModifier {
                 addition += additionPerTenLevels;
             }
         }
-        return (int) (value+addition);
+        return (int) (value + addition);
     }
 
     @Override
@@ -103,6 +103,6 @@ public final class AttributeModifier implements IModifier {
 
     @Override
     public String toString() {
-        return "AttributeModifier[attribute="+attribute.toString()+",def="+def+"]";
+        return "AttributeModifier[attribute=" + attribute.toString() + ",def=" + def + "]";
     }
 }

@@ -7,7 +7,6 @@ import me.efekos.simpler.commands.node.CommandExecutive;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +18,16 @@ public final class ModifiersNode implements CommandExecutive {
         CommandSender sender = context.sender();
 
         dev.efekos.classes.data.Class clas = Main.getClassByName(args.get(0));
-        if(clas==null){
-            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
+        if (clas == null) {
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class", "&cThere is no class with that name.")));
             return;
         }
         List<String> modifierStrings = new ArrayList<>();
         clas.getModifiers().forEach(modifierApplier -> {
             IModifier IModifier = Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId());
-            if(IModifier ==null)return;
+            if (IModifier == null) return;
 
-            modifierStrings.add(ChatColor.AQUA+modifierApplier.getModifierId().toString() + " &6 - &e"+ IModifier.getDescription(1,modifierApplier.getValue()));
+            modifierStrings.add(ChatColor.AQUA + modifierApplier.getModifierId().toString() + " &6 - &e" + IModifier.getDescription(1, modifierApplier.getValue()));
         });
 
         for (String s : modifierStrings) {

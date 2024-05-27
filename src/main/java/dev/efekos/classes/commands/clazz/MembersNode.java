@@ -16,15 +16,15 @@ public final class MembersNode implements CommandExecutive {
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();
 
-        if(context.sender() instanceof Player player){
+        if (context.sender() instanceof Player player) {
             dev.efekos.classes.data.Class clas = Main.getClassByName(args.get(0));
-            if(clas==null){
-                player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
+            if (clas == null) {
+                player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class", "&cThere is no class with that name.")));
                 return;
             }
             MenuData data = MenuManager.getMenuData(player);
-            data.set("class",clas.getUniqueId());
-            MenuManager.updateMenuData(player,data);
+            data.set("class", clas.getUniqueId());
+            MenuManager.updateMenuData(player, data);
             MenuManager.Open(player, ClassMembersMenu.class);
         }
     }

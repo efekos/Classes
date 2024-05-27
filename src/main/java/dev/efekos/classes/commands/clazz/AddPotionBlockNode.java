@@ -6,7 +6,6 @@ import me.efekos.simpler.commands.node.CommandExecutive;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
@@ -18,20 +17,20 @@ public final class AddPotionBlockNode implements CommandExecutive {
         CommandSender sender = context.sender();
 
         dev.efekos.classes.data.Class clas = Main.getClassByName(args.get(0));
-        if(clas==null){
-            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class","&cThere is no class with that name.")));
+        if (clas == null) {
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class", "&cThere is no class with that name.")));
             return;
         }
-        if(clas.getBlockedPotions().contains(PotionEffectType.getByKey(NamespacedKey.fromString(args.get(4))))){
-            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-potion-block.already","&cThat potion is already blocked for that class.")));
+        if (clas.getBlockedPotions().contains(PotionEffectType.getByKey(NamespacedKey.fromString(args.get(4))))) {
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-potion-block.already", "&cThat potion is already blocked for that class.")));
             return;
         }
         clas.getBlockedPotions().add(PotionEffectType.getByKey(NamespacedKey.fromString(args.get(4))));
-        Main.CLASSES.update(clas.getUniqueId(),clas);
+        Main.CLASSES.update(clas.getUniqueId(), clas);
 
-        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-potion-block.done","&aSuccessfully blocked &b%potion% &afor &b%class%&a!")
-                .replace("%potion%",args.get(4))
-                .replace("%class%",clas.getName())
+        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-potion-block.done", "&aSuccessfully blocked &b%potion% &afor &b%class%&a!")
+                .replace("%potion%", args.get(4))
+                .replace("%class%", clas.getName())
         ));
     }
 }

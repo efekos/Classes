@@ -23,7 +23,7 @@ public final class EnchantmentNameArgumentNode extends ArgumentNode {
         for (Enchantment enchantment : Enchantment.values()) {
             NamespacedKey key = enchantment.getKey();
 
-            list.add(key.getNamespace()+":"+key.getKey());
+            list.add(key.getNamespace() + ":" + key.getKey());
         }
 
         return list;
@@ -32,7 +32,7 @@ public final class EnchantmentNameArgumentNode extends ArgumentNode {
 
     @Override
     public boolean isCorrect(String s) {
-        if(Utilities.getEnchantmentByKey(s)==null) return true;
+        if (Utilities.getEnchantmentByKey(s) == null) return true;
         return true;
     }
 }

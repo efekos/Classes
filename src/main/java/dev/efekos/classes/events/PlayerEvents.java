@@ -25,42 +25,43 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class PlayerEvents implements Listener {
 
-    public static Map<UUID,Double> playersToArrowBoost = new HashMap<>();
+    public static Map<UUID, Double> playersToArrowBoost = new HashMap<>();
 
     @EventHandler
-    public void onEntitySpawn(ProjectileLaunchEvent e){
+    public void onEntitySpawn(ProjectileLaunchEvent e) {
         Entity entity = e.getEntity();
-        if(!(entity instanceof Arrow arrow)) return;
+        if (!(entity instanceof Arrow arrow)) return;
 
-        if(!(arrow.getShooter() instanceof Player p)) return;
-        if(!playersToArrowBoost.containsKey(p.getUniqueId()))return;
+        if (!(arrow.getShooter() instanceof Player p)) return;
+        if (!playersToArrowBoost.containsKey(p.getUniqueId())) return;
         Double i = playersToArrowBoost.get(p.getUniqueId());
         AtomicReference<Vector> firstArrowVector = new AtomicReference<>(arrow.getVelocity());
         AtomicInteger counter = new AtomicInteger(0);
-        int maxCounter = (int) Math.round(i*20);
+        int maxCounter = (int) Math.round(i * 20);
 
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
             public void run() {
-                if(arrow.getVelocity().isZero()||maxCounter== counter.get()) {
-                    cancel();return;
+                if (arrow.getVelocity().isZero() || maxCounter == counter.get()) {
+                    cancel();
+                    return;
                 }
-                counter.set(counter.get()+1);
+                counter.set(counter.get() + 1);
                 arrow.setVelocity(firstArrowVector.get());
             }
-        }.runTaskTimer(Main.getInstance(),0,1);
+        }.runTaskTimer(Main.getInstance(), 0, 1);
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e){
+    public void onPlayerJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        if(Main.CONFIG.getBoolean("class-required",true)&&!ClassManager.hasClass(p.getUniqueId())){
+        if (Main.CONFIG.getBoolean("class-required", true) && !ClassManager.hasClass(p.getUniqueId())) {
             MenuManager.Open(p, ChooseClassMenu.class);
         }
     }
 
     @EventHandler
-    public void onPlayerLeave(PlayerQuitEvent e){
-        Bukkit.removeBossBar(new NamespacedKey(Main.getInstance(),"status_"+e.getPlayer().getUniqueId()));
+    public void onPlayerLeave(PlayerQuitEvent e) {
+        Bukkit.removeBossBar(new NamespacedKey(Main.getInstance(), "status_" + e.getPlayer().getUniqueId()));
     }
 }

@@ -24,7 +24,7 @@ public class ClassMembersMenu extends PaginatedMenu {
     public String getTitle() {
         UUID classId = (UUID) data.get("class");
         String name = Main.CLASSES.get(classId).getName();
-        return Main.LANG.getString("menus.class_members.title","Members of the class %class%").replace("%class%",name);
+        return Main.LANG.getString("menus.class_members.title", "Members of the class %class%").replace("%class%", name);
     }
 
     @Override
@@ -37,18 +37,18 @@ public class ClassMembersMenu extends PaginatedMenu {
         UUID classId = (UUID) data.get("class");
         List<ItemStack> items = new ArrayList<>();
         ClassManager.getDatas().forEach((uuid, playerData) -> {
-            if(Objects.nonNull(playerData.getCurrentClass())&&playerData.getCurrentClass().equals(classId)){
+            if (Objects.nonNull(playerData.getCurrentClass()) && playerData.getCurrentClass().equals(classId)) {
                 Player p = Bukkit.getPlayer(uuid);
 
                 LevelData levelData = ClassManager.getLevelData(p.getUniqueId(), classId);
 
-                items.add(createSkull(p, TranslateManager.translateColors(Main.LANG.getString("menus.class_members.member-name","&e%name%").replace("%name%",p.getDisplayName())),
+                items.add(createSkull(p, TranslateManager.translateColors(Main.LANG.getString("menus.class_members.member-name", "&e%name%").replace("%name%", p.getDisplayName())),
                         Main.LANG.getStringList("menus.class_members.member-lore").stream().map(s -> s
-                                .replace("%xp%",levelData.getXp()+"")
-                                .replace("%lvl%",levelData.getLevel()+"")
-                                .replace("%xp_prog%", NumberFormat.getPercentInstance(new Locale(p.getLocale())).format(levelData.getXp()/(levelData.getLevel()* 8L +100L)))
+                                .replace("%xp%", levelData.getXp() + "")
+                                .replace("%lvl%", levelData.getLevel() + "")
+                                .replace("%xp_prog%", NumberFormat.getPercentInstance(new Locale(p.getLocale())).format(levelData.getXp() / (levelData.getLevel() * 8L + 100L)))
                         ).map(TranslateManager::translateColors).toArray(String[]::new)
-                        ));
+                ));
             }
         });
         return items;

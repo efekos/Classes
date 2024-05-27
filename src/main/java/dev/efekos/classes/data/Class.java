@@ -2,7 +2,6 @@ package dev.efekos.classes.data;
 
 import dev.efekos.classes.Main;
 import dev.efekos.classes.api.i.ILevelCriteria;
-import dev.efekos.classes.api.registry.LevelCriteriaRegistry;
 import me.efekos.simpler.config.Storable;
 import me.efekos.simpler.items.ItemContent;
 import org.bukkit.Bukkit;
@@ -57,14 +56,14 @@ public class Class implements Storable {
                     stack.setAmount(itemContent.getCount());
                     return stack;
                 }
-                ).toList();
+        ).toList();
     }
 
     public void setKitItems(List<ItemStack> kitItems) {
         this.kitItems = kitItems.stream().map(ItemContent::from).toList();
     }
 
-    public void addKitItem(ItemStack item){
+    public void addKitItem(ItemStack item) {
         kitItems.add(ItemContent.from(item));
     }
 

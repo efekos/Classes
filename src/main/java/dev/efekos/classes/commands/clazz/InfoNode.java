@@ -12,22 +12,22 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public final class InfoNode implements CommandExecutive{
+public final class InfoNode implements CommandExecutive {
     @Override
     public void onExecute(CommandExecuteContext context) {
         List<String> args = context.args();
 
-        if(context.sender() instanceof Player player){
+        if (context.sender() instanceof Player player) {
 
-            dev.efekos.classes.data.Class clas = args!=null&& !args.isEmpty() ? Main.getClassByName(args.get(0)): ClassManager.getClass(player.getUniqueId());
-            if(clas==null){
-                player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class-i","&cThere is no class with that name or you don't have a class.")));
+            dev.efekos.classes.data.Class clas = args != null && !args.isEmpty() ? Main.getClassByName(args.get(0)) : ClassManager.getClass(player.getUniqueId());
+            if (clas == null) {
+                player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class-i", "&cThere is no class with that name or you don't have a class.")));
                 return;
             }
 
             MenuData data = MenuManager.getMenuData(player);
-            data.set("class",clas.getUniqueId());
-            MenuManager.updateMenuData(player,data);
+            data.set("class", clas.getUniqueId());
+            MenuManager.updateMenuData(player, data);
 
             MenuManager.Open(player, ClassInfoMenu.class);
         }

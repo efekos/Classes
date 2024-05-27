@@ -48,26 +48,26 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         instance = this;
-        CLASSES = new ListDataManager<>("\\ClassData.json",this);
-        LANG = new YamlConfig("lang.yml",this);
-        CONFIG = new YamlConfig("config.yml",this);
+        CLASSES = new ListDataManager<>("\\ClassData.json", this);
+        LANG = new YamlConfig("lang.yml", this);
+        CONFIG = new YamlConfig("config.yml", this);
         LANG.setup();
         CONFIG.setup();
-        metrics = new Metrics(this,20226);
+        metrics = new Metrics(this, 20226);
         MenuManager.setPlugin(this);
         CLASSES.load(Class[].class);
         ClassManager.load(this);
-        getServer().getPluginManager().registerEvents(new BlockingEvents(),this);
-        getServer().getPluginManager().registerEvents(new PlayerEvents(),this);
-        getServer().getPluginManager().registerEvents(new ModifierApplyingEvents(),this);
-        getServer().getPluginManager().registerEvents(new HandlingEvents(),this);
-        getServer().getPluginManager().registerEvents(new CriteriaCheckEventListeners(),this);
+        getServer().getPluginManager().registerEvents(new BlockingEvents(), this);
+        getServer().getPluginManager().registerEvents(new PlayerEvents(), this);
+        getServer().getPluginManager().registerEvents(new ModifierApplyingEvents(), this);
+        getServer().getPluginManager().registerEvents(new HandlingEvents(), this);
+        getServer().getPluginManager().registerEvents(new CriteriaCheckEventListeners(), this);
 
         ServicesManager manager = getServer().getServicesManager();
 
-        manager.register(ModifierRegistry.class,new ModifierRegistry(),this, ServicePriority.Normal);
-        manager.register(PerkRegistry.class,new PerkRegistry(),this,ServicePriority.Normal);
-        manager.register(LevelCriteriaRegistry.class,new LevelCriteriaRegistry(),this,ServicePriority.Normal);
+        manager.register(ModifierRegistry.class, new ModifierRegistry(), this, ServicePriority.Normal);
+        manager.register(PerkRegistry.class, new PerkRegistry(), this, ServicePriority.Normal);
+        manager.register(LevelCriteriaRegistry.class, new LevelCriteriaRegistry(), this, ServicePriority.Normal);
 
         MODIFIER_REGISTRY = manager.getRegistration(ModifierRegistry.class).getProvider();
         PERK_REGISTRY = manager.getRegistration(PerkRegistry.class).getProvider();
@@ -79,7 +79,7 @@ public final class Main extends JavaPlugin {
 
         try {
 
-            CommandManager.registerCommandTree(this,new CommandTree("class","Class command","classes.use",
+            CommandManager.registerCommandTree(this, new CommandTree("class", "Class command", "classes.use",
                     new ClassNameArgumentNode()
                             .addChild(
                                     new LabelNode("block")
@@ -123,22 +123,22 @@ public final class Main extends JavaPlugin {
                             )
                             .addChild(new LabelNode("members").setExecutive(new MembersNode()).setPermission("classes.members"))
                             .addChild(new LabelNode("set")
-                                            .addChild(new LabelNode("criteria").addChild(new LevelCriteriaIDArgumentNode().setExecutive(new SetCriteriaNode()).setPermission("classes.set.criteria")))
-                                            .addChild(new LabelNode("description").addChild(new StringArgumentNode().setExecutive(new SetDescriptionNode()).setPermission("classes.set.description")))
-                                            .addChild(new LabelNode("icon").setExecutive(new SetIconNode()).setPermission("classes.set.icon"))
-                                    )
+                                    .addChild(new LabelNode("criteria").addChild(new LevelCriteriaIDArgumentNode().setExecutive(new SetCriteriaNode()).setPermission("classes.set.criteria")))
+                                    .addChild(new LabelNode("description").addChild(new StringArgumentNode().setExecutive(new SetDescriptionNode()).setPermission("classes.set.description")))
+                                    .addChild(new LabelNode("icon").setExecutive(new SetIconNode()).setPermission("classes.set.icon"))
+                            )
                             .addChild(new LabelNode("info").setExecutive(new InfoNode()).setPermission("classes.info"))
                     ,
                     new LabelNode("create").addChild(new StringArgumentNode().setExecutive(new CreateNode()).setPermission("classes.create")),
                     new LabelNode("leave").setExecutive(new LeaveNode()).setPermission("classes.leave"),
                     new LabelNode("choose").setExecutive(context -> {
-                        if(context.isSenderPlayer()){
+                        if (context.isSenderPlayer()) {
                             MenuManager.Open(((Player) context.sender()), ChooseClassMenu.class);
                         }
                     }).setPermission("classes.choose")
             ));
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             getLogger().info("Couldn't register commands, disabling");
             getServer().getPluginManager().disablePlugin(this);
@@ -156,9 +156,9 @@ public final class Main extends JavaPlugin {
     }
 
     @Nullable
-    public static Class getClassByName(String name){
+    public static Class getClassByName(String name) {
         for (Class aClass : CLASSES.getAll()) {
-            if(aClass.getName().equals(name))return aClass;
+            if (aClass.getName().equals(name)) return aClass;
         }
         return null;
     }

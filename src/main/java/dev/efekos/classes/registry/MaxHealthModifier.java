@@ -15,7 +15,7 @@ public final class MaxHealthModifier implements IModifier {
 
     @Override
     public boolean isPositive(int level, double value) {
-        return calculatePercentage(level,value)-100>=0;
+        return calculatePercentage(level, value) - 100 >= 0;
     }
 
     @Override
@@ -24,18 +24,18 @@ public final class MaxHealthModifier implements IModifier {
     }
 
     @Override
-    public String getDescription(int level,double value) {
-        return Main.LANG.getString("modifiers.max_health.desc","Have %p% more health &5(&dmeans %a%&d hearts&5)&e.")
-                .replace("%p%",Utilities.generatePercentageText(calculatePercentage(level,value), ChatColor.YELLOW+""))
-                .replace("%a%",Utilities.generateAmountText(calculateAmount(level,value),ChatColor.YELLOW+""));
+    public String getDescription(int level, double value) {
+        return Main.LANG.getString("modifiers.max_health.desc", "Have %p% more health &5(&dmeans %a%&d hearts&5)&e.")
+                .replace("%p%", Utilities.generatePercentageText(calculatePercentage(level, value), ChatColor.YELLOW + ""))
+                .replace("%a%", Utilities.generateAmountText(calculateAmount(level, value), ChatColor.YELLOW + ""));
     }
 
     private int calculatePercentage(int level, double value) {
 
-        return (int) ((value/20.0)*100);
+        return (int) ((value / 20.0) * 100);
     }
 
     public int calculateAmount(int level, double value) {
-        return (int) (value/2);
+        return (int) (value / 2);
     }
 }

@@ -27,35 +27,35 @@ public class ChooseClassMenu extends PaginatedMenu {
 
     @Override
     protected List<ItemStack> setItems() {
-        return Main.CLASSES.getAll().stream().map(clas->{
+        return Main.CLASSES.getAll().stream().map(clas -> {
             ItemStack item = clas.getIcon();
 
             ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(TranslateManager.translateColors(Main.LANG.getString("menus.choose_class.class-name","&e%class%").replace("%class%",clas.getName())));
+            meta.setDisplayName(TranslateManager.translateColors(Main.LANG.getString("menus.choose_class.class-name", "&e%class%").replace("%class%", clas.getName())));
             meta.setLore(Main.LANG.getStringList("menus.choose_class.class-lore").stream()
                     .map(s -> s
-                            .replace("%desc%",clas.getDescription())
-                            .replace("%modifiers%",clas.getModifiers().size()+"")
-                            .replace("%perks%",clas.getPerks().size()+"")
+                            .replace("%desc%", clas.getDescription())
+                            .replace("%modifiers%", clas.getModifiers().size() + "")
+                            .replace("%perks%", clas.getPerks().size() + "")
                             .replace("%class%", clas.getName())
                     )
                     .map(s -> TranslateManager.translateColors(s))
                     .toList()
             );
 
-            meta.getPersistentDataContainer().set(new NamespacedKey(Main.getInstance(),"className"), PersistentDataType.STRING,clas.getName());
+            meta.getPersistentDataContainer().set(new NamespacedKey(Main.getInstance(), "className"), PersistentDataType.STRING, clas.getName());
             item.setItemMeta(meta);
 
             return item;
         }).toList();
     }
 
-    private final NamespacedKey key = new NamespacedKey(Main.getInstance(),"className");
+    private final NamespacedKey key = new NamespacedKey(Main.getInstance(), "className");
     private boolean choosedOne = false;
 
     @Override
     public String getTitle() {
-        return Main.LANG.getString("menus.choose_class.title","Choose a Class!");
+        return Main.LANG.getString("menus.choose_class.title", "Choose a Class!");
     }
 
     @Override
@@ -63,27 +63,27 @@ public class ChooseClassMenu extends PaginatedMenu {
         super.onClick(e);
 
         ItemStack item = e.getCurrentItem();
-        if(!item.hasItemMeta())return;
+        if (!item.hasItemMeta()) return;
         ItemMeta meta = item.getItemMeta();
-        if(!meta.getPersistentDataContainer().has(key,PersistentDataType.STRING))return;
+        if (!meta.getPersistentDataContainer().has(key, PersistentDataType.STRING)) return;
         String name = meta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
-        Bukkit.dispatchCommand(owner,"classes:class join "+name);
+        Bukkit.dispatchCommand(owner, "classes:class join " + name);
         choosedOne = true;
         owner.closeInventory();
-        owner.playSound(owner, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER,100,1);
+        owner.playSound(owner, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 100, 1);
     }
 
     @Override
     public void onClose(InventoryCloseEvent e) {
-        if(!choosedOne&&Main.CONFIG.getBoolean("class-required",true)) {
+        if (!choosedOne && Main.CONFIG.getBoolean("class-required", true)) {
             UUID id = owner.getUniqueId();
-            new BukkitRunnable(){
+            new BukkitRunnable() {
                 @Override
                 public void run() {
                     MenuManager.Open(Main.getInstance().getServer().getPlayer(id), ChooseClassMenu.class);
                 }
-            }.runTaskLater(Main.getInstance(),2);
-        };
+            }.runTaskLater(Main.getInstance(), 2);
+        }
     }
 
     @Override
