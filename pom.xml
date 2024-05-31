@@ -78,8 +78,8 @@
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.20.2-R0.1-SNAPSHOT</version>
+            <artifactId>spigot</artifactId>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -96,6 +96,11 @@
             <groupId>dev.efekos.classes.api</groupId>
             <artifactId>ClassesAPI</artifactId>
             <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.efekos</groupId>
+            <artifactId>Arn</artifactId>
+            <version>0.3.3</version>
         </dependency>
     </dependencies>
 </project>
