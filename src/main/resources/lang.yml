@@ -88,6 +88,12 @@ commands:
     # Since /class info's class name is an optional argument, it has a different message than 'commands.generic.not-class', also telling the player that he is not in a class, so he has to enter a class name if he didn't.
     not-class-i: '&cThere is no class with that name or you don''t have a class.'
 
+    invalid-id: '&cInvalid ID.'
+
+    mod-404: '&cThere isn''t a modifier with that name.'
+    prk-404: '&cThere isn''t a perk with that name.'
+    cri-404: '&cThere isn''t a criteria with that name.'
+
   # /class block enchantment add
   add-enchantment-block:
 
