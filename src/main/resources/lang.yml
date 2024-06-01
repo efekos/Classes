@@ -85,8 +85,8 @@ commands:
     # When player tried to remove a block that does not exist already.
     not-added: '&cThat thing is not blocked for that class.'
 
-    # Since /class info's class name is an optional argument, it has a different message than 'commands.generic.not-class', also telling the player that he is not in a class, so he has to enter a class name if he didn't.
-    not-class-i: '&cThere is no class with that name or you don''t have a class.'
+    # When player executed /classinfo, but he isn't in a class.
+    not-class-i: '&cYou are not in a class.'
 
     invalid-id: '&cInvalid ID.'
 
