@@ -29,8 +29,9 @@ import org.bukkit.entity.Player;
 public class UsageCommands {
 
     @Command("class.leave")
-    @BlockCommandBlock @BlockConsole
-    public int leaveClass(Player player){
+    @BlockCommandBlock
+    @BlockConsole
+    public int leaveClass(Player player) {
         if (!ClassManager.hasClass(player.getUniqueId())) {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.leave.not-class", "&cYou are not in a class.")));
             return 1;
@@ -52,7 +53,7 @@ public class UsageCommands {
 
     @Command("class.create")
     @BlockCommandBlock
-    public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument ILevelCriteria criteria, @CommandArgument @Greedy String description){
+    public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument ILevelCriteria criteria, @CommandArgument @Greedy String description) {
         dev.efekos.classes.data.Class newClass = new dev.efekos.classes.data.Class(name, description, criteria);
 
         if (Main.CLASSES.getAll().stream().anyMatch(aClass -> aClass.getName().equals(newClass.getName()))) {
@@ -68,7 +69,7 @@ public class UsageCommands {
     @Command("class.create")
     @BlockCommandBlock
     public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument @Greedy String description) {
-        return createClass(sender,name,ClassesCriterias.TAKE_DAMAGE,description);
+        return createClass(sender, name, ClassesCriterias.TAKE_DAMAGE, description);
     }
 
     @Command("class.delete")
@@ -94,7 +95,8 @@ public class UsageCommands {
     }
 
     @Command("class.a:0:info")
-    @BlockCommandBlock @BlockConsole
+    @BlockCommandBlock
+    @BlockConsole
     public int classInfo(Player player, @CommandArgument("class") Class clas) {
         MenuData data = MenuManager.getMenuData(player);
         data.set("class", clas.getUniqueId());
@@ -104,19 +106,21 @@ public class UsageCommands {
     }
 
     @Command("classinfo")
-    @BlockCommandBlock @BlockConsole
+    @BlockCommandBlock
+    @BlockConsole
     public int classInfo(Player player) {
         Class clas = ClassManager.getClass(player.getUniqueId());
-        if(clas==null){
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class-i","&cYou are not in a class.")));
+        if (clas == null) {
+            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class-i", "&cYou are not in a class.")));
             return 1;
         }
-        return classInfo(player,clas);
+        return classInfo(player, clas);
     }
 
     @Command("class.info")
-    @BlockCommandBlock @BlockConsole
-    public int classInfo2(Player player){
+    @BlockCommandBlock
+    @BlockConsole
+    public int classInfo2(Player player) {
         return classInfo(player);
     }
 
@@ -136,14 +140,16 @@ public class UsageCommands {
             if (IModifier != null)
                 IModifier.apply(player, ClassManager.getLevel(player.getUniqueId()), modifierApplier.getValue());
         }
-        for (PerkApplier perk : clas.getPerks()) Main.PERK_REGISTRY.get(perk.getPerkId()).grant(player, ClassManager.getLevel(player.getUniqueId()));
+        for (PerkApplier perk : clas.getPerks())
+            Main.PERK_REGISTRY.get(perk.getPerkId()).grant(player, ClassManager.getLevel(player.getUniqueId()));
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.join.done", "&aSuccessfully joined &b%class% &aclass! Check out your pros and cons by typing &b/classinfo&a.").replace("%class%", clas.getName())));
         return 0;
     }
 
     @Command("class.a:0:members")
-    @BlockCommandBlock @BlockConsole
+    @BlockCommandBlock
+    @BlockConsole
     public int classMembers(Player player, @CommandArgument("class") Class clas) {
         MenuData data = MenuManager.getMenuData(player);
         data.set("class", clas.getUniqueId());

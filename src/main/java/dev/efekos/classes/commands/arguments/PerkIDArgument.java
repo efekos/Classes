@@ -4,9 +4,7 @@ import dev.efekos.arn.argument.CustomArgumentType;
 import dev.efekos.arn.exception.ArnSyntaxException;
 import dev.efekos.arn.exception.type.SimpleArnExceptionType;
 import dev.efekos.classes.Main;
-import dev.efekos.classes.api.i.IModifier;
 import dev.efekos.classes.api.i.IPerk;
-import dev.efekos.classes.api.registry.ModifierRegistry;
 import dev.efekos.classes.api.registry.PerkRegistry;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.NamespacedKey;
@@ -33,14 +31,14 @@ public class PerkIDArgument implements CustomArgumentType<IPerk> {
     @Override
     public IPerk parse(CommandSender sender, String arg) throws ArnSyntaxException {
         PerkRegistry provider = Main.PERK_REGISTRY;
-        if(provider == null) return null;
+        if (provider == null) return null;
         try {
             NamespacedKey.fromString(arg);
         } catch (Exception e) {
             throw INVALID.create();
         }
         IPerk modifier = provider.get(NamespacedKey.fromString(arg));
-        if(modifier == null) throw MOD_404.create();
+        if (modifier == null) throw MOD_404.create();
         return modifier;
     }
 }

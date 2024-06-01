@@ -5,9 +5,7 @@ import dev.efekos.arn.exception.ArnSyntaxException;
 import dev.efekos.arn.exception.type.SimpleArnExceptionType;
 import dev.efekos.classes.Main;
 import dev.efekos.classes.api.i.ILevelCriteria;
-import dev.efekos.classes.api.i.IPerk;
 import dev.efekos.classes.api.registry.LevelCriteriaRegistry;
-import dev.efekos.classes.api.registry.PerkRegistry;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
@@ -33,14 +31,14 @@ public class LevelCriteriaIDArgument implements CustomArgumentType<ILevelCriteri
     @Override
     public ILevelCriteria parse(CommandSender sender, String arg) throws ArnSyntaxException {
         LevelCriteriaRegistry provider = Main.CRITERIA_REGISTRY;
-        if(provider == null) return null;
+        if (provider == null) return null;
         try {
             NamespacedKey.fromString(arg);
         } catch (Exception e) {
             throw INVALID.create();
         }
         ILevelCriteria modifier = provider.get(NamespacedKey.fromString(arg));
-        if(modifier == null) throw MOD_404.create();
+        if (modifier == null) throw MOD_404.create();
         return modifier;
     }
 }

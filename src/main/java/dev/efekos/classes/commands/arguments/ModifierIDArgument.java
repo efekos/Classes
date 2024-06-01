@@ -6,7 +6,6 @@ import dev.efekos.arn.exception.type.SimpleArnExceptionType;
 import dev.efekos.classes.Main;
 import dev.efekos.classes.api.i.IModifier;
 import dev.efekos.classes.api.registry.ModifierRegistry;
-import dev.efekos.classes.data.Class;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
@@ -32,14 +31,14 @@ public class ModifierIDArgument implements CustomArgumentType<IModifier> {
     @Override
     public IModifier parse(CommandSender sender, String arg) throws ArnSyntaxException {
         ModifierRegistry provider = Main.MODIFIER_REGISTRY;
-        if(provider == null) return null;
+        if (provider == null) return null;
         try {
             NamespacedKey.fromString(arg);
         } catch (Exception e) {
             throw INVALID.create();
         }
         IModifier modifier = provider.get(NamespacedKey.fromString(arg));
-        if(modifier == null) throw MOD_404.create();
+        if (modifier == null) throw MOD_404.create();
         return modifier;
     }
 }

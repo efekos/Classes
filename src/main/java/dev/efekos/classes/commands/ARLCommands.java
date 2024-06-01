@@ -6,7 +6,6 @@ import dev.efekos.arn.annotation.Container;
 import dev.efekos.arn.annotation.block.BlockCommandBlock;
 import dev.efekos.arn.annotation.modifier.Item;
 import dev.efekos.classes.Main;
-import dev.efekos.classes.Utilities;
 import dev.efekos.classes.api.i.IModifier;
 import dev.efekos.classes.api.i.IPerk;
 import dev.efekos.classes.data.Class;
@@ -18,7 +17,6 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
@@ -33,7 +31,7 @@ public class ARLCommands {
 
     @Command(value = "class.a:0:block.a:0:enchantment.a:0:add")
     @BlockCommandBlock
-    public int addEnchantment(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument Enchantment enchantment){
+    public int addEnchantment(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument Enchantment enchantment) {
 
         if (clas.getBlockedEnchantments().contains(enchantment)) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-enchantment-block.already", "&cThat enchantment is already blocked for that class.")));
@@ -51,7 +49,7 @@ public class ARLCommands {
 
     @Command(value = "class.a:0:block.a:0:enchantment.a:0:remove")
     @BlockCommandBlock
-    public int removeEnchantment(CommandSender sender, @CommandArgument("class") Class clas,@CommandArgument Enchantment enchantment){
+    public int removeEnchantment(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument Enchantment enchantment) {
 
         if (!clas.getBlockedEnchantments().contains(enchantment)) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-enchantment-block.not-added", "&cThat enchantment is not blocked for that class.")));
@@ -69,7 +67,7 @@ public class ARLCommands {
 
     @Command(value = "class.a:0:block.a:0:enchantment.a:0:list")
     @BlockCommandBlock
-    public int listEnchants(CommandSender sender, @CommandArgument("class") Class clas){
+    public int listEnchants(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> list = clas.getBlockedEnchantments().stream().map(enchantment -> enchantment.getKey().getNamespace() + ":" + enchantment.getKey().getKey()).toList();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.block-list.title-enchantment", "&eBlocked enchantments for class %class%:").replaceAll("%class%", clas.getName())));
@@ -82,7 +80,7 @@ public class ARLCommands {
 
     @Command("class.a:0:block.a:0:material.a:0:add")
     @BlockCommandBlock
-    public int addMaterial(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument @Item Material material){
+    public int addMaterial(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument @Item Material material) {
 
         if (clas.getBlockedMaterials().contains(material)) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-material-block.already", "&cThat material is already blocked for that class.")));
@@ -100,7 +98,7 @@ public class ARLCommands {
 
     @Command("class.a:0:block.a:0:material.a:0:list")
     @BlockCommandBlock
-    public int listMaterials(CommandSender sender, @CommandArgument("class") Class clas){
+    public int listMaterials(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> list = clas.getBlockedMaterials().stream().map(enchantment -> enchantment.getKey().getNamespace() + ":" + enchantment.getKey().getKey()).toList();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.block-list.title-material", "&eBlocked materials for class %class%:").replaceAll("%class%", clas.getName())));
@@ -113,7 +111,7 @@ public class ARLCommands {
 
     @Command("class.a:0:block.a:0:material.a:0:remove")
     @BlockCommandBlock
-    public int removeMaterial(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument @Item Material material){
+    public int removeMaterial(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument @Item Material material) {
         if (!clas.getBlockedMaterials().contains(material)) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-material-block.not-added", "&cThat material is not blocked for that class.")));
             return 1;
@@ -130,7 +128,7 @@ public class ARLCommands {
 
     @Command("class.a:0:modifier.a:0:add")
     @BlockCommandBlock
-    public int addModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier, @CommandArgument double value){
+    public int addModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier, @CommandArgument double value) {
 
         NamespacedKey key = Main.MODIFIER_REGISTRY.idOf(modifier);
         if (clas.getModifiers().stream().anyMatch(modifierApplier -> modifierApplier.getModifierId().equals(key))) {
@@ -150,7 +148,7 @@ public class ARLCommands {
 
     @Command("class.a:0:modifier.a:0:list")
     @BlockCommandBlock
-    public int listModifiers(CommandSender sender, @CommandArgument("class") Class clas){
+    public int listModifiers(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> modifierStrings = new ArrayList<>();
         for (ModifierApplier modifierApplier : clas.getModifiers()) {
             IModifier IModifier = Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId());
@@ -165,7 +163,7 @@ public class ARLCommands {
 
     @Command("class.a:0:modifier.a:0:remove")
     @BlockCommandBlock
-    public int removeModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier){
+    public int removeModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier) {
         NamespacedKey key = Main.MODIFIER_REGISTRY.idOf(modifier);
 
         if (clas.getModifiers().stream().noneMatch(modifierApplier -> modifierApplier.getModifierId().equals(key))) {
@@ -184,7 +182,7 @@ public class ARLCommands {
 
     @Command("class.a:0:perk.a:0:add")
     @BlockCommandBlock
-    public int addPerk(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IPerk perk){
+    public int addPerk(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IPerk perk) {
         NamespacedKey key = Main.PERK_REGISTRY.idOf(perk);
 
         if (clas.getPerks().stream().anyMatch(modifierApplier -> modifierApplier.getPerkId().equals(perk))) {
@@ -203,7 +201,7 @@ public class ARLCommands {
 
     @Command("class.a:0:perk.a:0:list")
     @BlockCommandBlock
-    public int listPerks(CommandSender sender, @CommandArgument("class") Class clas){
+    public int listPerks(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> perkStrings = new ArrayList<>();
         for (PerkApplier applier : clas.getPerks()) {
             IPerk perk = Main.PERK_REGISTRY.get(applier.getPerkId());
@@ -217,7 +215,7 @@ public class ARLCommands {
 
     @Command("class.a:0:perk.a:0:remove")
     @BlockCommandBlock
-    public int removePerk(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IPerk perk){
+    public int removePerk(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IPerk perk) {
         NamespacedKey key = Main.PERK_REGISTRY.idOf(perk);
 
         if (clas.getPerks().stream().allMatch(modifierApplier -> !modifierApplier.getPerkId().equals(key))) {
@@ -236,7 +234,7 @@ public class ARLCommands {
 
     @Command("class.a:0:block.a:0:potion.a:0:add")
     @BlockCommandBlock
-    public int addPotionBlock(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument PotionEffectType potion){
+    public int addPotionBlock(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument PotionEffectType potion) {
         if (clas.getBlockedPotions().contains(potion)) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-potion-block.already", "&cThat potion is already blocked for that class.")));
             return 1;
@@ -253,18 +251,19 @@ public class ARLCommands {
 
     @Command("class.a:0:block.a:0:potion.a:0:list")
     @BlockCommandBlock
-    public int listPotions(CommandSender sender, @CommandArgument("class") Class clas){
+    public int listPotions(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> list = clas.getBlockedPotions().stream().map(enchantment -> enchantment.getKey().getNamespace() + ":" + enchantment.getKey().getKey()).toList();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.block-list.title-potion", "&eBlocked potions for class %class%:").replaceAll("%class%", clas.getName())));
 
-        for (String string : list) sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.block-list.regex", "&5- &d%item%").replaceAll("%item%", string)));
+        for (String string : list)
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.block-list.regex", "&5- &d%item%").replaceAll("%item%", string)));
         return 0;
     }
 
     @Command("class.a:0:block.a:0:potion.a:0:remove")
     @BlockCommandBlock
-    public int removePotion(CommandSender sender, @CommandArgument("class") Class clas,@CommandArgument PotionEffectType potion){
+    public int removePotion(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument PotionEffectType potion) {
         if (!clas.getBlockedPotions().contains(potion)) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-potion-block.not-added", "&cThat potion is not blocked for that class.")));
             return 1;
