@@ -16,6 +16,7 @@ import dev.efekos.classes.data.ModifierApplier;
 import dev.efekos.classes.data.PerkApplier;
 import dev.efekos.classes.menu.ChooseClassMenu;
 import dev.efekos.classes.menu.ClassInfoMenu;
+import dev.efekos.classes.menu.ClassMembersMenu;
 import dev.efekos.classes.registry.ClassesCriterias;
 import me.efekos.simpler.menu.MenuData;
 import me.efekos.simpler.menu.MenuManager;
@@ -138,6 +139,16 @@ public class UsageCommands {
         for (PerkApplier perk : clas.getPerks()) Main.PERK_REGISTRY.get(perk.getPerkId()).grant(player, ClassManager.getLevel(player.getUniqueId()));
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.join.done", "&aSuccessfully joined &b%class% &aclass! Check out your pros and cons by typing &b/classinfo&a.").replace("%class%", clas.getName())));
+        return 0;
+    }
+
+    @Command("class.a:0:members")
+    @BlockCommandBlock @BlockConsole
+    public int classMembers(Player player, @CommandArgument("class") Class clas) {
+        MenuData data = MenuManager.getMenuData(player);
+        data.set("class", clas.getUniqueId());
+        MenuManager.updateMenuData(player, data);
+        MenuManager.Open(player, ClassMembersMenu.class);
         return 0;
     }
 
