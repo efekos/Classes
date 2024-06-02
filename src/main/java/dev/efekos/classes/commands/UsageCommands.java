@@ -158,4 +158,11 @@ public class UsageCommands {
         return 0;
     }
 
+    @Command("class.choose")
+    @BlockCommandBlock @BlockConsole
+    public int choose(Player player){
+        MenuManager.Open(player, ChooseClassMenu.class);
+        return 0;
+    }
+
 }
