@@ -25,10 +25,9 @@ import java.util.List;
 @Container
 public class ARLCommands {
 
-    // TODO descriptions
     // TODO exceptions
 
-    @Command(value = "class.a:0:block.a:0:enchantment.a:0:add",permission = "classes.block.enchantment.add")
+    @Command(value = "class.a:0:block.a:0:enchantment.a:0:add",permission = "classes.block.enchantment.add",description = "Block an enchantment.")
     @BlockCommandBlock
     public int addEnchantment(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument Enchantment enchantment) {
 
@@ -46,7 +45,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:block.a:0:enchantment.a:0:remove",permission = "classes.block.enchantment.remove")
+    @Command(value = "class.a:0:block.a:0:enchantment.a:0:remove",permission = "classes.block.enchantment.remove",description = "Unblock an enchantment.")
     @BlockCommandBlock
     public int removeEnchantment(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument Enchantment enchantment) {
 
@@ -64,7 +63,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:block.a:0:enchantment.a:0:list",permission = "classes.block.enchantment.list")
+    @Command(value = "class.a:0:block.a:0:enchantment.a:0:list",permission = "classes.block.enchantment.list",description = "List of blocked enchantments.")
     @BlockCommandBlock
     public int listEnchants(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> list = clas.getBlockedEnchantments().stream().map(enchantment -> enchantment.getKey().getNamespace() + ":" + enchantment.getKey().getKey()).toList();
@@ -77,7 +76,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:block.a:0:material.a:0:add",permission = "classes.block.material.add")
+    @Command(value = "class.a:0:block.a:0:material.a:0:add",permission = "classes.block.material.add",description = "Block a material")
     @BlockCommandBlock
     public int addMaterial(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument @Item Material material) {
 
@@ -95,7 +94,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:block.a:0:material.a:0:list",permission = "classes.block.material.list")
+    @Command(value = "class.a:0:block.a:0:material.a:0:list",permission = "classes.block.material.list",description = "List of blocked materials.")
     @BlockCommandBlock
     public int listMaterials(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> list = clas.getBlockedMaterials().stream().map(enchantment -> enchantment.getKey().getNamespace() + ":" + enchantment.getKey().getKey()).toList();
@@ -108,7 +107,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:block.a:0:material.a:0:remove",permission = "classes.block.material.remove")
+    @Command(value = "class.a:0:block.a:0:material.a:0:remove",permission = "classes.block.material.remove",description = "Unblock a material.")
     @BlockCommandBlock
     public int removeMaterial(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument @Item Material material) {
         if (!clas.getBlockedMaterials().contains(material)) {
@@ -125,7 +124,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:modifier.a:0:add",permission = "classes.modifier.add")
+    @Command(value = "class.a:0:modifier.a:0:add",permission = "classes.modifier.add",description = "Add a modifier.")
     @BlockCommandBlock
     public int addModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier, @CommandArgument double value) {
 
@@ -145,7 +144,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:modifier.a:0:list",permission = "classes.modifier.list")
+    @Command(value = "class.a:0:modifier.a:0:list",permission = "classes.modifier.list",description = "List of modifiers.")
     @BlockCommandBlock
     public int listModifiers(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> modifierStrings = new ArrayList<>();
@@ -160,7 +159,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:modifier.a:0:remove",permission = "classes.modifier.remove")
+    @Command(value = "class.a:0:modifier.a:0:remove",permission = "classes.modifier.remove",description = "Remove a modifier.")
     @BlockCommandBlock
     public int removeModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier) {
         NamespacedKey key = Main.MODIFIER_REGISTRY.idOf(modifier);
@@ -179,7 +178,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:perk.a:0:add",permission = "classes.perk.add")
+    @Command(value = "class.a:0:perk.a:0:add",permission = "classes.perk.add",description = "Add a perk")
     @BlockCommandBlock
     public int addPerk(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IPerk perk) {
         NamespacedKey key = Main.PERK_REGISTRY.idOf(perk);
@@ -198,7 +197,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:perk.a:0:list",permission = "classes.perk.list")
+    @Command(value = "class.a:0:perk.a:0:list",permission = "classes.perk.list",description = "List of perks")
     @BlockCommandBlock
     public int listPerks(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> perkStrings = new ArrayList<>();
@@ -212,7 +211,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:perk.a:0:remove",permission = "classes.perk.remove")
+    @Command(value = "class.a:0:perk.a:0:remove",permission = "classes.perk.remove",description = "Remove a perk")
     @BlockCommandBlock
     public int removePerk(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IPerk perk) {
         NamespacedKey key = Main.PERK_REGISTRY.idOf(perk);
@@ -231,7 +230,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:block.a:0:potion.a:0:add",permission = "classes.block.potion.add")
+    @Command(value = "class.a:0:block.a:0:potion.a:0:add",permission = "classes.block.potion.add",description = "Block a potion.")
     @BlockCommandBlock
     public int addPotionBlock(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument PotionEffectType potion) {
         if (clas.getBlockedPotions().contains(potion)) {
@@ -248,7 +247,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:block.a:0:potion.a:0:list",permission = "classes.block.potion.list")
+    @Command(value = "class.a:0:block.a:0:potion.a:0:list",permission = "classes.block.potion.list",description = "List of potions")
     @BlockCommandBlock
     public int listPotions(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> list = clas.getBlockedPotions().stream().map(enchantment -> enchantment.getKey().getNamespace() + ":" + enchantment.getKey().getKey()).toList();
@@ -260,7 +259,7 @@ public class ARLCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:block.a:0:potion.a:0:remove",permission = "classes.block.potion.remove")
+    @Command(value = "class.a:0:block.a:0:potion.a:0:remove",permission = "classes.block.potion.remove",description = "Remove a potion")
     @BlockCommandBlock
     public int removePotion(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument PotionEffectType potion) {
         if (!clas.getBlockedPotions().contains(potion)) {
