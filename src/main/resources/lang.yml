@@ -269,6 +269,9 @@ commands:
       # When the player isn't holding anything in his hand
       empty: '&cYou are not holding any item in your hand'
 
+      # When the player uses manual item command but provided air
+      empty-m: '&cYou can''t use air'
+
       # When the player successfully changes the item
       # %class% - Name of the class modified
       # %item% - Name of the item. DO NOT remove white colors or brackets around it.
