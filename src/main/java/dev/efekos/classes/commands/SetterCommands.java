@@ -26,7 +26,7 @@ import java.util.Objects;
 @Container
 public class SetterCommands {
 
-    @Command("class.a:0:set.a:0:criteria")
+    @Command(value = "class.a:0:set.a:0:criteria",permission = "classes.set.criteria")
     @BlockCommandBlock
     public int setCriteria(CommandSender sender, @CommandArgument("class")Class clas, @CommandArgument ILevelCriteria criteria){
         clas.setLevelCriteria(criteria);
@@ -37,7 +37,7 @@ public class SetterCommands {
         return 0;
     }
 
-    @Command("class.a:0:set.a:0:description")
+    @Command(value = "class.a:0:set.a:0:description",permission = "classes.set.description")
     @BlockCommandBlock
     public int setDescription(CommandSender sender, @CommandArgument("class")Class clas, @CommandArgument("description") @Greedy String description){
         clas.setDescription(description);
@@ -48,7 +48,7 @@ public class SetterCommands {
         return 0;
     }
 
-    @Command("class.a:0:set.a:0:icon")
+    @Command(value = "class.a:0:set.a:0:icon",permission = "classes.set.icon")
     @BlockCommandBlock
     public int setIconManually(Player player, @CommandArgument("class") Class clas, @CommandArgument ItemStack item){
 
@@ -76,7 +76,7 @@ public class SetterCommands {
         return 0;
     }
 
-    @Command("class.a:0:set.a:0:icon")
+    @Command(value = "class.a:0:set.a:0:icon",permission = "classes.set.icon")
     @BlockCommandBlock
     public int setIcon(Player player, @CommandArgument("class") Class clas){
         ItemStack item = player.getInventory().getItemInMainHand();

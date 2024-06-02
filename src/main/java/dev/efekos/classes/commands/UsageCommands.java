@@ -28,7 +28,7 @@ import org.bukkit.entity.Player;
 @Container
 public class UsageCommands {
 
-    @Command("class.leave")
+    @Command(value = "class.leave",permission = "classes.use")
     @BlockCommandBlock
     @BlockConsole
     public int leaveClass(Player player) {
@@ -51,7 +51,7 @@ public class UsageCommands {
         return 0;
     }
 
-    @Command("class.create")
+    @Command(value = "class.create",permission = "classes.create")
     @BlockCommandBlock
     public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument ILevelCriteria criteria, @CommandArgument @Greedy String description) {
         dev.efekos.classes.data.Class newClass = new dev.efekos.classes.data.Class(name, description, criteria);
@@ -66,13 +66,13 @@ public class UsageCommands {
         return 0;
     }
 
-    @Command("class.create")
+    @Command(value = "class.create",permission = "classes.create")
     @BlockCommandBlock
     public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument @Greedy String description) {
         return createClass(sender, name, ClassesCriterias.TAKE_DAMAGE, description);
     }
 
-    @Command("class.delete")
+    @Command(value = "class.delete",permission = "classes.delete")
     @BlockCommandBlock
     public int deleteClass(CommandSender sender, @CommandArgument("class") Class clas) {
         ClassManager.getDatas().forEach((uuid, playerData) -> {
@@ -94,7 +94,7 @@ public class UsageCommands {
         return 0;
     }
 
-    @Command("class.a:0:info")
+    @Command(value = "class.a:0:info",permission = "classes.use")
     @BlockCommandBlock
     @BlockConsole
     public int classInfo(Player player, @CommandArgument("class") Class clas) {
@@ -105,7 +105,7 @@ public class UsageCommands {
         return 0;
     }
 
-    @Command("classinfo")
+    @Command(value = "classinfo",permission = "classes.use")
     @BlockCommandBlock
     @BlockConsole
     public int classInfo(Player player) {
@@ -117,14 +117,14 @@ public class UsageCommands {
         return classInfo(player, clas);
     }
 
-    @Command("class.info")
+    @Command(value = "class.info",permission = "classes.use")
     @BlockCommandBlock
     @BlockConsole
     public int classInfo2(Player player) {
         return classInfo(player);
     }
 
-    @Command("class.join")
+    @Command(value = "class.join",permission = "classes.use")
     @BlockCommandBlock
     public int joinClass(Player player, @CommandArgument("class") Class clas) {
 
@@ -147,7 +147,7 @@ public class UsageCommands {
         return 0;
     }
 
-    @Command("class.a:0:members")
+    @Command(value = "class.a:0:members",permission = "classes.members")
     @BlockCommandBlock
     @BlockConsole
     public int classMembers(Player player, @CommandArgument("class") Class clas) {
@@ -158,7 +158,7 @@ public class UsageCommands {
         return 0;
     }
 
-    @Command("class.choose")
+    @Command(value = "class.choose",permission = "classes.use")
     @BlockCommandBlock @BlockConsole
     public int choose(Player player){
         MenuManager.Open(player, ChooseClassMenu.class);

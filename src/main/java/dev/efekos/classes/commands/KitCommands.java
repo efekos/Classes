@@ -21,7 +21,7 @@ import java.util.*;
 @Container
 public class KitCommands {
 
-    @Command("class.a:0:kit.a:0:clear")
+    @Command(value = "class.a:0:kit.a:0:clear",permission = "classes.kit.clear")
     @BlockCommandBlock
     public int clearKit(CommandSender sender, @CommandArgument("class")Class clas) {
         if (!sender.hasPermission("classes.kit.clear")) {
@@ -34,7 +34,7 @@ public class KitCommands {
         return 0;
     }
 
-    @Command("class.a:0:kit.a:0:get")
+    @Command(value = "class.a:0:kit.a:0:get",permission = "classes.kit.get")
     @BlockCommandBlock @BlockConsole
     public int getKit(Player player, @CommandArgument("class")Class clas) {
         if (!player.hasPermission("classes.kit.get")) {
@@ -62,7 +62,7 @@ public class KitCommands {
         return 0;
     }
 
-    @Command("class.a:0:kit.a:0:update")
+    @Command(value = "class.a:0:kit.a:0:update",permission = "classes.kit.update")
     @BlockCommandBlock @BlockConsole
     public int updateKit(Player player, @CommandArgument("class")Class clas) {
         if (!player.hasPermission("classes.kit.update")) {
