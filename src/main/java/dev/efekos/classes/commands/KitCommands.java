@@ -21,9 +21,9 @@ import java.util.*;
 @Container
 public class KitCommands {
 
-    @Command(value = "class.a:0:kit.a:0:clear",permission = "classes.kit.clear",description = "Clear a kit.")
+    @Command(value = "class.a:0:kit.a:0:clear", permission = "classes.kit.clear", description = "Clear a kit.")
     @BlockCommandBlock
-    public int clearKit(CommandSender sender, @CommandArgument("class")Class clas) {
+    public int clearKit(CommandSender sender, @CommandArgument("class") Class clas) {
         if (!sender.hasPermission("classes.kit.clear")) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.clear.no-perm", "&cYou can't clear a kit.")));
             return 1;
@@ -34,9 +34,10 @@ public class KitCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:kit.a:0:get",permission = "classes.kit.get",description = "Get a kit.")
-    @BlockCommandBlock @BlockConsole
-    public int getKit(Player player, @CommandArgument("class")Class clas) {
+    @Command(value = "class.a:0:kit.a:0:get", permission = "classes.kit.get", description = "Get a kit.")
+    @BlockCommandBlock
+    @BlockConsole
+    public int getKit(Player player, @CommandArgument("class") Class clas) {
         if (!player.hasPermission("classes.kit.get")) {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.get.no-perm", "&cYou can't get a kit.")));
             return 1;
@@ -62,9 +63,10 @@ public class KitCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:kit.a:0:update",permission = "classes.kit.update",description = "Update a kit.")
-    @BlockCommandBlock @BlockConsole
-    public int updateKit(Player player, @CommandArgument("class")Class clas) {
+    @Command(value = "class.a:0:kit.a:0:update", permission = "classes.kit.update", description = "Update a kit.")
+    @BlockCommandBlock
+    @BlockConsole
+    public int updateKit(Player player, @CommandArgument("class") Class clas) {
         if (!player.hasPermission("classes.kit.update")) {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.update.no-perm", "&cYou can't update a kit.")));
             return 1;
@@ -75,7 +77,7 @@ public class KitCommands {
 
             Set<Enchantment> enchantments = i.getEnchantments().keySet();
             if (i.getItemMeta() instanceof PotionMeta potionMeta) {
-                if (potionMeta.getCustomEffects().stream().map(PotionEffect::getType).anyMatch(clas.getBlockedPotions()::contains)){
+                if (potionMeta.getCustomEffects().stream().map(PotionEffect::getType).anyMatch(clas.getBlockedPotions()::contains)) {
                     player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.update.not-compatible", "&cAt least one of the items in your inventory is incompatible for that class.")));
                     return 1;
                 }

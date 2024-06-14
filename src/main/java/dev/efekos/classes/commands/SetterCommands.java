@@ -26,9 +26,9 @@ import java.util.Objects;
 @Container
 public class SetterCommands {
 
-    @Command(value = "class.a:0:set.a:0:criteria",permission = "classes.set.criteria",description = "Change criteria of a class.")
+    @Command(value = "class.a:0:set.a:0:criteria", permission = "classes.set.criteria", description = "Change criteria of a class.")
     @BlockCommandBlock
-    public int setCriteria(CommandSender sender, @CommandArgument("class")Class clas, @CommandArgument ILevelCriteria criteria){
+    public int setCriteria(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument ILevelCriteria criteria) {
         clas.setLevelCriteria(criteria);
         Main.CLASSES.update(clas.getUniqueId(), clas);
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.set-criteria.done", "&aSuccessfully changed level criteria to &b%cri%&a!")
@@ -37,9 +37,9 @@ public class SetterCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:set.a:0:description",permission = "classes.set.description",description = "Change description of a class.")
+    @Command(value = "class.a:0:set.a:0:description", permission = "classes.set.description", description = "Change description of a class.")
     @BlockCommandBlock
-    public int setDescription(CommandSender sender, @CommandArgument("class")Class clas, @CommandArgument("description") @Greedy String description){
+    public int setDescription(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument("description") @Greedy String description) {
         clas.setDescription(description);
         Main.CLASSES.update(clas.getUniqueId(), clas);
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.set-description.done", "&aSuccessfully changed description to &b%desc%&a!")
@@ -48,9 +48,9 @@ public class SetterCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:set.a:0:icon",permission = "classes.set.icon",description = "Change icon of a class.")
+    @Command(value = "class.a:0:set.a:0:icon", permission = "classes.set.icon", description = "Change icon of a class.")
     @BlockCommandBlock
-    public int setIconManually(Player player, @CommandArgument("class") Class clas, @CommandArgument ItemStack item){
+    public int setIconManually(Player player, @CommandArgument("class") Class clas, @CommandArgument ItemStack item) {
 
         if (item.getType().equals(Material.AIR)) {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.set.icon.empty-m", "&cYou can't use air")));
@@ -76,9 +76,9 @@ public class SetterCommands {
         return 0;
     }
 
-    @Command(value = "class.a:0:set.a:0:icon",permission = "classes.set.icon",description = "Change icon of a class.")
+    @Command(value = "class.a:0:set.a:0:icon", permission = "classes.set.icon", description = "Change icon of a class.")
     @BlockCommandBlock
-    public int setIcon(Player player, @CommandArgument("class") Class clas){
+    public int setIcon(Player player, @CommandArgument("class") Class clas) {
         ItemStack item = player.getInventory().getItemInMainHand();
 
         if (item.getType().equals(Material.AIR)) {

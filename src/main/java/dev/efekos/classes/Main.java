@@ -3,7 +3,6 @@ package dev.efekos.classes;
 import dev.efekos.classes.api.registry.LevelCriteriaRegistry;
 import dev.efekos.classes.api.registry.ModifierRegistry;
 import dev.efekos.classes.api.registry.PerkRegistry;
-import dev.efekos.classes.commands.arguments.*;
 import dev.efekos.classes.commands.clazz.*;
 import dev.efekos.classes.data.Class;
 import dev.efekos.classes.data.ClassManager;
