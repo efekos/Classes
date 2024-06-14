@@ -7,6 +7,8 @@ import dev.efekos.arn.annotation.block.BlockCommandBlock;
 import dev.efekos.arn.annotation.block.BlockConsole;
 import dev.efekos.arn.annotation.modifier.Greedy;
 import dev.efekos.arn.annotation.modifier.Word;
+import dev.efekos.arn.exception.ArnSyntaxException;
+import dev.efekos.arn.exception.type.Dynamic2ArnExceptionType;
 import dev.efekos.classes.Main;
 import dev.efekos.classes.api.i.ILevelCriteria;
 import dev.efekos.classes.api.i.IModifier;
@@ -28,14 +30,13 @@ import org.bukkit.entity.Player;
 @Container
 public class UsageCommands {
 
+    public static final Dynamic2ArnExceptionType<ArnSyntaxException, String, String> GENERIC = new Dynamic2ArnExceptionType<>((o, o2) -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString(o, o2))));
+
     @Command(value = "class.leave", permission = "classes.use", description = "Leave your class")
     @BlockCommandBlock
     @BlockConsole
-    public int leaveClass(Player player) {
-        if (!ClassManager.hasClass(player.getUniqueId())) {
-            player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.leave.not-class", "&cYou are not in a class.")));
-            return 1;
-        }
+    public int leaveClass(Player player) throws ArnSyntaxException {
+        if (!ClassManager.hasClass(player.getUniqueId())) throw GENERIC.create("commands.leave.not-class", "&cYou are not in a class.");
         dev.efekos.classes.data.Class clas = ClassManager.getClass(player.getUniqueId());
 
         for (ModifierApplier modifierApplier : clas.getModifiers()) {
