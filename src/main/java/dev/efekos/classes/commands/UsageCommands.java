@@ -36,7 +36,8 @@ public class UsageCommands {
     @BlockCommandBlock
     @BlockConsole
     public int leaveClass(Player player) throws ArnSyntaxException {
-        if (!ClassManager.hasClass(player.getUniqueId())) throw GENERIC.create("commands.leave.not-class", "&cYou are not in a class.");
+        if (!ClassManager.hasClass(player.getUniqueId()))
+            throw GENERIC.create("commands.leave.not-class", "&cYou are not in a class.");
         dev.efekos.classes.data.Class clas = ClassManager.getClass(player.getUniqueId());
 
         for (ModifierApplier modifierApplier : clas.getModifiers()) {
