@@ -1,5 +1,6 @@
 package dev.efekos.classes;
 
+import dev.efekos.arn.Arn;
 import dev.efekos.classes.api.registry.LevelCriteriaRegistry;
 import dev.efekos.classes.api.registry.ModifierRegistry;
 import dev.efekos.classes.api.registry.PerkRegistry;
@@ -76,73 +77,7 @@ public final class Main extends JavaPlugin {
         ClassesPerks.FAST_ARROW.getClass();
         ClassesCriterias.TAKE_DAMAGE.getClass();
 
-        try {
-
-            CommandManager.registerCommandTree(this, new CommandTree("class", "Class command", "classes.use",
-                    new ClassNameArgumentNode()
-                            .addChild(
-                                    new LabelNode("block")
-                                            .addChild(
-                                                    new LabelNode("material")
-                                                            .addChild(new LabelNode("add").addChild(new MaterialNameArgumentNode().setExecutive(new AddMaterialBlockNode()).setPermission("classes.block.material.add")))
-                                                            .addChild(new LabelNode("remove").addChild(new MaterialNameArgumentNode().setExecutive(new RemoveMaterialBlockNode()).setPermission("classes.block.material.remove")))
-                                                            .addChild(new LabelNode("list").setExecutive(new MaterialListNode()).setPermission("classes.block.material.list"))
-                                            )
-                                            .addChild(
-                                                    new LabelNode("enchantment")
-                                                            .addChild(new LabelNode("add").addChild(new EnchantmentNameArgumentNode().setExecutive(new AddEnchantmentBlockNode()).setPermission("classes.block.enchantment.add")))
-                                                            .addChild(new LabelNode("remove").addChild(new EnchantmentNameArgumentNode().setExecutive(new RemoveEnchantmentBlockNode()).setPermission("classes.block.enchantment.remove")))
-                                                            .addChild(new LabelNode("list").setExecutive(new EnchantmentListNode()).setPermission("classes.block.enchantment.list"))
-                                            )
-                                            .addChild(
-                                                    new LabelNode("potion")
-                                                            .addChild(new LabelNode("add").addChild(new PotionNameArgumentNode().setExecutive(new AddPotionBlockNode()).setPermission("classes.block.potion.add")))
-                                                            .addChild(new LabelNode("remove").addChild(new PotionNameArgumentNode().setExecutive(new RemovePotionBlockNode()).setPermission("classes.block.potion.remove")))
-                                                            .addChild(new LabelNode("list").setExecutive(new PotionListNode()).setPermission("classes.block.potion.list"))
-                                            )
-                            )
-                            .addChild(
-                                    new LabelNode("modifier")
-                                            .addChild(new LabelNode("add").addChild(new ModifierIDArgumentNode().addChild(new DoubleArgumentNode().setExecutive(new AddModifierNode()).setPermission("classes.modifier.add"))))
-                                            .addChild(new LabelNode("remove").addChild(new ModifierIDArgumentNode().setExecutive(new RemoveModifierNode()).setPermission("classes.modifier.remove")))
-                                            .addChild(new LabelNode("list").setExecutive(new ModifiersNode()).setPermission("classes.modifier.list"))
-                            )
-                            .addChild(
-                                    new LabelNode("perk")
-                                            .addChild(new LabelNode("add").addChild(new PerkIDArgumentNode().setExecutive(new AddPerkNode()).setPermission("classes.perk.add")))
-                                            .addChild(new LabelNode("remove").addChild(new PerkIDArgumentNode().setExecutive(new RemovePerkNode()).setPermission("classes.perk.remove")))
-                                            .addChild(new LabelNode("list").setExecutive(new PerksNode()).setPermission("classes.perk.list"))
-                            )
-                            .addChild(new LabelNode("delete").setExecutive(new DeleteNode()).setPermission("classes.delete"))
-                            .addChild(new LabelNode("join").setExecutive(new JoinNode()).setPermission("classes.join"))
-                            .addChild(new LabelNode("kit")
-                                    .addChild(new LabelNode("update").setExecutive(new UpdateKitNode()).setPermission("classes.kit.update"))
-                                    .addChild(new LabelNode("clear").setExecutive(new ClearKitNode()).setPermission("classes.kit.clear"))
-                                    .addChild(new LabelNode("get").setExecutive(new GetKitNode()).setPermission("classes.kit.get"))
-                            )
-                            .addChild(new LabelNode("members").setExecutive(new MembersNode()).setPermission("classes.members"))
-                            .addChild(new LabelNode("set")
-                                    .addChild(new LabelNode("criteria").addChild(new LevelCriteriaIDArgumentNode().setExecutive(new SetCriteriaNode()).setPermission("classes.set.criteria")))
-                                    .addChild(new LabelNode("description").addChild(new StringArgumentNode().setExecutive(new SetDescriptionNode()).setPermission("classes.set.description")))
-                                    .addChild(new LabelNode("icon").setExecutive(new SetIconNode()).setPermission("classes.set.icon"))
-                            )
-                            .addChild(new LabelNode("info").setExecutive(new InfoNode()).setPermission("classes.info"))
-                    ,
-                    new LabelNode("create").addChild(new StringArgumentNode().setExecutive(new CreateNode()).setPermission("classes.create")),
-                    new LabelNode("leave").setExecutive(new LeaveNode()).setPermission("classes.leave"),
-                    new LabelNode("choose").setExecutive(context -> {
-                        if (context.isSenderPlayer()) {
-                            MenuManager.Open(((Player) context.sender()), ChooseClassMenu.class);
-                        }
-                    }).setPermission("classes.choose")
-            ));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            getLogger().info("Couldn't register commands, disabling");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
+        Arn.run(Main.class);
 
         getLogger().info("Started!");
     }
