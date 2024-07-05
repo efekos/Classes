@@ -75,6 +75,7 @@ public class ChooseClassMenu extends PaginatedMenu {
 
     @Override
     public void onClose(InventoryCloseEvent e) {
+        if(owner==null)return;
         if (!choosedOne && Main.CONFIG.getBoolean("class-required", true)) {
             UUID id = owner.getUniqueId();
             new BukkitRunnable() {
