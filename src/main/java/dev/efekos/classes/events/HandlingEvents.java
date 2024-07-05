@@ -74,9 +74,9 @@ public class HandlingEvents implements Listener {
             if (ClassManager.hasPerk(p.getUniqueId(), ClassesPerks.LAST_RUN))
                 p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 0, false, false, false));
             if (ClassManager.hasPerk(p.getUniqueId(), ClassesPerks.LAST_ATTACK))
-                p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 0, false, false, false));
+                p.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 100, 0, false, false, false));
             if (ClassManager.hasPerk(p.getUniqueId(), ClassesPerks.LAST_SHIELD))
-                p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 0, false, false, false));
+                p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 100, 0, false, false, false));
         }
     }
 

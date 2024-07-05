@@ -227,7 +227,7 @@ public final class ClassesPerks {
         @Override
         public void affectEntity(Entity entity, int level) {
             if (!(entity instanceof LivingEntity e)) return;
-            e.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, getAmount(level) * 100, getAmount(level), false, false, false));
+            e.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, getAmount(level) * 100, getAmount(level), false, false, false));
         }
 
         private int getAmount(int level) {
