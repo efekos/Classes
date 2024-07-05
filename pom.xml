@@ -51,6 +51,25 @@
                     <outputDirectory>C:\Users\HP\Desktop\localhost\plugins</outputDirectory>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <target>
+                                <property name="javax.net.ssl.trustStore" value="truststore/efekos.dev.jks"/>
+                                <property name="javax.net.ssl.trustStorePassword" value="123456"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <resources>
             <resource>
