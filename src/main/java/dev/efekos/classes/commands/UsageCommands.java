@@ -53,7 +53,7 @@ public class UsageCommands {
         return 0;
     }
 
-    @Command(value = "class.create", permission = "classes.create", description = "Create a crass")
+    @Command(value = "class.create", permission = "classes.create", description = "Create a class")
     @BlockCommandBlock
     public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument ILevelCriteria criteria, @CommandArgument @Greedy String description) {
         dev.efekos.classes.data.Class newClass = new dev.efekos.classes.data.Class(name, description, criteria);
@@ -70,8 +70,8 @@ public class UsageCommands {
 
     @Command(value = "class.create", permission = "classes.create", description = "Create a class")
     @BlockCommandBlock
-    public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument @Greedy String description) {
-        return createClass(sender, name, ClassesCriterias.TAKE_DAMAGE, description);
+    public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument ILevelCriteria criteria){
+        return createClass(sender,name,criteria,"Another class.");
     }
 
     @Command(value = "class.delete", permission = "classes.delete", description = "Delete a class")
@@ -86,7 +86,7 @@ public class UsageCommands {
                 clas.getModifiers().forEach(modifierApplier -> Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId()).deapply(p));
                 playerData.setCurrentClass(null);
                 playerData.getClassLevels().remove(clas.getUniqueId());
-                p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.delete.notification", "&eThe &b%class% &eclass you're in just got deleted by a server admin.")));
+                p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.delete.notification", "&eThe &b%class% &eclass you're in just got deleted by a server admin.").replace("%class%",clas.getName())));
             }
         });
 
