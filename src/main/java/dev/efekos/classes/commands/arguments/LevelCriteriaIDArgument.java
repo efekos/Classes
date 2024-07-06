@@ -1,5 +1,7 @@
 package dev.efekos.classes.commands.arguments;
 
+import dev.efekos.arn.annotation.Container;
+import dev.efekos.arn.argument.ArgumentRegistration;
 import dev.efekos.arn.argument.CustomArgumentType;
 import dev.efekos.arn.exception.ArnSyntaxException;
 import dev.efekos.arn.exception.type.SimpleArnExceptionType;
@@ -13,6 +15,7 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Container
 public class LevelCriteriaIDArgument implements CustomArgumentType<ILevelCriteria> {
 
     @Override
@@ -22,7 +25,12 @@ public class LevelCriteriaIDArgument implements CustomArgumentType<ILevelCriteri
 
     @Override
     public List<String> suggest(CommandSender sender) {
-        return Main.PERK_REGISTRY.getAll().keySet().stream().map(NamespacedKey::toString).collect(Collectors.toList());
+        return Main.CRITERIA_REGISTRY.getAll().keySet().stream().map(NamespacedKey::toString).collect(Collectors.toList());
+    }
+
+    @Override
+    public ArgumentRegistration getRegistration() {
+        return ArgumentRegistration.ID;
     }
 
     public static final SimpleArnExceptionType<ArnSyntaxException> INVALID = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.invalid-id", "&cInvalid ID."))));

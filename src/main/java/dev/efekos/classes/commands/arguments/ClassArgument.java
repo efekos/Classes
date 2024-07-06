@@ -1,5 +1,8 @@
 package dev.efekos.classes.commands.arguments;
 
+import dev.efekos.arn.annotation.Container;
+import dev.efekos.arn.annotation.CustomArgument;
+import dev.efekos.arn.argument.ArgumentRegistration;
 import dev.efekos.arn.argument.CustomArgumentType;
 import dev.efekos.arn.exception.ArnSyntaxException;
 import dev.efekos.arn.exception.type.SimpleArnExceptionType;
@@ -10,11 +13,17 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
+@Container
 public class ClassArgument implements CustomArgumentType<Class> {
 
     @Override
     public java.lang.Class<Class> getType() {
-        return Class.class;
+        return dev.efekos.classes.data.Class.class;
+    }
+
+    @Override
+    public ArgumentRegistration getRegistration() {
+        return ArgumentRegistration.WORD;
     }
 
     @Override
