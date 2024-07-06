@@ -55,17 +55,17 @@ public class ClassInfoMenu extends Menu {
         switch (e.getCurrentItem().getType()) {
             case LIME_DYE -> {
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 100, 1);
-                Bukkit.dispatchCommand(player, "classes:class join " + className);
+                Bukkit.dispatchCommand(player, "class join " + className);
                 refresh();
             }
             case RED_DYE -> {
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 100, 1);
-                Bukkit.dispatchCommand(player, "classes:class leave");
+                Bukkit.dispatchCommand(player, "class leave");
                 refresh();
             }
             case BUNDLE -> {
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 100, 1);
-                Bukkit.dispatchCommand(player, "classes:class kit " + className + " get");
+                Bukkit.dispatchCommand(player, "class kit " + className + " get");
             }
         }
     }

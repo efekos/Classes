@@ -67,7 +67,7 @@ public class ChooseClassMenu extends PaginatedMenu {
         ItemMeta meta = item.getItemMeta();
         if (!meta.getPersistentDataContainer().has(key, PersistentDataType.STRING)) return;
         String name = meta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
-        Bukkit.dispatchCommand(owner, "classes:class join " + name);
+        Bukkit.dispatchCommand(owner, "class " + name + " join");
         choosedOne = true;
         owner.closeInventory();
         owner.playSound(owner, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 100, 1);
