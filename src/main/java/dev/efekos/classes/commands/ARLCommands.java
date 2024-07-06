@@ -5,6 +5,7 @@ import dev.efekos.arn.annotation.CommandArgument;
 import dev.efekos.arn.annotation.Container;
 import dev.efekos.arn.annotation.block.BlockCommandBlock;
 import dev.efekos.arn.annotation.modifier.Item;
+import dev.efekos.arn.annotation.modifier.NumberLimitations;
 import dev.efekos.arn.exception.ArnSyntaxException;
 import dev.efekos.arn.exception.type.Dynamic2ArnExceptionType;
 import dev.efekos.classes.Main;
@@ -122,13 +123,13 @@ public class ARLCommands {
 
     @Command(value = "class.a:0:modifier.a:0:add", permission = "classes.modifier.add", description = "Add a modifier.")
     @BlockCommandBlock
-    public int addModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier, @CommandArgument double value) throws ArnSyntaxException {
+    public int addModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier, @CommandArgument @NumberLimitations(max = 10,min = -10) double value) throws ArnSyntaxException {
 
         NamespacedKey key = Main.MODIFIER_REGISTRY.idOf(modifier);
         if (clas.getModifiers().stream().anyMatch(modifierApplier -> modifierApplier.getModifierId().equals(key)))
             throw GENERIC.create("commands.add-modifier.already", "&cThat modifier is already added for that class. Consider re-adding it using both &b/class removemodifier &cand &b/class addmodifier");
 
-        clas.getModifiers().add(new ModifierApplier(key, value));
+        clas.addModifier(new ModifierApplier(key, value));
         Main.CLASSES.update(clas.getUniqueId(), clas);
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-modifier.done", "&aSuccessfully added &b%modifier% &afor &b%class%&a! Keep in mind that it will be shown as a pro/con at &b/class info %class%&a.")

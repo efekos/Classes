@@ -83,6 +83,10 @@ public class Class implements Storable {
         this.perks = perks;
     }
 
+    public void addModifier(ModifierApplier applier){
+        modifiers.add(applier);
+    }
+
     public List<ModifierApplier> getModifiers() {
         return modifiers;
     }
