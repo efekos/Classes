@@ -9,11 +9,12 @@ import dev.efekos.classes.Main;
 import dev.efekos.classes.Utilities;
 import dev.efekos.classes.api.i.ILevelCriteria;
 import dev.efekos.classes.data.Class;
-import me.efekos.simpler.items.ItemContent;
 import me.efekos.simpler.translation.TranslateManager;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.ItemTag;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Item;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -68,7 +69,8 @@ public class SetterCommands {
             assert meta != null;
             meta.addItemFlags(flag);
         }
-        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, ItemContent.from(cloned)));
+
+        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new Item(item.getType().getKey().toString(),1, ItemTag.ofNbt(meta.getAsString()))));
 
         player.spigot().sendMessage(Utilities.makeComponentsForValue(TranslateManager.translateColors(
                 Main.LANG.getString("commands.set.icon.done", "&aSuccessfully changed &b%class%&a's icon to a(n) &f[&f%item%&f]&a!")

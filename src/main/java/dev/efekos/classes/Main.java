@@ -83,7 +83,6 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        CLASSES.save();
         ClassManager.save(this);
     }
 }
