@@ -123,7 +123,7 @@ public class ARLCommands {
 
     @Command(value = "class.a:0:modifier.a:0:add", permission = "classes.modifier.add", description = "Add a modifier.")
     @BlockCommandBlock
-    public int addModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier, @CommandArgument @NumberLimitations(max = 10,min = -10) double value) throws ArnSyntaxException {
+    public int addModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier, @CommandArgument @NumberLimitations(max = 10, min = -10) double value) throws ArnSyntaxException {
 
         NamespacedKey key = Main.MODIFIER_REGISTRY.idOf(modifier);
         if (clas.getModifiers().stream().anyMatch(modifierApplier -> modifierApplier.getModifierId().equals(key)))

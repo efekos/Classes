@@ -26,6 +26,12 @@ import java.util.UUID;
 import static me.efekos.simpler.translation.TranslateManager.translateColors;
 
 public class ClassInfoMenu extends Menu {
+    private String className = "";
+
+    public ClassInfoMenu(MenuData data) {
+        super(data);
+    }
+
     @Override
     public boolean cancelAllClicks() {
         return true;
@@ -34,10 +40,6 @@ public class ClassInfoMenu extends Menu {
     @Override
     public int getRows() {
         return 6;
-    }
-
-    public ClassInfoMenu(MenuData data) {
-        super(data);
     }
 
     @Override
@@ -79,8 +81,6 @@ public class ClassInfoMenu extends Menu {
     public void onOpen(InventoryOpenEvent inventoryOpenEvent) {
 
     }
-
-    private String className = "";
 
     @Override
     public void fill() {

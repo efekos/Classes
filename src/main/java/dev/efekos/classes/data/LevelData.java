@@ -4,6 +4,11 @@ public class LevelData {
     private int level;
     private int xp;
 
+    public LevelData(int level, int xp) {
+        this.level = level;
+        this.xp = xp;
+    }
+
     public int getLevel() {
         return level;
     }
@@ -17,11 +22,6 @@ public class LevelData {
     }
 
     public void setXp(int xp) {
-        this.xp = xp;
-    }
-
-    public LevelData(int level, int xp) {
-        this.level = level;
         this.xp = xp;
     }
 }

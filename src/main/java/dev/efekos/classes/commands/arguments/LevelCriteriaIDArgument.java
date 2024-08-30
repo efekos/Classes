@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 @Container
 public class LevelCriteriaIDArgument implements CustomArgumentType<ILevelCriteria> {
 
+    public static final SimpleArnExceptionType<ArnSyntaxException> INVALID = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.invalid-id", "&cInvalid ID."))));
+    public static final SimpleArnExceptionType<ArnSyntaxException> MOD_404 = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.cri-404", "&cThere isn't a criteria with that name."))));
+
     @Override
     public Class<ILevelCriteria> getType() {
         return ILevelCriteria.class;
@@ -32,9 +35,6 @@ public class LevelCriteriaIDArgument implements CustomArgumentType<ILevelCriteri
     public ArgumentRegistration getRegistration() {
         return ArgumentRegistration.ID;
     }
-
-    public static final SimpleArnExceptionType<ArnSyntaxException> INVALID = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.invalid-id", "&cInvalid ID."))));
-    public static final SimpleArnExceptionType<ArnSyntaxException> MOD_404 = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.cri-404", "&cThere isn't a criteria with that name."))));
 
     @Override
     public ILevelCriteria parse(CommandSender sender, String arg) throws ArnSyntaxException {

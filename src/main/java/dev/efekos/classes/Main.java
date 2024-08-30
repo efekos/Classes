@@ -21,21 +21,26 @@ import org.bukkit.plugin.java.JavaPlugin;
 import javax.annotation.Nullable;
 
 public final class Main extends JavaPlugin {
+    public static YamlConfig LANG;
+    public static YamlConfig CONFIG;
+    public static ListDataManager<Class> CLASSES;
+    public static ModifierRegistry MODIFIER_REGISTRY;
+    public static PerkRegistry PERK_REGISTRY;
+    public static LevelCriteriaRegistry CRITERIA_REGISTRY;
     private static Main instance;
+    private static Metrics metrics;
 
     public static Main getInstance() {
         return instance;
     }
 
-    public static YamlConfig LANG;
-    public static YamlConfig CONFIG;
-    public static ListDataManager<Class> CLASSES;
-
-    public static ModifierRegistry MODIFIER_REGISTRY;
-    public static PerkRegistry PERK_REGISTRY;
-    public static LevelCriteriaRegistry CRITERIA_REGISTRY;
-
-    private static Metrics metrics;
+    @Nullable
+    public static Class getClassByName(String name) {
+        for (Class aClass : CLASSES.getAll()) {
+            if (aClass.getName().equals(name)) return aClass;
+        }
+        return null;
+    }
 
     @Override
     public void onEnable() {
@@ -80,13 +85,5 @@ public final class Main extends JavaPlugin {
         // Plugin shutdown logic
         CLASSES.save();
         ClassManager.save(this);
-    }
-
-    @Nullable
-    public static Class getClassByName(String name) {
-        for (Class aClass : CLASSES.getAll()) {
-            if (aClass.getName().equals(name)) return aClass;
-        }
-        return null;
     }
 }

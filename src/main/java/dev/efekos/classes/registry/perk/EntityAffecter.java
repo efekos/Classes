@@ -5,6 +5,6 @@ import org.bukkit.entity.Entity;
 @FunctionalInterface
 public interface EntityAffecter {
 
-    void affectEntity(Entity entity,int level);
+    void affectEntity(Entity entity, int level);
 
 }

@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.UUID;
 
 public class ChooseClassMenu extends PaginatedMenu {
+    private final NamespacedKey key = new NamespacedKey(Main.getInstance(), "className");
+    private boolean choosedOne = false;
+
     public ChooseClassMenu(MenuData data) {
         super(data);
     }
@@ -50,9 +53,6 @@ public class ChooseClassMenu extends PaginatedMenu {
         }).toList();
     }
 
-    private final NamespacedKey key = new NamespacedKey(Main.getInstance(), "className");
-    private boolean choosedOne = false;
-
     @Override
     public String getTitle() {
         return Main.LANG.getString("menus.choose_class.title", "Choose a Class!");
@@ -75,7 +75,7 @@ public class ChooseClassMenu extends PaginatedMenu {
 
     @Override
     public void onClose(InventoryCloseEvent e) {
-        if(owner==null)return;
+        if (owner == null) return;
         if (!choosedOne && Main.CONFIG.getBoolean("class-required", true)) {
             UUID id = owner.getUniqueId();
             new BukkitRunnable() {

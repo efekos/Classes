@@ -1,7 +1,6 @@
 package dev.efekos.classes.commands.arguments;
 
 import dev.efekos.arn.annotation.Container;
-import dev.efekos.arn.annotation.CustomArgument;
 import dev.efekos.arn.argument.ArgumentRegistration;
 import dev.efekos.arn.argument.CustomArgumentType;
 import dev.efekos.arn.exception.ArnSyntaxException;
@@ -15,6 +14,8 @@ import java.util.List;
 
 @Container
 public class ClassArgument implements CustomArgumentType<Class> {
+
+    public static final SimpleArnExceptionType<ArnSyntaxException> INVALID = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class", "&cThere is no class with that name."))));
 
     @Override
     public java.lang.Class<Class> getType() {
@@ -30,8 +31,6 @@ public class ClassArgument implements CustomArgumentType<Class> {
     public List<String> suggest(CommandSender sender) {
         return Main.CLASSES.getAll().stream().map(Class::getName).toList();
     }
-
-    public static final SimpleArnExceptionType<ArnSyntaxException> INVALID = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.not-class", "&cThere is no class with that name."))));
 
     @Override
     public Class parse(CommandSender sender, String arg) throws ArnSyntaxException {

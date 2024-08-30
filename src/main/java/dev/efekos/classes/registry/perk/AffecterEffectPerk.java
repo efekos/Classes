@@ -4,10 +4,10 @@ import dev.efekos.classes.api.i.IPerk;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class AffecterEffectPerk implements IPerk,EntityAffecter {
+public class AffecterEffectPerk implements IPerk, EntityAffecter {
 
     private final EntityAffecter affecter;
-    private DescriptionProvider descriptionProvider;
+    private final DescriptionProvider descriptionProvider;
 
     public AffecterEffectPerk(EntityAffecter affecter, DescriptionProvider descriptionProvider) {
         this.affecter = affecter;
@@ -29,7 +29,8 @@ public class AffecterEffectPerk implements IPerk,EntityAffecter {
 
     }
 
-    public void affectEntity(Entity entity, int level){
-        affecter.affectEntity(entity,level);
-    };
+    public void affectEntity(Entity entity, int level) {
+        affecter.affectEntity(entity, level);
+    }
+
 }

@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 @Container
 public class PerkIDArgument implements CustomArgumentType<IPerk> {
 
+    public static final SimpleArnExceptionType<ArnSyntaxException> INVALID = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.invalid-id", "&cInvalid ID."))));
+    public static final SimpleArnExceptionType<ArnSyntaxException> MOD_404 = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.prk-404", "&cThere isn't a perk with that name."))));
+
     @Override
     public java.lang.Class<IPerk> getType() {
         return IPerk.class;
@@ -32,9 +35,6 @@ public class PerkIDArgument implements CustomArgumentType<IPerk> {
     public ArgumentRegistration getRegistration() {
         return ArgumentRegistration.ID;
     }
-
-    public static final SimpleArnExceptionType<ArnSyntaxException> INVALID = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.invalid-id", "&cInvalid ID."))));
-    public static final SimpleArnExceptionType<ArnSyntaxException> MOD_404 = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.prk-404", "&cThere isn't a perk with that name."))));
 
     @Override
     public IPerk parse(CommandSender sender, String arg) throws ArnSyntaxException {

@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 @Container
 public class ModifierIDArgument implements CustomArgumentType<IModifier> {
 
+    public static final SimpleArnExceptionType<ArnSyntaxException> INVALID = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.invalid-id", "&cInvalid ID."))));
+    public static final SimpleArnExceptionType<ArnSyntaxException> MOD_404 = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.mod-404", "&cThere isn't a modifier with that name."))));
+
     @Override
     public java.lang.Class<IModifier> getType() {
         return IModifier.class;
@@ -32,9 +35,6 @@ public class ModifierIDArgument implements CustomArgumentType<IModifier> {
     public ArgumentRegistration getRegistration() {
         return ArgumentRegistration.ID;
     }
-
-    public static final SimpleArnExceptionType<ArnSyntaxException> INVALID = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.invalid-id", "&cInvalid ID."))));
-    public static final SimpleArnExceptionType<ArnSyntaxException> MOD_404 = new SimpleArnExceptionType<>(() -> new ArnSyntaxException(TranslateManager.translateColors(Main.LANG.getString("commands.generic.mod-404", "&cThere isn't a modifier with that name."))));
 
     @Override
     public IModifier parse(CommandSender sender, String arg) throws ArnSyntaxException {

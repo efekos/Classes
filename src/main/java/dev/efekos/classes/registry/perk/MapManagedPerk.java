@@ -8,16 +8,16 @@ import java.util.UUID;
 public class MapManagedPerk implements IPerk {
 
     private final DescriptionProvider descriptionProvider;
-    private final MapProvider<UUID,Integer> mapProvider;
+    private final MapProvider<UUID, Integer> mapProvider;
 
-    public MapManagedPerk(DescriptionProvider descriptionProvider, MapProvider<UUID,Integer> mapProvider) {
+    public MapManagedPerk(DescriptionProvider descriptionProvider, MapProvider<UUID, Integer> mapProvider) {
         this.descriptionProvider = descriptionProvider;
         this.mapProvider = mapProvider;
     }
 
     @Override
     public void grant(Player player, int i) {
-        mapProvider.getMap().put(player.getUniqueId(),i);
+        mapProvider.getMap().put(player.getUniqueId(), i);
     }
 
     @Override

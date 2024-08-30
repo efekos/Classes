@@ -28,6 +28,7 @@ public class HandlingEvents implements Listener {
     public static Map<UUID, Integer> playersToBoostSnowball = new HashMap<>();
     public static Map<UUID, Integer> playersToBoostPearl = new HashMap<>();
     public static Map<UUID, Integer> playersToBoostArrow = new HashMap<>();
+    private final Map<Player, Integer> kills = new HashMap<>();
 
     @EventHandler
     public void onPlayerDie(PlayerDeathEvent e) {
@@ -102,8 +103,6 @@ public class HandlingEvents implements Listener {
             ClassesPerks.AURA.affectBlock(world, block);
         }
     }
-
-    private final Map<Player, Integer> kills = new HashMap<>();
 
     @EventHandler
     public void onPlayerKill(EntityDeathEvent e) {

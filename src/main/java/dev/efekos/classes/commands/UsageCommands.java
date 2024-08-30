@@ -19,7 +19,6 @@ import dev.efekos.classes.data.PerkApplier;
 import dev.efekos.classes.menu.ChooseClassMenu;
 import dev.efekos.classes.menu.ClassInfoMenu;
 import dev.efekos.classes.menu.ClassMembersMenu;
-import dev.efekos.classes.registry.ClassesCriterias;
 import me.efekos.simpler.menu.MenuData;
 import me.efekos.simpler.menu.MenuManager;
 import me.efekos.simpler.translation.TranslateManager;
@@ -70,8 +69,8 @@ public class UsageCommands {
 
     @Command(value = "class.create", permission = "classes.create", description = "Create a class")
     @BlockCommandBlock
-    public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument ILevelCriteria criteria){
-        return createClass(sender,name,criteria,"Another class.");
+    public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument ILevelCriteria criteria) {
+        return createClass(sender, name, criteria, "Another class.");
     }
 
     @Command(value = "class.delete", permission = "classes.delete", description = "Delete a class")
@@ -86,7 +85,7 @@ public class UsageCommands {
                 clas.getModifiers().forEach(modifierApplier -> Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId()).deapply(p));
                 playerData.setCurrentClass(null);
                 playerData.getClassLevels().remove(clas.getUniqueId());
-                p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.delete.notification", "&eThe &b%class% &eclass you're in just got deleted by a server admin.").replace("%class%",clas.getName())));
+                p.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.delete.notification", "&eThe &b%class% &eclass you're in just got deleted by a server admin.").replace("%class%", clas.getName())));
             }
         });
 
