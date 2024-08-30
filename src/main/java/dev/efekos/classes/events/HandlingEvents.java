@@ -22,11 +22,12 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class HandlingEvents implements Listener {
-    public static Map<Player, Integer> playersToBoostSnowball = new HashMap<>();
-    public static Map<Player, Integer> playersToBoostPearl = new HashMap<>();
-    public static Map<Player, Integer> playersToBoostArrow = new HashMap<>();
+    public static Map<UUID, Integer> playersToBoostSnowball = new HashMap<>();
+    public static Map<UUID, Integer> playersToBoostPearl = new HashMap<>();
+    public static Map<UUID, Integer> playersToBoostArrow = new HashMap<>();
 
     @EventHandler
     public void onPlayerDie(PlayerDeathEvent e) {
