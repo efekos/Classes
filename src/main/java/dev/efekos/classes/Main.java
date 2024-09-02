@@ -10,8 +10,13 @@ import dev.efekos.classes.events.*;
 import dev.efekos.classes.registry.ClassesCriterias;
 import dev.efekos.classes.registry.ClassesModifiers;
 import dev.efekos.classes.registry.ClassesPerks;
+import dev.efekos.simple_ql.SimpleQL;
+import dev.efekos.simple_ql.data.Database;
+import dev.efekos.simple_ql.data.Table;
+import dev.efekos.simple_ql.query.Conditions;
+import dev.efekos.simple_ql.query.QueryBuilder;
+import dev.efekos.simple_ql.query.QueryResult;
 import me.efekos.simpler.Metrics;
-import me.efekos.simpler.config.ListDataManager;
 import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.menu.MenuManager;
 import org.bukkit.plugin.ServicePriority;
@@ -19,16 +24,18 @@ import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nullable;
+import java.nio.file.Path;
 
 public final class Main extends JavaPlugin {
     public static YamlConfig LANG;
     public static YamlConfig CONFIG;
-    public static ListDataManager<Class> CLASSES;
+    public static Table<Class> CLASSES;
     public static ModifierRegistry MODIFIER_REGISTRY;
     public static PerkRegistry PERK_REGISTRY;
     public static LevelCriteriaRegistry CRITERIA_REGISTRY;
     private static Main instance;
     private static Metrics metrics;
+    private static Database database;
 
     public static Main getInstance() {
         return instance;
@@ -36,24 +43,33 @@ public final class Main extends JavaPlugin {
 
     @Nullable
     public static Class getClassByName(String name) {
-        for (Class aClass : CLASSES.getAll()) {
-            if (aClass.getName().equals(name)) return aClass;
-        }
-        return null;
+        QueryResult<Class> query = CLASSES.query(new QueryBuilder().filterWithCondition(Conditions.matchTextExact("name", name)).limit(1).getQuery());
+        if(query.hasException())return null;
+        return query.result().get(0);
     }
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         instance = this;
-        CLASSES = new ListDataManager<>("\\ClassData.json", this);
+        database = SimpleQL.createDatabase("jdbc:sqlite:\"" + Path.of(getDataFolder().getAbsolutePath(), "database") + "\"", "dev_efekos_c");
         LANG = new YamlConfig("lang.yml", this);
         CONFIG = new YamlConfig("config.yml", this);
         LANG.setup();
         CONFIG.setup();
         metrics = new Metrics(this, 20226);
         MenuManager.setPlugin(this);
-        CLASSES.load(Class[].class);
+
+        try {
+            database.connect();
+            CLASSES = database.registerTable("classes",Class.class);
+        } catch (Exception e){
+            e.printStackTrace();
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+
         ClassManager.load(this);
         getServer().getPluginManager().registerEvents(new BlockingEvents(), this);
         getServer().getPluginManager().registerEvents(new PlayerEvents(), this);
