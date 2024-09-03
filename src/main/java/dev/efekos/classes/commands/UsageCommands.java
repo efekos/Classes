@@ -15,16 +15,19 @@ import dev.efekos.classes.api.i.IModifier;
 import dev.efekos.classes.data.Class;
 import dev.efekos.classes.data.ClassManager;
 import dev.efekos.classes.data.ModifierApplier;
-import dev.efekos.classes.data.PerkApplier;
 import dev.efekos.classes.menu.ChooseClassMenu;
 import dev.efekos.classes.menu.ClassInfoMenu;
 import dev.efekos.classes.menu.ClassMembersMenu;
+import dev.efekos.simple_ql.query.QueryBuilder;
 import me.efekos.simpler.menu.MenuData;
 import me.efekos.simpler.menu.MenuManager;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 @Container
 public class UsageCommands {
@@ -43,7 +46,7 @@ public class UsageCommands {
             IModifier IModifier = Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId());
             if (IModifier != null) IModifier.deapply(player);
         }
-        for (PerkApplier perk : clas.getPerks()) Main.PERK_REGISTRY.get(perk.getPerkId()).degrade(player);
+        for (String perk : clas.getPerks()) Main.PERK_REGISTRY.get(NamespacedKey.fromString(perk)).degrade(player);
 
         ClassManager.removeClass(player.getUniqueId());
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.leave.done", "&aSuccessfully left your class!")));
@@ -55,15 +58,19 @@ public class UsageCommands {
     @Command(value = "class.create", permission = "classes.create", description = "Create a class")
     @BlockCommandBlock
     public int createClass(CommandSender sender, @CommandArgument @Word String name, @CommandArgument ILevelCriteria criteria, @CommandArgument @Greedy String description) {
-        dev.efekos.classes.data.Class newClass = new dev.efekos.classes.data.Class(name, description, criteria);
-
-        if (Main.CLASSES.getAll().stream().anyMatch(aClass -> aClass.getName().equals(newClass.getName()))) {
+        if (Main.CLASSES.query(new QueryBuilder().sortAscending("name").getQuery()).result().stream().anyMatch(aClass -> aClass.getName().equals(name))) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.create.exists", "&cA class called &b%name% &calready exists.").replace("%name%", name)));
             return 1;
         }
 
-        Main.CLASSES.add(newClass);
-        sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.create.done", "&aSuccessfully created a class called &b%name%&a!").replace("%name%", name)));
+        Main.CLASSES.insertRow(clas -> {
+            clas.setName(name);
+            clas.setLevelCriteria(criteria);
+            clas.setDescription(description);
+            clas.setIcon(new ItemStack(Material.IRON_SWORD,1));
+
+            sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.create.done", "&aSuccessfully created a class called &b%name%&a!").replace("%name%", name)));
+        });
         return 0;
     }
 
@@ -81,7 +88,7 @@ public class UsageCommands {
             if (playerData.getCurrentClass().equals(clas.getUniqueId())) {
                 Player p = Bukkit.getPlayer(uuid);
                 if (p == null) return;
-                clas.getPerks().forEach(perkApplier -> Main.PERK_REGISTRY.get(perkApplier.getPerkId()).degrade(p));
+                clas.getPerks().forEach(perkApplier -> Main.PERK_REGISTRY.get(NamespacedKey.fromString(perkApplier)).degrade(p));
                 clas.getModifiers().forEach(modifierApplier -> Main.MODIFIER_REGISTRY.get(modifierApplier.getModifierId()).deapply(p));
                 playerData.setCurrentClass(null);
                 playerData.getClassLevels().remove(clas.getUniqueId());
@@ -89,7 +96,7 @@ public class UsageCommands {
             }
         });
 
-        Main.CLASSES.delete(clas.getUniqueId());
+        clas.delete();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.delete.done", "&aSuccessfully deleted the class &b%name%&a! Keep in mind that some users of this class might still have some of its modifiers activated until respawn.").replace("%name%", clas.getName())));
         return 0;
@@ -141,8 +148,8 @@ public class UsageCommands {
             if (IModifier != null)
                 IModifier.apply(player, ClassManager.getLevel(player.getUniqueId()), modifierApplier.getValue());
         }
-        for (PerkApplier perk : clas.getPerks())
-            Main.PERK_REGISTRY.get(perk.getPerkId()).grant(player, ClassManager.getLevel(player.getUniqueId()));
+        for (String perk : clas.getPerks())
+            Main.PERK_REGISTRY.get(NamespacedKey.fromString(perk)).grant(player, ClassManager.getLevel(player.getUniqueId()));
 
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.join.done", "&aSuccessfully joined &b%class% &aclass! Check out your pros and cons by typing &b/classinfo&a.").replace("%class%", clas.getName())));
         return 0;
