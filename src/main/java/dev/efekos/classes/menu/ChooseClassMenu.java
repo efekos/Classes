@@ -1,6 +1,7 @@
 package dev.efekos.classes.menu;
 
 import dev.efekos.classes.Main;
+import dev.efekos.simple_ql.query.QueryBuilder;
 import me.efekos.simpler.menu.MenuData;
 import me.efekos.simpler.menu.MenuManager;
 import me.efekos.simpler.menu.PaginatedMenu;
@@ -22,7 +23,7 @@ import java.util.UUID;
 
 public class ChooseClassMenu extends PaginatedMenu {
     private final NamespacedKey key = new NamespacedKey(Main.getInstance(), "className");
-    private boolean choosedOne = false;
+    private boolean choseOne = false;
 
     public ChooseClassMenu(MenuData data) {
         super(data);
@@ -30,7 +31,7 @@ public class ChooseClassMenu extends PaginatedMenu {
 
     @Override
     protected List<ItemStack> setItems() {
-        return Main.CLASSES.getAll().stream().map(clas -> {
+        return Main.CLASSES.query(new QueryBuilder().sortAscending("name").getQuery()).result().stream().map(clas -> {
             ItemStack item = clas.getIcon();
 
             ItemMeta meta = item.getItemMeta();
@@ -42,7 +43,7 @@ public class ChooseClassMenu extends PaginatedMenu {
                             .replace("%perks%", clas.getPerks().size() + "")
                             .replace("%class%", clas.getName())
                     )
-                    .map(s -> TranslateManager.translateColors(s))
+                    .map(TranslateManager::translateColors)
                     .toList()
             );
 
@@ -68,7 +69,7 @@ public class ChooseClassMenu extends PaginatedMenu {
         if (!meta.getPersistentDataContainer().has(key, PersistentDataType.STRING)) return;
         String name = meta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
         Bukkit.dispatchCommand(owner, "class " + name + " join");
-        choosedOne = true;
+        choseOne = true;
         owner.closeInventory();
         owner.playSound(owner, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 100, 1);
     }
@@ -76,7 +77,7 @@ public class ChooseClassMenu extends PaginatedMenu {
     @Override
     public void onClose(InventoryCloseEvent e) {
         if (owner == null) return;
-        if (!choosedOne && Main.CONFIG.getBoolean("class-required", true)) {
+        if (!choseOne && Main.CONFIG.getBoolean("class-required", true)) {
             UUID id = owner.getUniqueId();
             new BukkitRunnable() {
                 @Override

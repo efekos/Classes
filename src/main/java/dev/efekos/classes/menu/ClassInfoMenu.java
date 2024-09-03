@@ -18,10 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BundleMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static me.efekos.simpler.translation.TranslateManager.translateColors;
 
@@ -85,7 +82,9 @@ public class ClassInfoMenu extends Menu {
     @Override
     public void fill() {
 
-        Class clas = Main.CLASSES.get(((UUID) data.get("class")));
+        Optional<Class> row = Main.CLASSES.getRow(data.get("class"));
+        if(row.isEmpty())return;
+        Class clas = row.get();
         className = clas.getName();
         boolean hasClass = ClassManager.hasClass(owner.getUniqueId());
         boolean ownClass = hasClass && ClassManager.getClass(owner.getUniqueId()).getUniqueId() == clas.getUniqueId();
@@ -121,8 +120,8 @@ public class ClassInfoMenu extends Menu {
         List<String> positives = new ArrayList<>();
         List<String> perks = new ArrayList<>();
 
-        for (PerkApplier p : clas.getPerks()) {
-            IPerk perk = Main.PERK_REGISTRY.get(p.getPerkId());
+        for (String p : clas.getPerks()) {
+            IPerk perk = Main.PERK_REGISTRY.get(NamespacedKey.fromString(p));
             perks.add(ChatColor.YELLOW + translateColors(perk.getDescription(levelData.getLevel())));
         }
 

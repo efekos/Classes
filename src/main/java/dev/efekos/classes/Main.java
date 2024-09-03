@@ -25,6 +25,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nullable;
 import java.nio.file.Path;
+import java.util.Objects;
 
 public final class Main extends JavaPlugin {
     public static YamlConfig LANG;
@@ -45,7 +46,7 @@ public final class Main extends JavaPlugin {
     public static Class getClassByName(String name) {
         QueryResult<Class> query = CLASSES.query(new QueryBuilder().filterWithCondition(Conditions.matchTextExact("name", name)).limit(1).getQuery());
         if(query.hasException())return null;
-        return query.result().get(0);
+        return query.result().getFirst();
     }
 
     @Override
@@ -83,9 +84,9 @@ public final class Main extends JavaPlugin {
         manager.register(PerkRegistry.class, new PerkRegistry(), this, ServicePriority.Normal);
         manager.register(LevelCriteriaRegistry.class, new LevelCriteriaRegistry(), this, ServicePriority.Normal);
 
-        MODIFIER_REGISTRY = manager.getRegistration(ModifierRegistry.class).getProvider();
-        PERK_REGISTRY = manager.getRegistration(PerkRegistry.class).getProvider();
-        CRITERIA_REGISTRY = manager.getRegistration(LevelCriteriaRegistry.class).getProvider();
+        MODIFIER_REGISTRY = Objects.requireNonNull(manager.getRegistration(ModifierRegistry.class)).getProvider();
+        PERK_REGISTRY = Objects.requireNonNull(manager.getRegistration(PerkRegistry.class)).getProvider();
+        CRITERIA_REGISTRY = Objects.requireNonNull(manager.getRegistration(LevelCriteriaRegistry.class)).getProvider();
 
         ClassesModifiers.KNOCKBACK_RESISTANCE.getClass(); // calling this will load the entire ClassesModifiers class so everything will be registered
         ClassesPerks.FAST_ARROW.getClass();
@@ -100,5 +101,7 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         ClassManager.save(this);
+        metrics.shutdown();
+        database.disconnect();
     }
 }

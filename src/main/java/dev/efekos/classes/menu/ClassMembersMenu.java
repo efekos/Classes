@@ -1,6 +1,7 @@
 package dev.efekos.classes.menu;
 
 import dev.efekos.classes.Main;
+import dev.efekos.classes.data.Class;
 import dev.efekos.classes.data.ClassManager;
 import dev.efekos.classes.data.LevelData;
 import me.efekos.simpler.menu.MenuData;
@@ -23,7 +24,8 @@ public class ClassMembersMenu extends PaginatedMenu {
     @Override
     public String getTitle() {
         UUID classId = (UUID) data.get("class");
-        String name = Main.CLASSES.get(classId).getName();
+        Optional<Class> row = Main.CLASSES.getRow(classId);
+        String name = row.isPresent() ? row.get().getName() : "Unknown Class";
         return Main.LANG.getString("menus.class_members.title", "Members of the class %class%").replace("%class%", name);
     }
 
@@ -46,7 +48,7 @@ public class ClassMembersMenu extends PaginatedMenu {
                         Main.LANG.getStringList("menus.class_members.member-lore").stream().map(s -> s
                                 .replace("%xp%", levelData.getXp() + "")
                                 .replace("%lvl%", levelData.getLevel() + "")
-                                .replace("%xp_prog%", NumberFormat.getPercentInstance(new Locale(p.getLocale())).format(levelData.getXp() / (levelData.getLevel() * 8L + 100L)))
+                                .replace("%xp_prog%", NumberFormat.getPercentInstance().format(levelData.getXp() / (levelData.getLevel() * 8L + 100L)))
                         ).map(TranslateManager::translateColors).toArray(String[]::new)
                 ));
             }
