@@ -29,7 +29,7 @@ public class ClassManager {
 
     public static Class getClass(UUID uuid) {
         checkExistent(uuid);
-        return Main.CLASSES.get(datas.get(uuid).getCurrentClass());
+        return Main.CLASSES.getRow(datas.get(uuid).getCurrentClass()).orElse(null);
     }
 
     private static void checkLevelExistent(UUID id, Class clas) {
@@ -45,7 +45,7 @@ public class ClassManager {
         checkExistent(id);
         if (!hasClass(id)) return;
         PlayerData data = datas.get(id);
-        Class clas = Main.CLASSES.get(data.getCurrentClass());
+        Class clas = Main.CLASSES.getRow(data.getCurrentClass()).orElse(null);
         assert clas != null;
         checkLevelExistent(id, clas);
 
@@ -65,8 +65,8 @@ public class ClassManager {
             modifier.deapply(player);
             modifier.apply(player, clasLevel.getLevel(), applier.getValue());
         }
-        for (PerkApplier perk : clas.getPerks()) {
-            IPerk iPerk = Main.PERK_REGISTRY.get(perk.getPerkId());
+        for (String perk : clas.getPerks()) {
+            IPerk iPerk = Main.PERK_REGISTRY.get(NamespacedKey.fromString(perk));
             iPerk.degrade(player);
             iPerk.grant(player, clasLevel.getLevel());
         }
@@ -76,7 +76,7 @@ public class ClassManager {
         checkExistent(id);
         if (!hasClass(id)) return 0;
         PlayerData data = datas.get(id);
-        Class clas = Main.CLASSES.get(data.getCurrentClass());
+        Class clas = Main.CLASSES.getRow(data.getCurrentClass()).orElse(null);
         assert clas != null;
         checkLevelExistent(id, clas);
 
@@ -88,7 +88,7 @@ public class ClassManager {
         checkExistent(id);
         if (!hasClass(id)) return 0;
         PlayerData data = datas.get(id);
-        Class clas = Main.CLASSES.get(data.getCurrentClass());
+        Class clas = Main.CLASSES.getRow(data.getCurrentClass()).orElse(null);
         assert clas != null;
         checkLevelExistent(id, clas);
 
@@ -98,7 +98,7 @@ public class ClassManager {
 
     public static LevelData getLevelData(UUID id, UUID classId) {
         checkExistent(id);
-        checkLevelExistent(id, Objects.requireNonNull(Main.CLASSES.get(classId)));
+        checkLevelExistent(id, Objects.requireNonNull(Main.CLASSES.getRow(classId).orElse(null)));
 
         return datas.get(id).getClassLevels().get(classId);
     }
@@ -107,7 +107,7 @@ public class ClassManager {
         checkExistent(id);
         if (!hasClass(id)) return;
         PlayerData data = datas.get(id);
-        Class clas = Main.CLASSES.get(data.getCurrentClass());
+        Class clas = Main.CLASSES.getRow(data.getCurrentClass()).orElse(null);
         assert clas != null;
         checkLevelExistent(id, clas);
 
@@ -163,16 +163,13 @@ public class ClassManager {
 
     public static boolean hasClass(UUID id) {
         checkExistent(id);
-        return datas.containsKey(id) && Main.CLASSES.get(datas.get(id).getCurrentClass()) != null;
+        return datas.containsKey(id) && Main.CLASSES.getRow(datas.get(id).getCurrentClass()).orElse(null) != null;
     }
 
     public static boolean hasPerk(UUID id, IPerk perk) {
         if (!hasClass(id)) return false;
         Class clas = getClass(id);
-
-        for (PerkApplier applier : clas.getPerks()) {
-            if (applier.getPerkId().equals(Main.PERK_REGISTRY.idOf(perk))) return true;
-        }
+        for (String applier : clas.getPerks()) if (Objects.equals(NamespacedKey.fromString(applier), Main.PERK_REGISTRY.idOf(perk))) return true;
         return false;
     }
 
