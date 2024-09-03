@@ -13,7 +13,6 @@ import dev.efekos.classes.api.i.IModifier;
 import dev.efekos.classes.api.i.IPerk;
 import dev.efekos.classes.data.Class;
 import dev.efekos.classes.data.ModifierApplier;
-import dev.efekos.classes.data.PerkApplier;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -36,10 +35,12 @@ public class ARLCommands {
     @BlockCommandBlock
     public int addEnchantment(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument Enchantment enchantment) throws ArnSyntaxException {
 
-        if (clas.getBlockedEnchantments().contains(enchantment))
+        List<Enchantment> list = clas.getBlockedEnchantments();
+        if (list.contains(enchantment))
             throw GENERIC.create("commands.add-enchantment-block.already", "&cThat enchantment is already blocked for that class.");
-        clas.getBlockedEnchantments().add(enchantment);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        list.add(enchantment);
+        clas.setBlockedEnchantments(list);
+        clas.clean();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-enchantment-block.done", "&aSuccessfully blocked &b%enchant% &afor &b%class%&a!")
                 .replace("%enchant%", enchantment.getKey().toString())
@@ -52,10 +53,12 @@ public class ARLCommands {
     @BlockCommandBlock
     public int removeEnchantment(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument Enchantment enchantment) throws ArnSyntaxException {
 
-        if (!clas.getBlockedEnchantments().contains(enchantment))
+        List<Enchantment> list = clas.getBlockedEnchantments();
+        if (!list.contains(enchantment))
             throw GENERIC.create("commands.remove-enchantment-block.not-added", "&cThat enchantment is not blocked for that class.");
-        clas.getBlockedEnchantments().remove(enchantment);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        list.remove(enchantment);
+        clas.setBlockedEnchantments(list);
+        clas.clean();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-enchantment-block.done", "&aSuccessfully unblocked &b%enchant% &afor &b%class%&a!")
                 .replace("%enchant%", enchantment.getKey().toString())
@@ -81,10 +84,12 @@ public class ARLCommands {
     @BlockCommandBlock
     public int addMaterial(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument @Item Material material) throws ArnSyntaxException {
 
-        if (clas.getBlockedMaterials().contains(material))
+        List<Material> list = clas.getBlockedMaterials();
+        if (list.contains(material))
             throw GENERIC.create("commands.add-material-block.already", "&cThat material is already blocked for that class.");
-        clas.getBlockedMaterials().add(material);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        list.add(material);
+        clas.setBlockedMaterials(list);
+        clas.clean();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-material-block.done", "&aSuccessfully blocked &b%material% &afor &b%class%&a!")
                 .replace("%material%", material.getKey().toString())
@@ -109,10 +114,12 @@ public class ARLCommands {
     @Command(value = "class.a:0:block.a:0:material.a:0:remove", permission = "classes.block.material.remove", description = "Unblock a material.")
     @BlockCommandBlock
     public int removeMaterial(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument @Item Material material) throws ArnSyntaxException {
-        if (!clas.getBlockedMaterials().contains(material))
+        List<Material> list = clas.getBlockedMaterials();
+        if (!list.contains(material))
             throw GENERIC.create("commands.remove-material-block.not-added", "&cThat material is not blocked for that class.");
-        clas.getBlockedMaterials().remove(material);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        list.remove(material);
+        clas.setBlockedMaterials(list);
+        clas.clean();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-material-block.done", "&aSuccessfully unblocked &b%material% &afor &b%class%&a!")
                 .replace("%material%", material.getKey().toString())
@@ -130,7 +137,7 @@ public class ARLCommands {
             throw GENERIC.create("commands.add-modifier.already", "&cThat modifier is already added for that class. Consider re-adding it using both &b/class removemodifier &cand &b/class addmodifier");
 
         clas.addModifier(new ModifierApplier(key, value));
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        clas.clean();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-modifier.done", "&aSuccessfully added &b%modifier% &afor &b%class%&a! Keep in mind that it will be shown as a pro/con at &b/class info %class%&a.")
                 .replace("%modifier%", key.toString())
@@ -156,7 +163,7 @@ public class ARLCommands {
 
     @Command(value = "class.a:0:modifier.a:0:remove", permission = "classes.modifier.remove", description = "Remove a modifier.")
     @BlockCommandBlock
-    public int removeModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier) throws ArnSyntaxException {
+    public int removeModifier(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IModifier modifier) {
         NamespacedKey key = Main.MODIFIER_REGISTRY.idOf(modifier);
 
         if (clas.getModifiers().stream().noneMatch(modifierApplier -> modifierApplier.getModifierId().equals(key))) {
@@ -164,7 +171,7 @@ public class ARLCommands {
             return 1;
         }
         clas.setModifiers(clas.getModifiers().stream().filter(modifierApplier -> !modifierApplier.getModifierId().equals(key)).toList());
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        clas.clean();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-modifier.done", "&aSuccessfully removed &b%modifier% &from &b%class%&a!")
                 .replace("%modifier%", key.toString())
@@ -178,10 +185,9 @@ public class ARLCommands {
     public int addPerk(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IPerk perk) throws ArnSyntaxException {
         NamespacedKey key = Main.PERK_REGISTRY.idOf(perk);
 
-        if (clas.getPerks().stream().anyMatch(modifierApplier -> modifierApplier.getPerkId().equals(perk)))
+        if (clas.getPerks().stream().anyMatch(modifierApplier -> modifierApplier.equals(perk.toString())))
             throw GENERIC.create("commands.add-perk.already", "&cThat perk is already added for that class. Consider re-adding it using both &b/class removeperk &cand &b/class addperk");
-        clas.getPerks().add(new PerkApplier(key));
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        clas.addPerk(key.toString());
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-perk.done", "&aSuccessfully added &b%perk% &afor &b%class%&a! Keep in mind that it will be shown as a pro/con at &b/class info %class%&a.")
                 .replace("%perk%", key.toString())
@@ -194,10 +200,10 @@ public class ARLCommands {
     @BlockCommandBlock
     public int listPerks(CommandSender sender, @CommandArgument("class") Class clas) {
         List<String> perkStrings = new ArrayList<>();
-        for (PerkApplier applier : clas.getPerks()) {
-            IPerk perk = Main.PERK_REGISTRY.get(applier.getPerkId());
+        for (String applier : clas.getPerks()) {
+            IPerk perk = Main.PERK_REGISTRY.get(NamespacedKey.fromString(applier));
             if (perk == null) continue;
-            perkStrings.add(ChatColor.AQUA + applier.getPerkId().toString() + "&6 - &e" + perk.getDescription(1));
+            perkStrings.add(ChatColor.AQUA + applier + "&6 - &e" + perk.getDescription(1));
         }
 
         for (String s : perkStrings) sender.sendMessage(TranslateManager.translateColors(s));
@@ -209,10 +215,10 @@ public class ARLCommands {
     public int removePerk(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument IPerk perk) throws ArnSyntaxException {
         NamespacedKey key = Main.PERK_REGISTRY.idOf(perk);
 
-        if (clas.getPerks().stream().allMatch(modifierApplier -> !modifierApplier.getPerkId().equals(key)))
+        if (clas.getPerks().stream().noneMatch(modifierApplier -> modifierApplier.equals(key.toString())))
             throw GENERIC.create("commands.remove-perk.not-added", "&cThat perk is not in that class.");
-        clas.setPerks(clas.getPerks().stream().filter(modifierApplier -> !modifierApplier.getPerkId().equals(key)).toList());
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        clas.setPerks(clas.getPerks().stream().filter(modifierApplier -> !modifierApplier.equals(key.toString())).toList());
+        clas.clean();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-perk.done", "&aSuccessfully removed &b%perk% &from &b%class%&a!")
                 .replace("%perk%", key.toString())
@@ -224,10 +230,12 @@ public class ARLCommands {
     @Command(value = "class.a:0:block.a:0:potion.a:0:add", permission = "classes.block.potion.add", description = "Block a potion.")
     @BlockCommandBlock
     public int addPotionBlock(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument PotionEffectType potion) throws ArnSyntaxException {
-        if (clas.getBlockedPotions().contains(potion))
+        List<PotionEffectType> list = clas.getBlockedPotions();
+        if (list.contains(potion))
             throw GENERIC.create("commands.add-potion-block.already", "&cThat potion is already blocked for that class.");
-        clas.getBlockedPotions().add(potion);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        list.add(potion);
+        clas.setBlockedPotions(list);
+        clas.clean();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-potion-block.done", "&aSuccessfully blocked &b%potion% &afor &b%class%&a!")
                 .replace("%potion%", potion.getKey().toString())
@@ -250,13 +258,15 @@ public class ARLCommands {
 
     @Command(value = "class.a:0:block.a:0:potion.a:0:remove", permission = "classes.block.potion.remove", description = "Remove a potion")
     @BlockCommandBlock
-    public int removePotion(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument PotionEffectType potion) throws ArnSyntaxException {
-        if (!clas.getBlockedPotions().contains(potion)) {
+    public int removePotion(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument PotionEffectType potion) {
+        List<PotionEffectType> list = clas.getBlockedPotions();
+        if (!list.contains(potion)) {
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-potion-block.not-added", "&cThat potion is not blocked for that class.")));
             return 1;
         }
-        clas.getBlockedPotions().remove(potion);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        list.remove(potion);
+        clas.setBlockedPotions(list);
+        clas.clean();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.remove-potion-block.done", "&aSuccessfully unblocked &b%potion% &afor &b%class%&a!")
                 .replace("%potion%", potion.getKey().toString())

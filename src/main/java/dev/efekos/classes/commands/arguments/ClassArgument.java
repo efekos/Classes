@@ -7,6 +7,7 @@ import dev.efekos.arn.exception.ArnSyntaxException;
 import dev.efekos.arn.exception.type.SimpleArnExceptionType;
 import dev.efekos.classes.Main;
 import dev.efekos.classes.data.Class;
+import dev.efekos.simple_ql.query.QueryBuilder;
 import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.command.CommandSender;
 
@@ -29,7 +30,7 @@ public class ClassArgument implements CustomArgumentType<Class> {
 
     @Override
     public List<String> suggest(CommandSender sender) {
-        return Main.CLASSES.getAll().stream().map(Class::getName).toList();
+        return Main.CLASSES.query(new QueryBuilder().sortAscending("name").getQuery()).result().stream().map(Class::getName).toList();
     }
 
     @Override

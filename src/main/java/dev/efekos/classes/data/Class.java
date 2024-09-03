@@ -26,9 +26,9 @@ public class Class extends TableRow<Class> {
     private UUID uniqueId;
     private String name;
     private String description;
-    private final List<String> blockedEnchantments = new ArrayList<>();
-    private final List<String> blockedMaterials = new ArrayList<>();
-    private final List<String> blockedPotions = new ArrayList<>();
+    private List<String> blockedEnchantments = new ArrayList<>();
+    private List<String> blockedMaterials = new ArrayList<>();
+    private List<String> blockedPotions = new ArrayList<>();
     private List<ModifierApplier> modifiers = new ArrayList<>();
     private List<String> perks = new ArrayList<>();
     private List<Item> kitItems = new ArrayList<>();
@@ -142,4 +142,23 @@ public class Class extends TableRow<Class> {
         return blockedPotions.stream().map(Registry.EFFECT::match).toList();
     }
 
+    public void setBlockedEnchantments(List<Enchantment> blockedEnchantments) {
+        this.blockedEnchantments = blockedEnchantments.stream().map(Enchantment::getKey).map(NamespacedKey::toString).toList();
+        markDirty("blockedEnchantments");
+    }
+
+    public void setBlockedMaterials(List<Material> blockedMaterials) {
+        this.blockedMaterials = blockedMaterials.stream().map(Material::getKey).map(NamespacedKey::toString).toList();
+        markDirty("blockedMaterials");
+    }
+
+    public void setBlockedPotions(List<PotionEffectType> blockedPotions) {
+        this.blockedPotions = blockedPotions.stream().map(PotionEffectType::getKey).map(NamespacedKey::toString).toList();
+        markDirty("blockedPotions");
+    }
+
+    public void addPerk(String string) {
+        this.perks.add(string);
+        markDirty("perks");
+    }
 }
