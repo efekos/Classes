@@ -29,7 +29,7 @@ public class KitCommands {
             return 1;
         }
         clas.setKitItems(new ArrayList<>());
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        clas.clean();
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.clear.done", "&aSuccessfully cleared the kit items!")));
         return 0;
     }
@@ -90,7 +90,7 @@ public class KitCommands {
         }
 
         clas.setKitItems(stacks);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        clas.clean();
         player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.update.done", "&aSuccessfully put all your inventory to the kit of class &b%class%&a!")
                 .replace("%class%", clas.getName())));
         return 0;

@@ -31,7 +31,7 @@ public class SetterCommands {
     @BlockCommandBlock
     public int setCriteria(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument ILevelCriteria criteria) {
         clas.setLevelCriteria(criteria);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        clas.clean();
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.set-criteria.done", "&aSuccessfully changed level criteria to &b%cri%&a!")
                 .replace("%cri%", Main.CRITERIA_REGISTRY.idOf(criteria).getKey())
         ));
@@ -42,7 +42,7 @@ public class SetterCommands {
     @BlockCommandBlock
     public int setDescription(CommandSender sender, @CommandArgument("class") Class clas, @CommandArgument("description") @Greedy String description) {
         clas.setDescription(description);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        clas.clean();
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.set-description.done", "&aSuccessfully changed description to &b%desc%&a!")
                 .replace("%desc%", description)
         ));
@@ -59,7 +59,7 @@ public class SetterCommands {
         }
 
         clas.setIcon(item);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        clas.clean();
 
         BaseComponent component = item.hasItemMeta() && Objects.requireNonNull(item.getItemMeta()).hasDisplayName() ? new TextComponent(item.getItemMeta().getDisplayName()) : TranslateManager.translateMaterial(item.getType());
         ItemStack cloned = item.clone();
@@ -89,7 +89,7 @@ public class SetterCommands {
         }
 
         clas.setIcon(item);
-        Main.CLASSES.update(clas.getUniqueId(), clas);
+        clas.clean();
 
         BaseComponent component = item.hasItemMeta() && Objects.requireNonNull(item.getItemMeta()).hasDisplayName() ? new TextComponent(item.getItemMeta().getDisplayName()) : TranslateManager.translateMaterial(item.getType());
         ItemStack cloned = item.clone();
@@ -99,7 +99,7 @@ public class SetterCommands {
             assert meta != null;
             meta.addItemFlags(flag);
         }
-        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, ItemContent.from(cloned)));
+        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new Item(item.getType().getKey().toString(),item.getAmount(), ItemTag.ofNbt(meta.getAsString()))));
 
         player.spigot().sendMessage(Utilities.makeComponentsForValue(TranslateManager.translateColors(
                 Main.LANG.getString("commands.set.icon.done", "&aSuccessfully changed &b%class%&a's icon to a(n) &f[&f%item%&f]&a!")
