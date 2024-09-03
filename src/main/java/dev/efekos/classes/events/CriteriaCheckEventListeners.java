@@ -25,7 +25,7 @@ public class CriteriaCheckEventListeners implements Listener {
     public void onPlayerDoAnything(Event e, Player p) {
         if (!ClassManager.hasClass(p.getUniqueId())) return;
         PlayerData data = ClassManager.getDatas().get(p.getUniqueId());
-        Class clas = Main.CLASSES.get(data.getCurrentClass());
+        Class clas = Main.CLASSES.getRow(data.getCurrentClass()).get();
 
         assert clas != null;
         Bukkit.getServer().getPluginManager().callEvent(new CriteriaCheckEvent(p, clas.getLevelCriteria(), e));
