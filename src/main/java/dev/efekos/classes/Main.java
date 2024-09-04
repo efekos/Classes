@@ -18,7 +18,6 @@ import dev.efekos.simple_ql.query.QueryBuilder;
 import dev.efekos.simple_ql.query.QueryResult;
 import me.efekos.simpler.config.YamlConfig;
 import me.efekos.simpler.menu.MenuManager;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -53,7 +52,7 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         instance = this;
-        database = SimpleQL.createDatabase("jdbc:sqlite:\"" + Path.of(getDataFolder().getAbsolutePath(), "database") + "\"", "dev_efekos_c");
+        database = SimpleQL.createDatabase("jdbc:sqlite:" + Path.of(getDataFolder().getAbsolutePath(), "database"), "dev_efekos_c");
         LANG = new YamlConfig("lang.yml", this);
         CONFIG = new YamlConfig("config.yml", this);
         LANG.setup();
