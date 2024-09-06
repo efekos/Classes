@@ -29,6 +29,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.UUID;
+
 @Container
 public class UsageCommands {
 
@@ -68,6 +70,7 @@ public class UsageCommands {
             clas.setLevelCriteria(criteria);
             clas.setDescription(description);
             clas.setIcon(new ItemStack(Material.IRON_SWORD,1));
+            clas.setUniqueId(UUID.randomUUID());
 
             sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.create.done", "&aSuccessfully created a class called &b%name%&a!").replace("%name%", name)));
         });

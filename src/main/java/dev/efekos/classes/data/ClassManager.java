@@ -163,7 +163,8 @@ public class ClassManager {
 
     public static boolean hasClass(UUID id) {
         checkExistent(id);
-        return datas.containsKey(id) && Main.CLASSES.getRow(datas.get(id).getCurrentClass()).orElse(null) != null;
+        Optional<UUID> idd = Optional.ofNullable(datas.get(id).getCurrentClass());
+        return datas.containsKey(id) && (idd.isPresent() && Main.CLASSES.getRow(idd.get()).orElse(null) != null);
     }
 
     public static boolean hasPerk(UUID id, IPerk perk) {
