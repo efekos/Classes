@@ -6,6 +6,7 @@ import dev.efekos.classes.api.registry.ModifierRegistry;
 import dev.efekos.classes.api.registry.PerkRegistry;
 import dev.efekos.classes.data.Class;
 import dev.efekos.classes.data.ClassManager;
+import dev.efekos.classes.data.ItemImplementor;
 import dev.efekos.classes.events.*;
 import dev.efekos.classes.registry.ClassesCriterias;
 import dev.efekos.classes.registry.ClassesModifiers;
@@ -62,7 +63,7 @@ public final class Main extends JavaPlugin {
 
         try {
             database.connect();
-            CLASSES = database.registerTable("classes",Class.class);
+            CLASSES = database.registerTable("classes",Class.class, ItemImplementor.INSTANCE);
         } catch (Exception e){
             e.printStackTrace();
             getServer().getPluginManager().disablePlugin(this);

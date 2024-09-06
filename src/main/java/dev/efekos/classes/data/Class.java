@@ -3,8 +3,10 @@ package dev.efekos.classes.data;
 import dev.efekos.classes.Main;
 import dev.efekos.classes.api.i.ILevelCriteria;
 import dev.efekos.simple_ql.annotation.Primary;
+import dev.efekos.simple_ql.data.AdaptedList;
 import dev.efekos.simple_ql.data.Table;
 import dev.efekos.simple_ql.data.TableRow;
+import dev.efekos.simple_ql.implementor.PrimitiveImplementors;
 import net.md_5.bungee.api.chat.ItemTag;
 import net.md_5.bungee.api.chat.hover.content.Item;
 import org.bukkit.Bukkit;
@@ -16,7 +18,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,12 +27,12 @@ public class Class extends TableRow<Class> {
     private UUID uniqueId;
     private String name;
     private String description;
-    private List<String> blockedEnchantments = new ArrayList<>();
-    private List<String> blockedMaterials = new ArrayList<>();
-    private List<String> blockedPotions = new ArrayList<>();
-    private List<ModifierApplier> modifiers = new ArrayList<>();
-    private List<String> perks = new ArrayList<>();
-    private List<Item> kitItems = new ArrayList<>();
+    private AdaptedList<String> blockedEnchantments = new AdaptedList<>(PrimitiveImplementors.STRING);
+    private AdaptedList<String> blockedMaterials = new AdaptedList<>(PrimitiveImplementors.STRING);
+    private AdaptedList<String> blockedPotions = new AdaptedList<>(PrimitiveImplementors.STRING);
+    private AdaptedList<ModifierApplier> modifiers = new AdaptedList<>(ModifierApplierImplementor.INSTANCE);
+    private AdaptedList<String> perks = new AdaptedList<>(PrimitiveImplementors.STRING);
+    private AdaptedList<Item> kitItems = new AdaptedList<>(ItemImplementor.INSTANCE);
     private String levelCriteria;
     private Item icon;
 
@@ -67,7 +68,7 @@ public class Class extends TableRow<Class> {
     }
 
     public void setKitItems(List<ItemStack> kitItems) {
-        this.kitItems = kitItems.stream().map(Class::toContent).toList();
+        this.kitItems = new AdaptedList<>(kitItems.stream().map(Class::toContent).toList(),ItemImplementor.INSTANCE);
         markDirty("kitItems");
     }
 
@@ -90,11 +91,11 @@ public class Class extends TableRow<Class> {
     }
 
     public List<String> getPerks() {
-        return perks;
+        return perks.stream().toList();
     }
 
     public void setPerks(List<String> perks) {
-        this.perks = perks;
+        this.perks = new AdaptedList<>(perks,PrimitiveImplementors.STRING);
         markDirty("perks");
     }
 
@@ -104,11 +105,11 @@ public class Class extends TableRow<Class> {
     }
 
     public List<ModifierApplier> getModifiers() {
-        return modifiers;
+        return modifiers.stream().toList();
     }
 
     public void setModifiers(List<ModifierApplier> modifiers) {
-        this.modifiers = modifiers;
+        this.modifiers = new AdaptedList<>(modifiers,ModifierApplierImplementor.INSTANCE);
         markDirty("modifiers");
     }
 
@@ -143,17 +144,17 @@ public class Class extends TableRow<Class> {
     }
 
     public void setBlockedEnchantments(List<Enchantment> blockedEnchantments) {
-        this.blockedEnchantments = blockedEnchantments.stream().map(Enchantment::getKey).map(NamespacedKey::toString).toList();
+        this.blockedEnchantments = new AdaptedList<>(blockedEnchantments.stream().map(Enchantment::getKey).map(NamespacedKey::toString).toList(),PrimitiveImplementors.STRING);
         markDirty("blockedEnchantments");
     }
 
     public void setBlockedMaterials(List<Material> blockedMaterials) {
-        this.blockedMaterials = blockedMaterials.stream().map(Material::getKey).map(NamespacedKey::toString).toList();
+        this.blockedMaterials = new AdaptedList<>(blockedMaterials.stream().map(Material::getKey).map(NamespacedKey::toString).toList(),PrimitiveImplementors.STRING);
         markDirty("blockedMaterials");
     }
 
     public void setBlockedPotions(List<PotionEffectType> blockedPotions) {
-        this.blockedPotions = blockedPotions.stream().map(PotionEffectType::getKey).map(NamespacedKey::toString).toList();
+        this.blockedPotions = new AdaptedList<>(blockedPotions.stream().map(PotionEffectType::getKey).map(NamespacedKey::toString).toList(),PrimitiveImplementors.STRING);
         markDirty("blockedPotions");
     }
 
@@ -161,4 +162,5 @@ public class Class extends TableRow<Class> {
         this.perks.add(string);
         markDirty("perks");
     }
+
 }
