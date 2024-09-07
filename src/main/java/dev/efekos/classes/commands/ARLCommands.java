@@ -188,6 +188,7 @@ public class ARLCommands {
         if (clas.getPerks().stream().anyMatch(modifierApplier -> modifierApplier.equals(perk.toString())))
             throw GENERIC.create("commands.add-perk.already", "&cThat perk is already added for that class. Consider re-adding it using both &b/class removeperk &cand &b/class addperk");
         clas.addPerk(key.toString());
+        clas.clean();
 
         sender.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.add-perk.done", "&aSuccessfully added &b%perk% &afor &b%class%&a! Keep in mind that it will be shown as a pro/con at &b/class info %class%&a.")
                 .replace("%perk%", key.toString())

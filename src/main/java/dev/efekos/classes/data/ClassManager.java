@@ -29,7 +29,8 @@ public class ClassManager {
 
     public static Class getClass(UUID uuid) {
         checkExistent(uuid);
-        return Main.CLASSES.getRow(datas.get(uuid).getCurrentClass()).orElse(null);
+        Optional<UUID> key = Optional.ofNullable(datas.get(uuid).getCurrentClass());
+        return key.flatMap(value -> Main.CLASSES.getRow(value)).orElse(null);
     }
 
     private static void checkLevelExistent(UUID id, Class clas) {
@@ -164,7 +165,7 @@ public class ClassManager {
     public static boolean hasClass(UUID id) {
         checkExistent(id);
         Optional<UUID> idd = Optional.ofNullable(datas.get(id).getCurrentClass());
-        return datas.containsKey(id) && (idd.isPresent() && Main.CLASSES.getRow(idd.get()).orElse(null) != null);
+        return idd.isPresent();
     }
 
     public static boolean hasPerk(UUID id, IPerk perk) {
