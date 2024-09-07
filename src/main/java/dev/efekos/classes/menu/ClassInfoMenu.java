@@ -44,17 +44,19 @@ public class ClassInfoMenu extends Menu {
         return Main.LANG.getString("menus.class_info.title", "Class Information");
     }
 
+    public static final List<Integer> INTERACTIVE_SLOTS = Arrays.asList(39, 40, 41);
+
     @Override
     public void onClick(InventoryClickEvent e) {
         if (e.getClick() != ClickType.LEFT) return;
 
         Player player = (Player) e.getWhoClicked();
 
-        if (!Arrays.asList(39, 40, 41).contains(e.getSlot())) return;
+        if (!INTERACTIVE_SLOTS.contains(e.getSlot())) return;
         switch (e.getCurrentItem().getType()) {
             case LIME_DYE -> {
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 100, 1);
-                Bukkit.dispatchCommand(player, "class join " + className);
+                Bukkit.dispatchCommand(player, "class join "+ className);
                 refresh();
             }
             case RED_DYE -> {
@@ -64,7 +66,7 @@ public class ClassInfoMenu extends Menu {
             }
             case BUNDLE -> {
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 100, 1);
-                Bukkit.dispatchCommand(player, "class kit " + className + " get");
+                Bukkit.dispatchCommand(player, "class " + className + " kit get");
             }
         }
     }
@@ -87,7 +89,7 @@ public class ClassInfoMenu extends Menu {
         Class clas = row.get();
         className = clas.getName();
         boolean hasClass = ClassManager.hasClass(owner.getUniqueId());
-        boolean ownClass = hasClass && ClassManager.getClass(owner.getUniqueId()).getUniqueId() == clas.getUniqueId();
+        boolean ownClass = hasClass && ClassManager.getClass(owner.getUniqueId()).getUniqueId().equals(clas.getUniqueId());
 
         ItemStack icon = clas.getIcon();
         ItemMeta meta = icon.getItemMeta();

@@ -42,7 +42,7 @@ public class KitCommands {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.get.no-perm", "&cYou can't get a kit.")));
             return 1;
         }
-        if (!player.hasPermission("classes.admin") && ClassManager.getClass(player.getUniqueId()).getUniqueId() != clas.getUniqueId()) {
+        if (!player.hasPermission("classes.admin") && !ClassManager.getClass(player.getUniqueId()).getUniqueId().equals(clas.getUniqueId())) {
             player.sendMessage(TranslateManager.translateColors(Main.LANG.getString("commands.kit.get.not-current", "&cYou can only get kit of your current class.")));
             return 1;
         }
